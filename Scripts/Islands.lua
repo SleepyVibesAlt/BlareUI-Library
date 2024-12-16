@@ -125,48 +125,87 @@ end)
 local MobFarmTab = win:Tab('Mob Farm')
 MobFarmTab:Section('Settings')
 
-MobFarmTab:Textbox('Sword Position', function(value)
+MobFarmTab:Textbox('Red Berry Slot', function(value)
     local newPos = tonumber(value)
     local Position = 1
     if newPos then
         Position = newPos
-        print("Radius set to:", Position)
-        BlareLib:CreateNotification("Sword positon updated: "..  2)
+        print("Food Position set to:", Position)
+        BlareLib:CreateNotification("Updated!", "Food positon updated: "..  2)
     else
         BlareLib:CreateNotification("Invalid Input", "Please enter a number, words don't work!", 3)
     end
 end)
+MobFarmTab:Comment('The slot where the Red Berries is, slots 1-9')
 
-MobFarmTab:Comment('The key where sword is, 1-9')
-
+MobFarmTab:Toggle('Auto Heal (Red Berries)', function(v)
+    AutoHeal = v
+    while AutoHeal do
+        local Health = Character:WaitForChild("Humanoid").Health
+        local MaxHealth = Character:WaitForChild("Humanoid").MaxHealth
+        
+        if Health < MaxHealth then
+            local virtualInput = game:GetService("VirtualInputManager")
+            virtualInput:SendKeyEvent(true, Position, false, game)
+            task.wait(0.1)
+            
+            local args = {
+                [1] = {
+                    ["tool"] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("berryHarvested")
+                }
+            }
+            
+            game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_EAT_FOOD:InvokeServer(unpack(args))
+            
+            repeat
+                task.wait(0.1)
+                Health = Character:WaitForChild("Humanoid").Health
+            until Health >= MaxHealth or not AutoHeal
+            
+            -- Unequip berries and go back to slot 1
+            virtualInput:SendKeyEvent(true, "0", false, game)
+            task.wait(0.1)
+            virtualInput:SendKeyEvent(true, "1", false, game)
+        end
+        task.wait(0.1)
+    end
+end)
 MobFarmTab:Section('Slime Island')
 
 MobFarmTab:Toggle('Farm Slimes', function(v)
     local Slimes = game.workspace.WildernessIsland.Entities
     SlimeFarm = v
     while SlimeFarm do
-        print("Searching for slimes...")
+        local closestSlime = nil
+        local closestDistance = math.huge
+        
         for _, slime in pairs(Slimes:GetChildren()) do
-            if slime.Name == "slime" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 then
-                print("Found slime, attacking...")
-                
-                local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear)
-                local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {
-                    CFrame = slime.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
-                })
-                tween:Play()
-                tween.Completed:Wait()
-                
-                while slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 and SlimeFarm do
-                    Character.HumanoidRootPart.CFrame = slime.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
-                    local virtualInput = game:GetService("VirtualInputManager")
-                    virtualInput:SendMouseButtonEvent(0, 0, 0, true, game, 1)
-                    task.wait(0.1)
-                    virtualInput:SendMouseButtonEvent(0, 0, 0, false, game, 1)
-                    task.wait()
+            if slime.Name == "slime" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 and SlimeFarm then
+                local distance = (slime.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
+                if distance < closestDistance then
+                    closestSlime = slime
+                    closestDistance = distance
                 end
-                print("Slime defeated!")
             end
+        end
+        
+        if closestSlime then
+            local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear)
+            local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {
+                CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
+            })
+            tween:Play()
+            tween.Completed:Wait()
+            
+            while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
+                Character.HumanoidRootPart.CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
+                local virtualInput = game:GetService("VirtualInputManager")
+                virtualInput:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+                task.wait(0.1)
+                virtualInput:SendMouseButtonEvent(0, 0, 0, false, game, 1)
+                task.wait()
+            end
+            print("Slime defeated!")
         end
         task.wait(1)
     end
