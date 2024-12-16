@@ -24,23 +24,12 @@ AutoFarmTab:Toggle('Auto Tween', function(v)
     ShouldTween = v
 end)
 
-AutoFarmTab:Textbox('Tween Speed', function(value)
-    local TweenSpeed = tonumber(value)
-    if TweenSpeed then
-        TweenSpd = TweenSpeed
-        print("Speed set to:", TweenSpeed)
-        BlareLib:CreateNotification("Speed Updated", "Speed set to: " .. TweenSpeed, 3)
-    else
-        BlareLib:CreateNotification("Invalid Input", "Please enter a number, words don't work!", 3)
-    end
-end)
-
 AutoFarmTab:Textbox('Autofarm Radius', function(value)
     local newRadius = tonumber(value)
     if newRadius then
         Radius = newRadius
         print("Radius set to:", Radius)
-        BlareLib:CreateNotification("Radius Updated", "Radius set to: " .. Radius, 3)
+        BlareLib:CreateNotification("Radius Updated", "Radius set to: " .. Radius, 2)
     else
         BlareLib:CreateNotification("Invalid Input", "Please enter a number, words don't work!", 3)
     end
@@ -71,7 +60,7 @@ AutoFarmTab:Toggle('Iron Ore', function(v)
         
         if closestRock then
             if ShouldTween then
-                local tweenInfo = TweenInfo.new(TweenSpd, Enum.EasingStyle.Linear)
+                local tweenInfo = TweenInfo.new(distance/50, Enum.EasingStyle.Linear)
                 local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(closestRock.Position)})
                 tween:Play()
                 tween.Completed:Wait()
@@ -113,7 +102,7 @@ AutoFarmTab:Toggle('Eletrite Ore', function(v)
         
         if closestRock then
             if ShouldTween then
-                local tweenInfo = TweenInfo.new(TweenSpd, Enum.EasingStyle.Linear)
+                local tweenInfo = TweenInfo.new(distance/50, Enum.EasingStyle.Linear)
                 local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(closestRock.Position)})
                 tween:Play()
                 tween.Completed:Wait()
@@ -134,44 +123,19 @@ AutoFarmTab:Toggle('Eletrite Ore', function(v)
     end
 end)
 
-AutoFarmTab:Separator()
+local MobFarmTab = win:Tab('Mob Farm')
+MobFarmTab:Section('Slime Island')
 
-AutoFarmTab:Toggle('Gather Red Mushrooms', function(v)
-    print("Gather Red Mushrooms toggled:", v)
-    wait(1)
-    RedMushrooms = v
-    while RedMushrooms do
-        local mushrooms = workspace:GetDescendants()
-        local closestMushroom = nil
-        local closestDistance = math.huge
-        
-        for _, mushroom in pairs(mushrooms) do
-            if mushroom.Name == "mushroomRed" and mushroom:IsA("Part") then
-                local distance = (mushroom.Position - Character.HumanoidRootPart.Position).Magnitude
-                if distance <= Radius and distance < closestDistance then
-                    closestMushroom = mushroom
-                    closestDistance = distance
-                end
-            end
-        end
-        
-        if closestMushroom then
-            local tweenInfo = TweenInfo.new(TweenSpd, Enum.EasingStyle.Linear)
-            local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(closestMushroom.Position)})
-            tween:Play()
-            tween.Completed:Wait()
-            
-            local args = {
-                [1] = {
-                    ["player"] = game:GetService("Players").LocalPlayer,
-                    ["tukiqepvhyyBj"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nFOenfsq",
-                    ["model"] = closestMushroom
-                }
-            }
-            
-            game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_HARVEST_CROP_REQUEST:InvokeServer(unpack(args))
-        end
-        task.wait(1)
+MobFarmTab:Toggle('Auto Click', function(v)
+    AutoClick = v
+    while AutoClick do
+        local virtualInput = game:GetService("VirtualInputManager")
+        virtualInput:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+        task.wait(0.1)
+        virtualInput:SendMouseButtonEvent(0, 0, 0, false, game, 1)
+        task.wait(0.1) -- Adjust this value to control click speed
     end
 end)
+
+
 BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. "!", 2)
