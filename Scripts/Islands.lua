@@ -13,11 +13,7 @@ local win = BlareLib:Create({
     }
 })
 
-BlareLib:Blacklist({"BLXoo7i", "Player2", "Player3"})
-
-if BlareLib:IsBlacklisted("PlayerName") then
-    print("Player is blacklisted!")
-end
+BlareLib:Blacklist({"Player1", "Player2", "Player3"})
 
 local AutoFarmTab = win:Tab('AutoFarms')
 AutoFarmTab:Section('Settings')
