@@ -68,4 +68,5 @@ AutoFarmTab:Toggle('Auto Fish', function(v)
     end
 end)
 
+
 BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. "!", 4)
