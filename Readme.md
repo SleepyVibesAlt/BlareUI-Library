@@ -60,7 +60,7 @@ end)
 maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
     print("New keybind:", key)
 end)
-
+```
 
 ## Create Toggle
 ```lua
