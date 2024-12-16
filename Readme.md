@@ -55,6 +55,13 @@ maintab:Button('Button Name', function()
 end)
 ```
 
+## Create Keybind
+```lua
+maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
+    print("New keybind:", key)
+end)
+
+
 ## Create Toggle
 ```lua
 maintab:Toggle('Toggle Text', function(state)

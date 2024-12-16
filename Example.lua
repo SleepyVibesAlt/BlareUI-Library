@@ -52,6 +52,6 @@ maintab:Comment('This is a comment')
 maintab:Separator()
 maintab:Section('Section 1')
 
-maintab:ColorPicker('Color Picker Name', Color3.fromRGB(255, 0, 0), function(color)
-    print("Selected color:", color)
+maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
+    print("New keybind:", key)
 end)
