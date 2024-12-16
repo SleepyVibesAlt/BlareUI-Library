@@ -10,6 +10,7 @@
 - Fixed crashing
 - Added Toggle
 - Added Keybinds
+- Added Dropdown
 - Drag Mobile Supported
 ```
 

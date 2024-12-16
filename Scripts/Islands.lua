@@ -248,6 +248,7 @@ AutoFarmTab:Toggle('Collect Red Mushrooms', function(v)
         end)
     end
 end)
+
 local charactertab = win:Tab('Character')
 charactertab:Section('Player Settings')
 charactertab:Button('Anti-AFK', function()

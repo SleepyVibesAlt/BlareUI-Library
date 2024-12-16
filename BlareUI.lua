@@ -863,8 +863,6 @@ function Library:Create(table)
             makeDraggable(frame)
         end
     end
-
-    --// Make the first tab visible
     game.CoreGui['dark_UI'].main.tabContainer.ChildAdded:Connect(function()
         game.CoreGui['dark_UI'].main:WaitForChild('container').Visible = true
         pcall(function()
@@ -878,7 +876,7 @@ function Library:Create(table)
             local sound = Instance.new('Sound', game.CoreGui)
             sound.Name = "Startup Sound"
             sound.SoundId = "rbxassetid://6958727243"
-            sound.Volume = 1.5
+            sound.Volume = 2
             sound.TimePosition = table.StartupSound.TimePosition
             sound:Play()
             sound.Stopped:Wait()
