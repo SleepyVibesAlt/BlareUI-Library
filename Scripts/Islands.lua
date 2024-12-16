@@ -265,3 +265,5 @@ uitab:Section('Interface Options')
 uitab:Button('Destroy GUI', function()
     win:Exit()
 end)
+
+BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)

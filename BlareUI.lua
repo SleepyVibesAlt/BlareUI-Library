@@ -19,70 +19,6 @@ local LocalPlayer = Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HTTPService = game:GetService("HttpService")
 
-function Library:CreateLoadingScreen()
-    -- Prevent any interactions during loading
-    local blocker = Instance.new("Frame")
-    blocker.Size = UDim2.fromScale(1, 1)
-    blocker.BackgroundTransparency = 1
-    blocker.Parent = game.CoreGui
-    
-    local loadingGui = Instance.new("ScreenGui")
-    loadingGui.Name = "LoadingScreen"
-    loadingGui.DisplayOrder = 999999 -- Force it on top
-    loadingGui.Parent = game.CoreGui
-    
-    local background = Instance.new("Frame")
-    background.Size = UDim2.fromScale(1, 1)
-    background.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    background.BackgroundTransparency = 1
-    background.Parent = loadingGui
-    
-    local mainContainer = Instance.new("Frame")
-    mainContainer.Size = UDim2.fromOffset(0, 0)
-    mainContainer.Position = UDim2.fromScale(0.5, 0.5)
-    mainContainer.AnchorPoint = Vector2.new(0.5, 0.5)
-    mainContainer.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-    mainContainer.BackgroundTransparency = 1
-    mainContainer.Parent = background
-    
-    local uICorner = Instance.new("UICorner")
-    uICorner.CornerRadius = UDim.new(0, 6)
-    uICorner.Parent = mainContainer
-    
-    local title = Instance.new("TextLabel")
-    title.Text = "BlareUI"
-    title.Size = UDim2.fromScale(1, 1)
-    title.TextColor3 = Color3.fromRGB(195, 195, 195)
-    title.TextSize = 22
-    title.Font = Enum.Font.GothamBold
-    title.BackgroundTransparency = 1
-    title.TextTransparency = 1
-    title.Parent = mainContainer
-    
-    -- Force the animation to complete
-    TweenService:Create(background, TweenInfo.new(0.8), {BackgroundTransparency = 0.4}):Play()
-    local sizeTween = TweenService:Create(mainContainer, TweenInfo.new(0.8, Enum.EasingStyle.Back), {
-        Size = UDim2.fromOffset(200, 200),
-        BackgroundTransparency = 0
-    })
-    sizeTween:Play()
-    TweenService:Create(title, TweenInfo.new(0.8), {TextTransparency = 0}):Play()
-    
-    return {
-        Finish = function()
-            TweenService:Create(background, TweenInfo.new(0.8), {BackgroundTransparency = 1}):Play()
-            TweenService:Create(mainContainer, TweenInfo.new(0.8, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
-                Size = UDim2.fromOffset(0, 0),
-                BackgroundTransparency = 1
-            }):Play()
-            TweenService:Create(title, TweenInfo.new(0.8), {TextTransparency = 1}):Play()
-            task.wait(0.8)
-            loadingGui:Destroy()
-            blocker:Destroy()
-        end
-    }
-end
-
 function Library:Create(table)
     local windowName = table.Name
 
@@ -90,7 +26,7 @@ function Library:Create(table)
     main.Name = "main"
     main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
     main.Position = UDim2.fromScale(0.244, 0.292)
-    main.Size = UDim2.fromOffset(488, 299)
+    main.Size = UDim2.fromOffset(600, 400)
 
     local title = Instance.new("TextLabel")
     title.Name = "title"
@@ -112,7 +48,7 @@ function Library:Create(table)
     tabContainer.Name = "tabContainer"
     tabContainer.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
     tabContainer.Position = UDim2.fromScale(0.0342, 0.188)
-    tabContainer.Size = UDim2.fromOffset(454, 30)
+    tabContainer.Size = UDim2.fromOffset(566, 35)
 
     local uICorner1 = Instance.new("UICorner")
     uICorner1.Name = "uICorner1"
@@ -179,7 +115,7 @@ function Library:Create(table)
         container.Name = "container"
         container.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
         container.Position = UDim2.fromScale(0.0342, 0.31)
-        container.Size = UDim2.fromOffset(454, 183)
+        container.Size = UDim2.fromOffset(566, 284)
         
         local uICorner2 = Instance.new("UICorner")
         uICorner2.Name = "uICorner2"
@@ -197,7 +133,7 @@ function Library:Create(table)
         holder.BackgroundTransparency = 1
         holder.BorderColor3 = Color3.fromRGB(33, 33, 33)
         holder.Position = UDim2.fromScale(0.0022, 0.00404)
-        holder.Size = UDim2.fromOffset(452, 182)
+        holder.Size = UDim2.fromOffset(564, 283)
         holder.CanvasSize = UDim2.fromOffset(0, 0)
 
 
@@ -658,7 +594,7 @@ function Library:Create(table)
             return dropdown
         end        
 
-        function ElementHandler:CreateNotification(title, description, duration)
+        function Library:CreateNotification(title, description, duration)
             duration = duration or 3
             
             -- Notification container
