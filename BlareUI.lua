@@ -789,15 +789,23 @@ function Library:Create(table)
                 tog = not tog
                 callback(tog)
                 if tog then
-                    game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(23, 143, 75)}):Play()
-                    game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(32, 202, 106)}):Play()
+                    local colorTween = game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(23, 143, 75)})
+                    local strokeTween = game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(32, 202, 106)})
+                    colorTween:Play()
+                    strokeTween:Play()
+                    frame3.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
+                    uIStroke1.Color = Color3.fromRGB(32, 202, 106)
                 else
-                    game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(45, 45, 45)}):Play()
-                    game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(76, 76, 76)}):Play()
+                    local colorTween = game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(45, 45, 45)})
+                    local strokeTween = game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(76, 76, 76)})
+                    colorTween:Play()
+                    strokeTween:Play()
+                    frame3.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+                    uIStroke1.Color = Color3.fromRGB(76, 76, 76)
                 end
             end)
         end
-
+        
         function ElementHandler:Comment(text)
             local comment = Instance.new("TextLabel")
             comment.Name = "comment"
