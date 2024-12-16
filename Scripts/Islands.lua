@@ -38,11 +38,47 @@ AutoFarmTab:Comment('Lower these for better chance of the anticheat not detectin
 AutoFarmTab:Section('Resource Farming')
 
 AutoFarmTab:Toggle('Iron Ore', function(v)
+    print("Iron Ore toggled:", v)
+    wait(1)
     IronOre = v
     while IronOre do
         local rocks = workspace:GetDescendants()
         for _, rock in pairs(rocks) do
             if rock.Name == "rockIron" and rock:IsA("Part") then
+                local distance = (rock.Position - Character.HumanoidRootPart.Position).Magnitude
+                if distance <= Radius then
+                    if ShouldTween then
+                        local tweenInfo = TweenInfo.new(distance/50, Enum.EasingStyle.Linear)
+                        local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {CFrame = CFrame.new(rock.Position)})
+                        tween:Play()
+                        tween.Completed:Wait()
+                    end
+                    local args = {
+                        [1] = {
+                            ["xkpOrfvithbzcvKundjsvoamBnpkqBsXm"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nkyaxebDphmkcyha",
+                            ["part"] = rock:FindFirstChild("1"),
+                            ["block"] = rock,
+                            ["norm"] = rock.Position,
+                            ["pos"] = rock.Position - Character.HumanoidRootPart.Position
+                        }
+                    }
+                    
+                    game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_BLOCK_HIT_REQUEST:InvokeServer(unpack(args))
+                end
+            end
+        end
+        task.wait(1)
+    end
+end)
+
+AutoFarmTab:Toggle('Eletrite Ore', function(v)
+    print("Eletrite Ore toggled:", v)
+    wait(1)
+    EletriteOre = v
+    while EletriteOre do
+        local rocks = workspace:GetDescendants()
+        for _, rock in pairs(rocks) do
+            if rock.Name == "rockElectrite" and rock:IsA("Part") then
                 local distance = (rock.Position - Character.HumanoidRootPart.Position).Magnitude
                 if distance <= Radius then
                     if ShouldTween then

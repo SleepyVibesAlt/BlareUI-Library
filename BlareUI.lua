@@ -724,23 +724,23 @@ function Library:Create(table)
             end)
            
         end
-
+        
         function ElementHandler:Toggle(text, callback)
             text = text or "Toggle"
             callback = callback or function() end
-
+        
             local toggle1 = Instance.new("TextButton")
             toggle1.Name = "toggle1"
             toggle1.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
             toggle1.Size = UDim2.fromOffset(441, 32)
             toggle1.Text = ""
             toggle1.AutoButtonColor = false
-
+        
             local uICorner9 = Instance.new("UICorner")
             uICorner9.Name = "uICorner9"
             uICorner9.CornerRadius = UDim.new(0, 6)
             uICorner9.Parent = toggle1
-
+        
             local textLabel4 = Instance.new("TextLabel")
             textLabel4.Name = "textLabel4"
             textLabel4.Font = Enum.Font.Gotham
@@ -754,56 +754,65 @@ function Library:Create(table)
             textLabel4.Position = UDim2.fromScale(0.0181, 0)
             textLabel4.Size = UDim2.fromOffset(1, 32)
             textLabel4.Parent = toggle1
-
+        
             local frame3 = Instance.new("Frame")
             frame3.Name = "frame3"
             frame3.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
             frame3.Position = UDim2.fromScale(0.943, 0.219)
             frame3.Size = UDim2.fromOffset(18, 18)
-
+        
             local uICorner10 = Instance.new("UICorner")
             uICorner10.Name = "uICorner10"
             uICorner10.CornerRadius = UDim.new(0, 3)
             uICorner10.Parent = frame3
-
+        
             local uIStroke1 = Instance.new("UIStroke")
             uIStroke1.Name = "uIStroke1"
             uIStroke1.Color = Color3.fromRGB(76, 76, 76)
             uIStroke1.Parent = frame3
-
+        
             frame3.Parent = toggle1
-
             toggle1.Parent = holder
-
-            local tog = false
-
+        
+            local toggleState = false
+        
             toggle1.MouseEnter:Connect(function()
                 game:GetService('TweenService'):Create(toggle1, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(43,43,43)}):Play()
             end)
-
+        
             toggle1.MouseLeave:Connect(function()
                 game:GetService('TweenService'):Create(toggle1, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(38,38,38)}):Play()
             end)
-
+        
             toggle1.MouseButton1Click:Connect(function()
-                tog = not tog
-                callback(tog)
-                if tog then
-                    local colorTween = game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(23, 143, 75)})
-                    local strokeTween = game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(32, 202, 106)})
-                    colorTween:Play()
-                    strokeTween:Play()
-                    frame3.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
-                    uIStroke1.Color = Color3.fromRGB(32, 202, 106)
+                toggleState = not toggleState
+                callback(toggleState)
+                
+                if toggleState then
+                    game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(23, 143, 75)}):Play()
+                    game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(32, 202, 106)}):Play()
                 else
-                    local colorTween = game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(45, 45, 45)})
-                    local strokeTween = game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(76, 76, 76)})
-                    colorTween:Play()
-                    strokeTween:Play()
-                    frame3.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-                    uIStroke1.Color = Color3.fromRGB(76, 76, 76)
+                    game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(45, 45, 45)}):Play()
+                    game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(76, 76, 76)}):Play()
                 end
             end)
+        
+            return {
+                SetState = function(state)
+                    toggleState = state
+                    if toggleState then
+                        frame3.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
+                        uIStroke1.Color = Color3.fromRGB(32, 202, 106)
+                    else
+                        frame3.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+                        uIStroke1.Color = Color3.fromRGB(76, 76, 76)
+                    end
+                    callback(toggleState)
+                end,
+                GetState = function()
+                    return toggleState
+                end
+            }
         end
         
         function ElementHandler:Comment(text)
