@@ -91,7 +91,7 @@ function Library:Create(table)
     UICorner15.Parent = Toggle
 
     Toggle.MouseButton1Click:Connect(function()
-        print("test")
+        main.Visible = not main.Visible
     end)
 
     local tabHandler = {}
