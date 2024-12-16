@@ -107,7 +107,7 @@ maintab:Textbox('Textbox Text', function(text)
 end) --> Default, CallBack
 ```
 
-## Creating Seperator
+## Creating Separator
 ```lua
 maintab:Separator()
 ```
