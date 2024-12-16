@@ -19,7 +19,7 @@ local win = BlareLib:Create({
 local AutoFarmTab = win:Tab('AutoFarms')
 AutoFarmTab:Section('Settings')
 AutoFarmTab:Toggle('Auto Tween', function(v)
-    tweenEnabled = v
+    ShouldTween = v
 end)
 
 AutoFarmTab:Textbox('Autofarm Radius', function(value)
@@ -34,7 +34,7 @@ AutoFarmTab:Textbox('Autofarm Radius', function(value)
 end)
 AutoFarmTab:Comment('Lower these for better chance of the anticheat not detecting')
 
-AutoFarmTab:Section('Resource Farming')
+AutoFarmTab:Section('Resource')
 AutoFarmTab:Toggle('Auto Fish', function(v)
     autoFish = v
     if autoFish then
@@ -67,7 +67,8 @@ AutoFarmTab:Toggle('Auto Fish', function(v)
     end
 end)
 
-AutofarmTab:Section('Ore Farming')
+
+AutoFarmTab:Section('Ores')
 
 AutofarmTab:Toggle('Iron Ore', function(v)
     ironFarm = v
@@ -100,6 +101,7 @@ AutofarmTab:Toggle('Iron Ore', function(v)
         end)
     end
 end)
+
 AutofarmTab:Toggle('Electrite', function(v)
     
 end)
