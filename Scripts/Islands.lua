@@ -127,7 +127,7 @@ MobFarmTab:Section('Settings')
 
 MobFarmTab:Textbox('Red Berry Slot', function(value)
     local newPos = tonumber(value)
-    local Position = 1
+    local Position = 3
     if newPos then
         Position = newPos
         print("Food Position set to:", Position)
@@ -146,30 +146,14 @@ MobFarmTab:Toggle('Auto Heal (Red Berries)', function(v)
         
         if Health < MaxHealth then
             local virtualInput = game:GetService("VirtualInputManager")
-            virtualInput:SendKeyEvent(true, Position, false, game)
+            virtualInput:SendKeyEvent(true, tostring(Position), false, game)
             task.wait(0.1)
-            
-            local args = {
-                [1] = {
-                    ["tool"] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("berryHarvested")
-                }
-            }
-            
-            game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_EAT_FOOD:InvokeServer(unpack(args))
-            
-            repeat
-                task.wait(0.1)
-                Health = Character:WaitForChild("Humanoid").Health
-            until Health >= MaxHealth or not AutoHeal
-            
-            -- Unequip berries and go back to slot 1
-            virtualInput:SendKeyEvent(true, "0", false, game)
-            task.wait(0.1)
-            virtualInput:SendKeyEvent(true, "1", false, game)
+            print("Red Berries used")
         end
         task.wait(0.1)
     end
 end)
+
 MobFarmTab:Section('Slime Island')
 
 MobFarmTab:Toggle('Farm Slimes', function(v)
