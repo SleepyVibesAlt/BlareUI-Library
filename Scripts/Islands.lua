@@ -13,8 +13,6 @@ local win = BlareLib:Create({
     }
 })
 
-BlareLib:Blacklist({"BLXOO7I", "Player2", "Player3"})
-
 local AutoFarmTab = win:Tab('AutoFarms')
 AutoFarmTab:Section('Settings')
 AutoFarmTab:Toggle('Auto Tween', function(v)

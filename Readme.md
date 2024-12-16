@@ -92,14 +92,6 @@ maintab:Slider('Slider Text', 50, 0, 100, function(value)
     print("Slider value:", value)
 end) --> Default, Min, Max, CallBack
 ```
-## Creating Blacklist
-```lua
---> Blacklist individual players
-BlareLib:Blacklist("PlayerName")
-
---> Blacklist multiple players at once
-BlareLib:Blacklist({"Player1", "Player2", "Player3"})
-```
 
 ## Creating Dropdown
 ```lua

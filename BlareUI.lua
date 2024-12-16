@@ -19,38 +19,7 @@ local Mouse = LocalPlayer:GetMouse()
 local HTTPService = game:GetService("HttpService")
 
 local Library = {}
-Library.BlacklistedPlayers = {}
 
-function Library:Blacklist(names)
-    if type(names) == "string" then
-        -- Single name
-        table.insert(self.BlacklistedPlayers, names)
-        for _, player in pairs(game.Players:GetPlayers()) do
-            if player.Name:lower() == names:lower() then
-                player:Kick("You are blacklisted")
-            end
-        end
-    elseif type(names) == "table" then
-        -- Multiple names
-        for _, name in pairs(names) do
-            table.insert(self.BlacklistedPlayers, name)
-            for _, player in pairs(game.Players:GetPlayers()) do
-                if player.Name:lower() == name:lower() then
-                    player:Kick("You are blacklisted")
-                end
-            end
-        end
-    end
-
-    if game.Players.LocalPlayer then
-        for _, blacklistedName in pairs(Library.BlacklistedPlayers) do
-            if game.Players.LocalPlayer.Name:lower() == blacklistedName:lower() then
-                game.Players.LocalPlayer:Kick("You are blacklisted")
-                break
-            end
-        end
-    end
-end
 function Library:Create(table)
     local windowName = table.Name
 
