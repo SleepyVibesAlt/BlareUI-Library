@@ -20,95 +20,66 @@ local Mouse = LocalPlayer:GetMouse()
 local HTTPService = game:GetService("HttpService")
 
 function Library:Create(table)
-    local windowName = table.Name
+    local keySystem = {
+        Enabled = table.KeySystem or false,
+        Key = table.Key or "DEFAULT_KEY",
+        Title = table.KeySystemTitle or "Key System",
+        Subtitle = table.KeySystemSubtitle or "Please enter your key",
+        Note = table.KeySystemNote or "Get your key from our Discord",
+        CorrectKeyCallback = table.OnCorrectKey or function() end,
+        IncorrectKeyCallback = table.OnIncorrectKey or function() end
+    }
 
-    if table.KeySystem then
-        local keyWindow = Instance.new("Frame")
-        keyWindow.Name = "keyWindow"
-        keyWindow.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-        keyWindow.Position = UDim2.fromScale(0.5, 0.5)
-        keyWindow.AnchorPoint = Vector2.new(0.5, 0.5)
-        keyWindow.Size = UDim2.fromOffset(300, 150)
-        keyWindow.Parent = dark_UI
-
-        local uICorner = Instance.new("UICorner")
-        uICorner.CornerRadius = UDim.new(0, 6)
-        uICorner.Parent = keyWindow
-
-        local title = Instance.new("TextLabel")
-        title.Font = Enum.Font.GothamBold
-        title.Text = table.Title or "Key System"
-        title.TextColor3 = Color3.fromRGB(195, 195, 195)
-        title.TextSize = 16
-        title.BackgroundTransparency = 1
-        title.Position = UDim2.fromScale(0, 0.05)
-        title.Size = UDim2.fromScale(1, 0.2)
-        title.Parent = keyWindow
-
-        local keyBox = Instance.new("TextBox")
-        keyBox.Font = Enum.Font.Gotham
-        keyBox.PlaceholderText = "Enter Key..."
-        keyBox.Text = ""
-        keyBox.TextColor3 = Color3.fromRGB(195, 195, 195)
-        keyBox.TextSize = 14
-        keyBox.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-        keyBox.Position = UDim2.fromScale(0.1, 0.35)
-        keyBox.Size = UDim2.fromScale(0.8, 0.2)
-        keyBox.Parent = keyWindow
-
-        local uICorner2 = Instance.new("UICorner")
-        uICorner2.CornerRadius = UDim.new(0, 6)
-        uICorner2.Parent = keyBox
-
+    if keySystem.Enabled then
+        local keyFrame = Instance.new("Frame")
+        keyFrame.Name = "KeySystem"
+        keyFrame.Size = UDim2.new(0, 300, 0, 150)
+        keyFrame.Position = UDim2.new(0.5, -150, 0.5, -75)
+        keyFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+        keyFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+        
+        local keyTitle = Instance.new("TextLabel")
+        keyTitle.Name = "Title"
+        keyTitle.Text = keySystem.Title
+        keyTitle.Size = UDim2.new(1, 0, 0, 30)
+        keyTitle.BackgroundTransparency = 1
+        keyTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+        keyTitle.Parent = keyFrame
+        
+        local keyInput = Instance.new("TextBox")
+        keyInput.Name = "KeyInput"
+        keyInput.Size = UDim2.new(0.8, 0, 0, 30)
+        keyInput.Position = UDim2.new(0.1, 0, 0.4, 0)
+        keyInput.Text = ""
+        keyInput.PlaceholderText = "Enter Key"
+        keyInput.Parent = keyFrame
+        
         local submitButton = Instance.new("TextButton")
-        submitButton.Font = Enum.Font.GothamBold
+        submitButton.Name = "Submit"
+        submitButton.Size = UDim2.new(0.4, 0, 0, 30)
+        submitButton.Position = UDim2.new(0.3, 0, 0.7, 0)
         submitButton.Text = "Submit"
-        submitButton.TextColor3 = Color3.fromRGB(195, 195, 195)
-        submitButton.TextSize = 14
-        submitButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-        submitButton.Position = UDim2.fromScale(0.3, 0.7)
-        submitButton.Size = UDim2.fromScale(0.4, 0.15)
-        submitButton.AutoButtonColor = false
-        submitButton.Parent = keyWindow
-
-        local uICorner3 = Instance.new("UICorner")
-        uICorner3.CornerRadius = UDim.new(0, 6)
-        uICorner3.Parent = submitButton
-
-        submitButton.MouseEnter:Connect(function()
-            game:GetService('TweenService'):Create(submitButton, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(43,43,43)}):Play()
-        end)
-
-        submitButton.MouseLeave:Connect(function()
-            game:GetService('TweenService'):Create(submitButton, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(33,33,33)}):Play()
-        end)
-
-        local function checkKey()
-            if keyBox.Text == table.Key then
-                keyWindow:Destroy()
-                if table.OnSuccess then
-                    table.OnSuccess()
-                end
-                return true
+        submitButton.Parent = keyFrame
+        
+        submitButton.MouseButton1Click:Connect(function()
+            if keyInput.Text == keySystem.Key then
+                keyFrame:Destroy()
+                keySystem.CorrectKeyCallback()
+                return self:CreateMainUI(table)
             else
-                keyBox.Text = ""
-                keyBox.PlaceholderText = "Invalid Key!"
-                wait(1.5)
-                keyBox.PlaceholderText = "Enter Key..."
-                return false
-            end
-        end
-
-        submitButton.MouseButton1Click:Connect(checkKey)
-        keyBox.FocusLost:Connect(function(enterPressed)
-            if enterPressed then
-                checkKey()
+                keyInput.Text = ""
+                keySystem.IncorrectKeyCallback()
             end
         end)
-
-        repeat wait() until checkKey()
+        
+        return keyFrame
     end
+    
+    return self:CreateMainUI(table)
+end
 
+function Library:CreateMainUI(table)
+    local windowName = table.Name
     local main = Instance.new("Frame")
     main.Name = "main"
     main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
@@ -158,6 +129,7 @@ function Library:Create(table)
     tabContainer.Parent = main
     main.Parent = dark_UI
     main.AnchorPoint = Vector2.new(0.5,0.5)
+
     main.Position = UDim2.new(0.5,0,0.5,0)
 
     local Toggle = Instance.new("TextButton")
@@ -174,26 +146,8 @@ function Library:Create(table)
     local UICorner15 = Instance.new("UICorner")
     UICorner15.Name = "UICorner2"
     UICorner15.Parent = Toggle
-
-    Toggle.MouseButton1Click:Connect(function()
-        main.Visible = not main.Visible
-    end)
-
-    spawn(function()
-        if table.StartupSound and table.StartupSound.Toggle and table.StartupSound.SoundID then
-            local sound = Instance.new('Sound', game.CoreGui)
-            sound.Name = "Startup Sound"
-            sound.SoundId = table.StartupSound.SoundID
-            sound.Volume = 1.5
-            sound.TimePosition = table.StartupSound.TimePosition
-            sound:Play()
-            sound.Stopped:Wait()
-            sound:Destroy()
-        end
-    end)
-
-    return tabHandler
 end
+
 
     local tabHandler = {}
 
