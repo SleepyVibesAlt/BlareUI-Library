@@ -82,7 +82,7 @@ end) --> Default, CallBack
 ```
 ## Create Notification
 ```lua
-maintab:CreateNotification("Success", "Operation completed successfully!", 3)
+BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
 --> Title, Description, Duration
 ```
 
@@ -95,7 +95,7 @@ end) --> Default, Min, Max, CallBack
 
 ## Create Search Bar
 ```lua
-maintab:SearchBar()
+BlareLib:SearchBar()
 ```
 
 ## Create Dropdown

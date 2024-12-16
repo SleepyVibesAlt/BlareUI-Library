@@ -186,7 +186,7 @@ function Library:Create(table)
             local label = Instance.new("Frame")
             label.Name = Name
             label.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            label.Size = UDim2.fromOffset(441, 32)
+            label.Size = UDim2.fromOffset(553, 32)
             label.Parent = holder
     
             local uICorner3 = Instance.new("UICorner")
@@ -312,7 +312,7 @@ function Library:Create(table)
             }
         end        
 
-        function ElementHandler:SearchBar()
+        function Library:SearchBar()
             local searchContainer = Instance.new("Frame")
             searchContainer.Name = "SearchContainer"
             searchContainer.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
@@ -385,7 +385,7 @@ function Library:Create(table)
             button.Name = "button"
             button.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
             button.Position = UDim2.fromScale(0, 0.135)
-            button.Size = UDim2.fromOffset(441, 32)
+            button.Size = UDim2.fromOffset(553, 32)
             button.Text = ""
             button.AutoButtonColor = false
 
@@ -441,7 +441,7 @@ function Library:Create(table)
             local dropdown = Instance.new("Frame")
             dropdown.Name = "dropdown"
             dropdown.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            dropdown.Size = UDim2.fromOffset(441, 32)
+            dropdown.Size = UDim2.fromOffset(553, 32)
             dropdown.ZIndex = 1
         
             local uICorner = Instance.new("UICorner")
@@ -496,7 +496,7 @@ function Library:Create(table)
             dropFrame.Name = "dropFrame"
             dropFrame.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
             dropFrame.Position = UDim2.fromOffset(0, 40)
-            dropdown.Size = UDim2.fromOffset(441, 32)
+            dropdown.Size = UDim2.fromOffset(553, 32)
             dropFrame.ClipsDescendants = true
             dropFrame.Visible = false
             dropFrame.ZIndex = 1
@@ -673,7 +673,7 @@ function Library:Create(table)
             local slider = Instance.new("TextButton")
             slider.Name = "slider"
             slider.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            slider.Size = UDim2.fromOffset(441, 32)
+            slider.Size = UDim2.fromOffset(553, 32)
             slider.Text = ""
             slider.AutoButtonColor = false
 
@@ -784,7 +784,7 @@ function Library:Create(table)
             local toggle1 = Instance.new("TextButton")
             toggle1.Name = "toggle1"
             toggle1.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            toggle1.Size = UDim2.fromOffset(441, 32)
+            toggle1.Size = UDim2.fromOffset(553, 32)
             toggle1.Text = ""
             toggle1.AutoButtonColor = false
 
@@ -859,7 +859,7 @@ function Library:Create(table)
             comment.TextSize = 11
             comment.TextXAlignment = Enum.TextXAlignment.Left
             comment.BackgroundTransparency = 1
-            comment.Size = UDim2.fromOffset(441, 20)
+            comment.Size = UDim2.fromOffset(553, 20)
             comment.Parent = holder
             
             local listLayout = holder:FindFirstChildWhichIsA('UIListLayout')
@@ -875,7 +875,7 @@ function Library:Create(table)
             local textbox = Instance.new("Frame")
             textbox.Name = "textbox"
             textbox.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            textbox.Size = UDim2.fromOffset(441, 32)
+            textbox.Size = UDim2.fromOffset(553, 32)
 
             local uICorner13 = Instance.new("UICorner")
             uICorner13.Name = "uICorner13"
