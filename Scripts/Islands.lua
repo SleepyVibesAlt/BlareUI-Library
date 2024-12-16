@@ -6,7 +6,6 @@ local PlayerName = Player.Name
 local Health = Humanoid.Health
 local MaxHealth = Humanoid.MaxHealth
 local Radius = 50
-local TweenSpd = 1
 local TweenService = game:GetService("TweenService")
 
 local win = BlareLib:Create({
