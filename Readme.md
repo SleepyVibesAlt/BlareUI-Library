@@ -11,6 +11,8 @@
 --> Added Toggle
 --> Added Keybinds
 --> Added Dropdown
+--> Added Notification
+--> Added SearchBar
 --> Drag Mobile Supported
 ```
 
@@ -29,11 +31,11 @@ local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Slee
 local win = BlareLib:Create({
     Name = "Blare Library",
     StartupSound = {
-        Toggle = true,
+        PlaySound = true,
         SoundID = "rbxassetid://6958727243",
         TimePosition = 1
     }
-})
+}) --> Name, PlaySound, SoundID, TimeBeforePlay
 ```
 
 ## Create Tab
@@ -54,34 +56,40 @@ maintab:Label('Label Name', 'Label Text') --> The label name is specifically use
 ## Edit Label
 ```lua
 maintab:EditLabel('Label Name', 'New Text')
+--> Label Name, New Text
 ```
 
 ## Create Button
 ```lua
 maintab:Button('Button Name', function()
     print('Button Pressed')
-end)
+end) --> Name, CallBack
 ```
 
 ## Create Keybind
 ```lua
 maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
     print("New keybind:", key)
-end) --> Only works on pc unless u have the keyboard script active
+end) --> Default, Key, CallBack
 ```
 
 ## Create Toggle
 ```lua
 maintab:Toggle('Toggle Text', function(state)
     print("Toggle state:", state)
-end)
+end) --> Default, CallBack
+```
+## Create Notification
+```lua
+maintab:CreateNotification("Success", "Operation completed successfully!", 3)
+--> Title, Description, Duration
 ```
 
 ## Create Slider
 ```lua
 maintab:Slider('Slider Text', 50, 0, 100, function(value)
     print("Slider value:", value)
-end) -->The slider will not work on mobile correct due to roblox.
+end) --> Default, Min, Max, CallBack
 ```
 
 ## Create Search Bar
@@ -93,14 +101,14 @@ maintab:SearchBar()
 ```lua
 maintab:Dropdown('Dropdown Text', {'Option 1', 'Option 2', 'Option 3'}, function(selected)
     print("Selected:", selected)
-end)
+end) --> Default, Options, CallBack
 ```
 
 ## Create Textbox
 ```lua
 maintab:Textbox('Textbox Text', function(text)
     print("Input text:", text)
-end)
+end) --> Default, CallBack
 ```
 
 ## Create Seperator

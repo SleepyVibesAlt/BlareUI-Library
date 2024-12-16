@@ -312,7 +312,7 @@ function Library:Create(table)
             }
         end        
 
-        function Library:SearchBar()
+        function ElementHandler:SearchBar()
             local searchContainer = Instance.new("Frame")
             searchContainer.Name = "SearchContainer"
             searchContainer.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
@@ -594,6 +594,78 @@ function Library:Create(table)
             return dropdown
         end        
 
+        function ElementHandler:CreateNotification(title, description, duration)
+            duration = duration or 3
+            
+            -- Notification container
+            local notifContainer = Instance.new("Frame")
+            notifContainer.Name = "NotificationContainer"
+            notifContainer.Size = UDim2.new(0, 250, 0, 80)
+            notifContainer.Position = UDim2.new(1, -260, 1, -90)
+            notifContainer.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+            notifContainer.Parent = dark_UI
+            
+            local uICorner = Instance.new("UICorner")
+            uICorner.CornerRadius = UDim.new(0, 6)
+            uICorner.Parent = notifContainer
+            
+            -- Title
+            local titleLabel = Instance.new("TextLabel")
+            titleLabel.Name = "Title"
+            titleLabel.Font = Enum.Font.GothamBold
+            titleLabel.Text = title
+            titleLabel.TextColor3 = Color3.fromRGB(195, 195, 195)
+            titleLabel.TextSize = 14
+            titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+            titleLabel.BackgroundTransparency = 1
+            titleLabel.Position = UDim2.new(0.05, 0, 0.1, 0)
+            titleLabel.Size = UDim2.new(0.9, 0, 0, 20)
+            titleLabel.Parent = notifContainer
+            
+            -- Description
+            local descLabel = Instance.new("TextLabel")
+            descLabel.Name = "Description"
+            descLabel.Font = Enum.Font.Gotham
+            descLabel.Text = description
+            descLabel.TextColor3 = Color3.fromRGB(195, 195, 195)
+            descLabel.TextSize = 13
+            descLabel.TextXAlignment = Enum.TextXAlignment.Left
+            descLabel.TextWrapped = true
+            descLabel.BackgroundTransparency = 1
+            descLabel.Position = UDim2.new(0.05, 0, 0.4, 0)
+            descLabel.Size = UDim2.new(0.9, 0, 0.5, 0)
+            descLabel.Parent = notifContainer
+            
+            -- Progress bar
+            local progressBar = Instance.new("Frame")
+            progressBar.Name = "ProgressBar"
+            progressBar.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+            progressBar.Position = UDim2.new(0, 0, 0.95, 0)
+            progressBar.Size = UDim2.new(1, 0, 0, 3)
+            progressBar.Parent = notifContainer
+            
+            local progress = Instance.new("Frame")
+            progress.Name = "Progress"
+            progress.BackgroundColor3 = Color3.fromRGB(195, 195, 195)
+            progress.Size = UDim2.new(1, 0, 1, 0)
+            progress.Parent = progressBar
+            
+            -- Animations
+            notifContainer.Position = UDim2.new(1, 0, 1, -90)
+            local tweenIn = TweenService:Create(notifContainer, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Position = UDim2.new(1, -260, 1, -90)})
+            local tweenOut = TweenService:Create(notifContainer, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Position = UDim2.new(1, 0, 1, -90)})
+            local progressTween = TweenService:Create(progress, TweenInfo.new(duration, Enum.EasingStyle.Linear), {Size = UDim2.new(0, 0, 1, 0)})
+            
+            tweenIn:Play()
+            progressTween:Play()
+            
+            task.delay(duration, function()
+                tweenOut:Play()
+                tweenOut.Completed:Wait()
+                notifContainer:Destroy()
+            end)
+        end
+        
         function ElementHandler:Slider(text, default, min, max, callback)
             text = text or "Slider"
             callback = callback or function() end
@@ -925,7 +997,7 @@ function Library:Create(table)
     end)
 
     spawn(function()
-        if table.StartupSound.Toggle and table.StartupSound.SoundID ~= nil then
+        if table.StartupSound.PlaySound and table.StartupSound.SoundID ~= nil then
             local sound = Instance.new('Sound', game.CoreGui)
             sound.Name = "Startup Sound"
             sound.SoundId = "rbxassetid://6958727243"

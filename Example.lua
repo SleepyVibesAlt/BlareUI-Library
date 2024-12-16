@@ -51,5 +51,7 @@ end)
 
 maintab:Comment('This is a comment')
 
+maintab:CreateNotification("Success", "Operation completed successfully!", 3)
+
 maintab:Separator()
 maintab:Section('Section 1')
