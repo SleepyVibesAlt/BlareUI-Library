@@ -147,7 +147,7 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
     while SlimeFarm do
         print("Searching for slimes...")
         for _, slime in pairs(Slimes:GetChildren()) do
-            if slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 then
+            if slime.Name == "slime" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 then
                 print("Found slime, attacking...")
                 
                 local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear)
@@ -158,11 +158,9 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
                 tween.Completed:Wait()
                 
                 local virtualInput = game:GetService("VirtualInputManager")
-                virtualInput:SendKeyEvent(true, Enum.KeyCode.One, false, game)
-                virtualInput:SendKeyEvent(false, Enum.KeyCode.One, false, game)
                 virtualInput:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+                task.wait(0.1)
                 virtualInput:SendMouseButtonEvent(0, 0, 0, false, game, 1)
-                
                 repeat
                     task.wait()
                 until not slime:FindFirstChild("Humanoid") or slime.Humanoid.Health <= 0
