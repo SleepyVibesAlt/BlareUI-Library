@@ -14,6 +14,7 @@
 --> Added Notification
 --> Added SearchBar
 --> Drag Mobile Supported
+--> Added Animations (WIP & Disableable)
 ```
 
 ## To Be Added
