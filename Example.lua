@@ -1,9 +1,12 @@
 local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SleepyVibesAlt/BlareUI-Library/refs/heads/main/BlareUI.lua"))()
 
-local UI = Library:Create({
-    Name = "My UI Title",
-    Key = true, -- Enables the key system
-    KeyCode = "MY-SECRET-KEY" -- Your custom key that users need to enter
+local win = BlareLib:Create({
+    Name = "Blare Library",
+    StartupSound = {
+        Toggle = true,
+        SoundID = "rbxassetid://6958727243",
+        TimePosition = 1
+    }
 })
 
 local maintab = win:Tab('Main')
@@ -49,6 +52,6 @@ maintab:Comment('This is a comment')
 maintab:Separator()
 maintab:Section('Section 1')
 
-maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
-    print("New keybind:", key)
+maintab:ColorPicker('Color Picker Name', Color3.fromRGB(255, 0, 0), function(color)
+    print("Selected color:", color)
 end)

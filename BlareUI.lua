@@ -20,163 +20,75 @@ local Mouse = LocalPlayer:GetMouse()
 local HTTPService = game:GetService("HttpService")
 
 function Library:Create(table)
-        local windowName = table.Name
-        local useKey = table.Key or false
-        local key = table.KeyCode or "BLARE-KEY"
+    local windowName = table.Name
 
-        if useKey then
-            local keyFrame = Instance.new("Frame")
-            keyFrame.Name = "keySystem"
-            keyFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-            keyFrame.Position = UDim2.fromScale(0.5, 0.5)
-            keyFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-            keyFrame.Size = UDim2.fromOffset(300, 150)
-            keyFrame.Parent = dark_UI
+    local main = Instance.new("Frame")
+    main.Name = "main"
+    main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+    main.Position = UDim2.fromScale(0.244, 0.292)
+    main.Size = UDim2.fromOffset(488, 299)
 
-            local keyUICorner = Instance.new("UICorner")
-            keyUICorner.Parent = keyFrame
+    local title = Instance.new("TextLabel")
+    title.Name = "title"
+    title.Font = Enum.Font.Gotham
+    title.Text = windowName
+    title.TextColor3 = Color3.fromRGB(168, 168, 168)
+    title.TextSize = 20
+    title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    title.BackgroundTransparency = 1
+    title.Position = UDim2.fromScale(0.41, 0.0543)
+    title.Size = UDim2.fromOffset(83, 28)
+    title.Parent = main
 
-            local keyTitle = Instance.new("TextLabel")
-            keyTitle.Name = "keyTitle"
-            keyTitle.Font = Enum.Font.Gotham
-            keyTitle.Text = "Key System"
-            keyTitle.TextColor3 = Color3.fromRGB(168, 168, 168)
-            keyTitle.TextSize = 20
-            keyTitle.BackgroundTransparency = 1
-            keyTitle.Position = UDim2.fromScale(0.5, 0.1)
-            keyTitle.AnchorPoint = Vector2.new(0.5, 0)
-            keyTitle.Size = UDim2.fromOffset(200, 28)
-            keyTitle.Parent = keyFrame
+    local uICorner = Instance.new("UICorner")
+    uICorner.Name = "uICorner"
+    uICorner.Parent = main
 
-            local keyBox = Instance.new("TextBox")
-            keyBox.Name = "keyInput"
-            keyBox.Font = Enum.Font.Gotham
-            keyBox.PlaceholderText = "Enter Key"
-            keyBox.Text = ""
-            keyBox.TextColor3 = Color3.fromRGB(168, 168, 168)
-            keyBox.TextSize = 14
-            keyBox.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-            keyBox.Position = UDim2.fromScale(0.5, 0.4)
-            keyBox.AnchorPoint = Vector2.new(0.5, 0)
-            keyBox.Size = UDim2.fromOffset(250, 30)
-            keyBox.Parent = keyFrame
+    local tabContainer = Instance.new("Frame")
+    tabContainer.Name = "tabContainer"
+    tabContainer.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    tabContainer.Position = UDim2.fromScale(0.0342, 0.188)
+    tabContainer.Size = UDim2.fromOffset(454, 30)
 
-            local keyBoxCorner = Instance.new("UICorner")
-            keyBoxCorner.CornerRadius = UDim.new(0, 6)
-            keyBoxCorner.Parent = keyBox
+    local uICorner1 = Instance.new("UICorner")
+    uICorner1.Name = "uICorner1"
+    uICorner1.CornerRadius = UDim.new(0, 6)
+    uICorner1.Parent = tabContainer
 
-            local submitButton = Instance.new("TextButton")
-            submitButton.Name = "submit"
-            submitButton.Font = Enum.Font.Gotham
-            submitButton.Text = "Submit"
-            submitButton.TextColor3 = Color3.fromRGB(168, 168, 168)
-            submitButton.TextSize = 14
-            submitButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-            submitButton.Position = UDim2.fromScale(0.5, 0.7)
-            submitButton.AnchorPoint = Vector2.new(0.5, 0)
-            submitButton.Size = UDim2.fromOffset(100, 30)
-            submitButton.Parent = keyFrame
+    local uIListLayout = Instance.new("UIListLayout")
+    uIListLayout.Name = "uIListLayout"
+    uIListLayout.Padding = UDim.new(0, 8)
+    uIListLayout.FillDirection = Enum.FillDirection.Horizontal
+    uIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    uIListLayout.Parent = tabContainer
 
-            local submitCorner = Instance.new("UICorner")
-            submitCorner.CornerRadius = UDim.new(0, 6)
-            submitCorner.Parent = submitButton
+    local uIPadding = Instance.new("UIPadding")
+    uIPadding.Name = "uIPadding"
+    uIPadding.PaddingLeft = UDim.new(0, 7)
+    uIPadding.PaddingTop = UDim.new(0, 4)
+    uIPadding.Parent = tabContainer
 
-            submitButton.MouseButton1Click:Connect(function()
-                if keyBox.Text == key then
-                    keyFrame:Destroy()
-                    createMainUI()
-                else
-                    keyBox.Text = ""
-                    keyBox.PlaceholderText = "Invalid Key!"
-                end
-            end)
-        else
-            createMainUI()
-        end
+    tabContainer.Parent = main
+    main.Parent = dark_UI
+    main.AnchorPoint = Vector2.new(0.5,0.5)
 
-        function createMainUI()
-            local main = Instance.new("Frame")
-            main.Name = "main"
-            main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-            main.Position = UDim2.fromScale(0.244, 0.292)
-            main.Size = UDim2.fromOffset(488, 299)
+    main.Position = UDim2.new(0.5,0,0.5,0)
 
-            local title = Instance.new("TextLabel")
-            title.Name = "title"
-            title.Font = Enum.Font.Gotham
-            title.Text = windowName
-            title.TextColor3 = Color3.fromRGB(168, 168, 168)
-            title.TextSize = 20
-            title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            title.BackgroundTransparency = 1
-            title.Position = UDim2.fromScale(0.41, 0.0543)
-            title.Size = UDim2.fromOffset(83, 28)
-            title.Parent = main
+    local Toggle = Instance.new("TextButton")
+    Toggle.Name = "Show/Hide Blare"
+    Toggle.Size = UDim2.new(0, 180, 0, 40)
+    Toggle.Position = UDim2.new(0.5, -90, 0, -36)
+    Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    Toggle.BackgroundTransparency = 0.5
+    Toggle.Text = "Show/Hide Blare"
+    Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Toggle.TextSize = 14
+    Toggle.Parent = dark_UI
 
-            local uICorner = Instance.new("UICorner")
-            uICorner.Name = "uICorner"
-            uICorner.Parent = main
+    local UICorner15 = Instance.new("UICorner")
+    UICorner15.Name = "UICorner2"
+    UICorner15.Parent = Toggle
 
-            local tabContainer = Instance.new("Frame")
-            tabContainer.Name = "tabContainer"
-            tabContainer.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-            tabContainer.Position = UDim2.fromScale(0.0342, 0.188)
-            tabContainer.Size = UDim2.fromOffset(454, 30)
-
-            local uICorner1 = Instance.new("UICorner")
-            uICorner1.Name = "uICorner1"
-            uICorner1.CornerRadius = UDim.new(0, 6)
-            uICorner1.Parent = tabContainer
-
-            local uIListLayout = Instance.new("UIListLayout")
-            uIListLayout.Name = "uIListLayout"
-            uIListLayout.Padding = UDim.new(0, 8)
-            uIListLayout.FillDirection = Enum.FillDirection.Horizontal
-            uIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-            uIListLayout.Parent = tabContainer
-
-            local uIPadding = Instance.new("UIPadding")
-            uIPadding.Name = "uIPadding"
-            uIPadding.PaddingLeft = UDim.new(0, 7)
-            uIPadding.PaddingTop = UDim.new(0, 4)
-            uIPadding.Parent = tabContainer
-
-            tabContainer.Parent = main
-            main.Parent = dark_UI
-            main.AnchorPoint = Vector2.new(0.5,0.5)
-
-            main.Position = UDim2.new(0.5,0,0.5,0)
-
-            local Toggle = Instance.new("TextButton")
-            Toggle.Name = "Show/Hide Blare"
-            Toggle.Size = UDim2.new(0, 180, 0, 40)
-            Toggle.Position = UDim2.new(0.5, -90, 0, -36)
-            Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-            Toggle.BackgroundTransparency = 0.5
-            Toggle.Text = "Show/Hide Blare"
-            Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Toggle.TextSize = 14
-            Toggle.Parent = dark_UI
-
-            local UICorner15 = Instance.new("UICorner")
-            UICorner15.Name = "UICorner2"
-            UICorner15.Parent = Toggle
-
-            local sound = Instance.new("Sound")
-            sound.SoundId = "rbxassetid://6732690176"
-            sound.Parent = main
-            sound.Volume = 1
-
-            local function playSound()
-                sound:Play()
-            end
-
-            Toggle.MouseButton1Click:Connect(function()
-                playSound()
-                main.Visible = not main.Visible
-            end)
-        end
-end
     local tabHandler = {}
 
     function tabHandler:Exit()
