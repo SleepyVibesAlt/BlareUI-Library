@@ -162,7 +162,7 @@ function Library:Create(table)
         --// Event
 
         Toggle.MouseButton1Click:Connect(function()
-            main.Visible = not main.Visible
+            print("test")
         end)
 
         main1.MouseButton1Click:Connect(function()
