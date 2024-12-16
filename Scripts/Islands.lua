@@ -123,18 +123,53 @@ AutoFarmTab:Toggle('Eletrite Ore', function(v)
 end)
 
 local MobFarmTab = win:Tab('Mob Farm')
-MobFarmTab:Section('Slime Island')
+MobFarmTab:Section('Settings')
 
-MobFarmTab:Toggle('Auto Click', function(v)
-    AutoClick = v
-    while AutoClick do
-        local virtualInput = game:GetService("VirtualInputManager")
-        virtualInput:SendMouseButtonEvent(0, 0, 0, true, game, 1)
-        task.wait(0.1)
-        virtualInput:SendMouseButtonEvent(0, 0, 0, false, game, 1)
-        task.wait(0.1) -- Adjust this value to control click speed
+MobFarmTab:Textbox('Sword Position', function(value)
+    local newPos = tonumber(value)
+    local Position = 1
+    if newPos then
+        Position = newPos
+        print("Radius set to:", Position)
+        BlareLib:CreateNotification("Sword positon updated: "..  2)
+    else
+        BlareLib:CreateNotification("Invalid Input", "Please enter a number, words don't work!", 3)
     end
 end)
 
+MobFarmTab:Comment('The key where sword is, 1-9')
+
+MobFarmTab:Section('Slime Island')
+
+MobFarmTab:Toggle('Farm Slimes', function(v)
+    local Slime = game.workspace.WildernessIsland.Entities.slime
+    SlimeFarm = v
+    while SlimeFarm do
+        for _, slime in pairs(Slime:GetChildren()) do
+            if slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 then
+                print("Found slime, attacking...")
+                
+                local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear)
+                local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {
+                    CFrame = slime.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
+                })
+                tween:Play()
+                tween.Completed:Wait()
+                
+                local virtualInput = game:GetService("VirtualInputManager")
+                virtualInput:SendKeyEvent(true, Enum.KeyCode.One, false, game)
+                virtualInput:SendKeyEvent(false, Enum.KeyCode.One, false, game)
+                virtualInput:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+                virtualInput:SendMouseButtonEvent(0, 0, 0, false, game, 1)
+                
+                repeat
+                    task.wait()
+                until not slime:FindFirstChild("Humanoid") or slime.Humanoid.Health <= 0
+                print("Slime defeated!")
+            end
+        end
+        task.wait(1)
+    end
+end)
 
 BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. "!", 2)
