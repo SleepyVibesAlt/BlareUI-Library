@@ -4,6 +4,7 @@ local Character = Player.Character or Player.CharacterAdded:Wait()
 local Humanoid = Character:WaitForChild("Humanoid")
 local Health = Humanoid.Health
 local MaxHealth = Humanoid.MaxHealth
+local Radius = 10 -- Default radius value
 
 local win = BlareLib:Create({
     Name = "Islands Script",
@@ -21,7 +22,7 @@ AutoFarmTab:Toggle('Auto Tween', function(v)
 end)
 
 AutoFarmTab:Textbox('Autofarm Radius', function(value)
-    Radius = tonumber(value)
+    Radius = tonumber(value) or 10 -- Set default to 10 if invalid input
     print("Radius set to:", Radius)
 end)
 AutoFarmTab:Comment('Lower these for better chance of the anticheat not detecting')
@@ -278,4 +279,4 @@ uitab:Button('Destroy GUI', function()
     win:Exit()
 end)
 
-BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
+BlareLib:CreateNotification("Success", "Operation completed successfully!", 3) 
