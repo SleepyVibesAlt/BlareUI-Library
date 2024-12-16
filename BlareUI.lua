@@ -312,6 +312,59 @@ function Library:Create(table)
             }
         end        
 
+        function Library:SearchBar()
+            local searchContainer = Instance.new("Frame")
+            searchContainer.Name = "SearchContainer"
+            searchContainer.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+            searchContainer.Position = UDim2.fromScale(0.0342, 0.125)
+            searchContainer.Size = UDim2.fromOffset(454, 30)
+            searchContainer.Parent = main
+            
+            local uICorner = Instance.new("UICorner")
+            uICorner.CornerRadius = UDim.new(0, 6)
+            uICorner.Parent = searchContainer
+            
+            local searchBox = Instance.new("TextBox")
+            searchBox.Name = "SearchBox"
+            searchBox.PlaceholderText = "Search..."
+            searchBox.Text = ""
+            searchBox.TextColor3 = Color3.fromRGB(195, 195, 195)
+            searchBox.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
+            searchBox.BackgroundTransparency = 1
+            searchBox.Font = Enum.Font.Gotham
+            searchBox.TextSize = 13
+            searchBox.Position = UDim2.fromScale(0.02, 0)
+            searchBox.Size = UDim2.fromScale(0.96, 1)
+            searchBox.Parent = searchContainer
+            
+            local function performSearch()
+                local searchText = searchBox.Text:lower()
+                for _, container in pairs(main:GetChildren()) do
+                    if container.Name == "container" then
+                        for _, element in pairs(container.holder:GetChildren()) do
+                            if element:FindFirstChild("textLabel") or element:FindFirstChild("textLabel1") 
+                            or element:FindFirstChild("textLabel4") or element:FindFirstChild("textLabel5") then
+                                local elementText = (element:FindFirstChild("textLabel") or 
+                                                   element:FindFirstChild("textLabel1") or 
+                                                   element:FindFirstChild("textLabel4") or 
+                                                   element:FindFirstChild("textLabel5")).Text:lower()
+                                
+                                if searchText == "" then
+                                    element.Visible = true
+                                else
+                                    element.Visible = elementText:find(searchText) and true or false
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+            
+            searchBox:GetPropertyChangedSignal("Text"):Connect(performSearch)
+            
+            return searchBox
+        end
+        
         function ElementHandler:Separator()
             local separator = Instance.new("Frame")
             separator.Name = "separator"

@@ -13,6 +13,8 @@ local maintab = win:Tab('Main')
 local charactertab = win:Tab('Character')
 local uitab = win:Tab('UI')
 
+uitab:SearchBar()
+
 uitab:Button('Destroy GUI', function()
     win:Exit()
 end)

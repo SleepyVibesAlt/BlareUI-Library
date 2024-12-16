@@ -5,13 +5,19 @@
 
 ## Update
 ```lua
-- Added Textbox
-- Added Seperator
-- Fixed crashing
-- Added Toggle
-- Added Keybinds
-- Added Dropdown
-- Drag Mobile Supported
+--> Added Textbox
+--> Added Seperator
+--> Fixed crashing
+--> Added Toggle
+--> Added Keybinds
+--> Added Dropdown
+--> Drag Mobile Supported
+```
+
+## To Be Added
+```lua
+--> Key System
+--> Panic Function
 ```
 
 ## Getting Loadstring
@@ -42,7 +48,7 @@ maintab:Section('Section 1')
 
 ## Create Label
 ```lua
-maintab:Label('Label Name', 'Label Text')
+maintab:Label('Label Name', 'Label Text') --> The label name is specifically used for the edit label function which requires the label name to be the same to edit.
 ```
 
 ## Edit Label
@@ -61,7 +67,7 @@ end)
 ```lua
 maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
     print("New keybind:", key)
-end)
+end) --> Only works on pc unless u have the keyboard script active
 ```
 
 ## Create Toggle
@@ -75,7 +81,12 @@ end)
 ```lua
 maintab:Slider('Slider Text', 50, 0, 100, function(value)
     print("Slider value:", value)
-end)
+end) -->The slider will not work on mobile correct due to roblox.
+```
+
+## Create Search Bar
+```lua
+maintab:SearchBar()
 ```
 
 ## Create Dropdown
