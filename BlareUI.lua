@@ -786,8 +786,8 @@ function Library:Create(table)
         
             toggle1.MouseButton1Click:Connect(function()
                 toggleState = not toggleState
-                callback(toggleState)
                 
+                -- Update visuals first
                 if toggleState then
                     game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(23, 143, 75)}):Play()
                     game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(32, 202, 106)}):Play()
@@ -795,6 +795,11 @@ function Library:Create(table)
                     game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(45, 45, 45)}):Play()
                     game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(76, 76, 76)}):Play()
                 end
+        
+                -- Run callback in separate thread
+                task.spawn(function()
+                    callback(toggleState)
+                end)
             end)
         
             return {

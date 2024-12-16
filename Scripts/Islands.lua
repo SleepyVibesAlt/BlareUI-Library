@@ -105,8 +105,12 @@ AutoFarmTab:Toggle('Eletrite Ore', function(v)
     end
 end)
 
-maintab:Toggle('Toggle Text', function(state)
+AutoFarmTab:Toggle('Toggle Text', function(state)
+    test = state
     print("Toggle state:", state)
-end) --> Default, CallBack
+    while test do wait()
+        print("Toggle is true")
+    end
+end)
 
 BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. "!", 2)
