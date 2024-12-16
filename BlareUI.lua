@@ -76,12 +76,12 @@ function Library:Create(table)
     main.Position = UDim2.new(0.5,0,0.5,0)
 
     local Toggle = Instance.new("TextButton")
-    Toggle.Name = "Show/Hide Blare"
+    Toggle.Name = "Toggle"
     Toggle.Size = UDim2.new(0, 160, 0, 20)
     Toggle.Position = UDim2.new(0.5, -90, 0, -36)
     Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     Toggle.BackgroundTransparency = 0.5
-    Toggle.Text = "Show/Hide Blare"
+    Toggle.Text = "Toggle Ui"
     Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
     Toggle.TextSize = 12
     Toggle.Parent = dark_UI
@@ -89,6 +89,10 @@ function Library:Create(table)
     local UICorner15 = Instance.new("UICorner")
     UICorner15.Name = "UICorner2"
     UICorner15.Parent = Toggle
+
+    Toggle.MouseButton1Click:Connect(function()
+        print("test")
+    end)
 
     local tabHandler = {}
 
@@ -160,11 +164,6 @@ function Library:Create(table)
         container.Visible = false
 
         --// Event
-
-        Toggle.MouseButton1Click:Connect(function()
-            print("test")
-        end)
-
         main1.MouseButton1Click:Connect(function()
             for _,v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
                 if v.Name == "container" then
