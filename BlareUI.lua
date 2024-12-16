@@ -215,6 +215,210 @@ function Library:Create(table)
             textLabel.Text = text
         end
 
+        function ElementHandler:ColorPicker(text, default, callback)
+            text = text or "Color Picker"
+            default = default or Color3.fromRGB(255, 255, 255)
+            callback = callback or function() end
+        
+            local colorPicker = Instance.new("Frame")
+            colorPicker.Name = "colorPicker"
+            colorPicker.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+            colorPicker.Size = UDim2.fromOffset(441, 32)
+        
+            local uICorner = Instance.new("UICorner")
+            uICorner.CornerRadius = UDim.new(0, 6)
+            uICorner.Parent = colorPicker
+        
+            local title = Instance.new("TextLabel")
+            title.Font = Enum.Font.Gotham
+            title.Text = text
+            title.TextColor3 = Color3.fromRGB(195, 195, 195)
+            title.TextSize = 13
+            title.TextXAlignment = Enum.TextXAlignment.Left
+            title.BackgroundTransparency = 1
+            title.Position = UDim2.fromScale(0.0181, 0)
+            title.Size = UDim2.fromOffset(1, 32)
+            title.Parent = colorPicker
+        
+            local colorDisplay = Instance.new("TextButton")
+            colorDisplay.Name = "colorDisplay"
+            colorDisplay.BackgroundColor3 = default
+            colorDisplay.Position = UDim2.fromScale(0.943, 0.219)
+            colorDisplay.Size = UDim2.fromOffset(18, 18)
+            colorDisplay.Text = ""
+            colorDisplay.AutoButtonColor = false
+        
+            local uICorner2 = Instance.new("UICorner")
+            uICorner2.CornerRadius = UDim.new(0, 4)
+            uICorner2.Parent = colorDisplay
+        
+            local picker = Instance.new("Frame")
+            picker.Name = "picker"
+            picker.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+            picker.Position = UDim2.fromOffset(colorPicker.AbsolutePosition.X + 450, colorPicker.AbsolutePosition.Y)
+            picker.Size = UDim2.fromOffset(200, 220)
+            picker.Visible = false
+            picker.ZIndex = 100
+        
+            local uICorner3 = Instance.new("UICorner")
+            uICorner3.CornerRadius = UDim.new(0, 6)
+            uICorner3.Parent = picker
+        
+            local colorSpace = Instance.new("ImageLabel")
+            colorSpace.Name = "colorSpace"
+            colorSpace.Image = "rbxassetid://4155801252"
+            colorSpace.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            colorSpace.Position = UDim2.fromOffset(10, 10)
+            colorSpace.Size = UDim2.fromOffset(180, 180)
+            colorSpace.ZIndex = 101
+        
+            local uICorner4 = Instance.new("UICorner")
+            uICorner4.CornerRadius = UDim.new(0, 4)
+            uICorner4.Parent = colorSpace
+        
+            local hueSlider = Instance.new("TextButton")
+            hueSlider.Name = "hueSlider"
+            hueSlider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            hueSlider.Position = UDim2.fromOffset(10, 195)
+            hueSlider.Size = UDim2.fromOffset(180, 15)
+            hueSlider.Text = ""
+            hueSlider.ZIndex = 101
+            
+            local uICorner5 = Instance.new("UICorner")
+            uICorner5.CornerRadius = UDim.new(0, 4)
+            uICorner5.Parent = hueSlider
+            
+            local hueGradient = Instance.new("UIGradient")
+            hueGradient.Color = ColorSequence.new({
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
+                ColorSequenceKeypoint.new(0.167, Color3.fromRGB(255, 255, 0)),
+                ColorSequenceKeypoint.new(0.333, Color3.fromRGB(0, 255, 0)),
+                ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 255, 255)),
+                ColorSequenceKeypoint.new(0.667, Color3.fromRGB(0, 0, 255)),
+                ColorSequenceKeypoint.new(0.833, Color3.fromRGB(255, 0, 255)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0))
+            })
+            hueGradient.Parent = hueSlider
+        
+            local selector = Instance.new("Frame")
+            selector.Name = "selector"
+            selector.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            selector.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            selector.Position = UDim2.fromOffset(-4, -4)
+            selector.Size = UDim2.fromOffset(8, 8)
+            selector.ZIndex = 102
+        
+            local uICorner6 = Instance.new("UICorner")
+            uICorner6.CornerRadius = UDim.new(1, 0)
+            uICorner6.Parent = selector
+        
+            local hueSelector = selector:Clone()
+            hueSelector.Parent = hueSlider
+        
+            selector.Parent = colorSpace
+            colorSpace.Parent = picker
+            hueSlider.Parent = picker
+            picker.Parent = dark_UI
+            colorDisplay.Parent = colorPicker
+            colorPicker.Parent = holder
+        
+            local pickerOpen = false
+            local hue, sat, val = 0, 1, 1
+            local draggingHue = false
+            local draggingColor = false
+        
+            local function updateColor()
+                local color = Color3.fromHSV(hue, sat, val)
+                colorDisplay.BackgroundColor3 = color
+                colorSpace.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
+                callback(color)
+            end
+        
+            colorDisplay.MouseButton1Click:Connect(function()
+                pickerOpen = not pickerOpen
+                picker.Visible = pickerOpen
+                if pickerOpen then
+                    picker.Position = UDim2.fromOffset(
+                        colorPicker.AbsolutePosition.X + 450,
+                        colorPicker.AbsolutePosition.Y
+                    )
+                end
+            end)
+        
+            colorSpace.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    draggingColor = true
+                end
+            end)
+        
+            hueSlider.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    draggingHue = true
+                end
+            end)
+        
+            UserInputService.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    draggingColor = false
+                    draggingHue = false
+                end
+            end)
+        
+            UserInputService.InputChanged:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseMovement then
+                    if draggingColor then
+                        local relativeX = math.clamp((Mouse.X - colorSpace.AbsolutePosition.X) / colorSpace.AbsoluteSize.X, 0, 1)
+                        local relativeY = math.clamp((Mouse.Y - colorSpace.AbsolutePosition.Y) / colorSpace.AbsoluteSize.Y, 0, 1)
+                        
+                        selector.Position = UDim2.fromOffset(
+                            relativeX * colorSpace.AbsoluteSize.X - 4,
+                            relativeY * colorSpace.AbsoluteSize.Y - 4
+                        )
+                        
+                        sat = relativeX
+                        val = 1 - relativeY
+                        
+                        updateColor()
+                    elseif draggingHue then
+                        local relativeX = math.clamp((Mouse.X - hueSlider.AbsolutePosition.X) / hueSlider.AbsoluteSize.X, 0, 1)
+                        
+                        hueSelector.Position = UDim2.fromOffset(
+                            relativeX * hueSlider.AbsoluteSize.X - 4,
+                            -4
+                        )
+                        
+                        hue = relativeX
+                        
+                        updateColor()
+                    end
+                end
+            end)
+        
+            -- Close picker when clicking outside
+            UserInputService.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    local mousePos = Vector2.new(Mouse.X, Mouse.Y)
+                    if pickerOpen and not (
+                        mousePos.X >= picker.AbsolutePosition.X and
+                        mousePos.X <= picker.AbsolutePosition.X + picker.AbsoluteSize.X and
+                        mousePos.Y >= picker.AbsolutePosition.Y and
+                        mousePos.Y <= picker.AbsolutePosition.Y + picker.AbsoluteSize.Y
+                    ) and not (
+                        mousePos.X >= colorDisplay.AbsolutePosition.X and
+                        mousePos.X <= colorDisplay.AbsolutePosition.X + colorDisplay.AbsoluteSize.X and
+                        mousePos.Y >= colorDisplay.AbsolutePosition.Y and
+                        mousePos.Y <= colorDisplay.AbsolutePosition.Y + colorDisplay.AbsoluteSize.Y
+                    ) then
+                        pickerOpen = false
+                        picker.Visible = false
+                    end
+                end
+            end)
+        
+            updateColor()
+            return colorPicker
+        end        
+
         function ElementHandler:Section(text)
             local section = Instance.new("Frame")
             section.Name = "section"

@@ -1,4 +1,4 @@
-local BlareLib = loadstring(game:HttpGet("https://pastebin.com/raw/usdU5N7w"))()
+local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SleepyVibesAlt/BlareUI-Library/refs/heads/main/BlareUI.lua"))()
 
 local win = BlareLib:Create({
     Name = "Blare Library",
@@ -51,3 +51,7 @@ maintab:Comment('This is a comment')
 
 maintab:Separator()
 maintab:Section('Section 1')
+
+maintab:ColorPicker('Color Picker Name', Color3.fromRGB(255, 0, 0), function(color)
+    print("Selected color:", color)
+end)
