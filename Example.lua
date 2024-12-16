@@ -2,6 +2,12 @@ local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Slee
 
 local win = BlareLib:Create({
     Name = "Blare Library",
+    KeySystem = true,
+    Key = "MySecretKey123",
+    Title = "Key Required",
+    OnSuccess = function()
+        print("Key verified!")
+    end,
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",

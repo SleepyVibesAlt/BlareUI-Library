@@ -9,6 +9,7 @@
 - Added Seperator
 - Fixed crashing
 - Added Toggle
+- Added Keybinds
 - Drag Mobile Supported
 ```
 
