@@ -13,7 +13,7 @@ local maintab = win:Tab('Main')
 local charactertab = win:Tab('Character')
 local uitab = win:Tab('UI')
 
-uitab:SearchBar()
+BlareLib:SearchBar()
 
 uitab:Button('Destroy GUI', function()
     win:Exit()
@@ -51,7 +51,7 @@ end)
 
 maintab:Comment('This is a comment')
 
-maintab:CreateNotification("Success", "Operation completed successfully!", 3)
+BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
 
 maintab:Separator()
 maintab:Section('Section 1')
