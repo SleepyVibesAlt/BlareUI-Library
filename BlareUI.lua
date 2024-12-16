@@ -20,66 +20,8 @@ local Mouse = LocalPlayer:GetMouse()
 local HTTPService = game:GetService("HttpService")
 
 function Library:Create(table)
-    local keySystem = {
-        Enabled = table.KeySystem or false,
-        Key = table.Key or "DEFAULT_KEY",
-        Title = table.KeySystemTitle or "Key System",
-        Subtitle = table.KeySystemSubtitle or "Please enter your key",
-        Note = table.KeySystemNote or "Get your key from our Discord",
-        CorrectKeyCallback = table.OnCorrectKey or function() end,
-        IncorrectKeyCallback = table.OnIncorrectKey or function() end
-    }
-
-    if keySystem.Enabled then
-        local keyFrame = Instance.new("Frame")
-        keyFrame.Name = "KeySystem"
-        keyFrame.Size = UDim2.new(0, 300, 0, 150)
-        keyFrame.Position = UDim2.new(0.5, -150, 0.5, -75)
-        keyFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-        keyFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-        
-        local keyTitle = Instance.new("TextLabel")
-        keyTitle.Name = "Title"
-        keyTitle.Text = keySystem.Title
-        keyTitle.Size = UDim2.new(1, 0, 0, 30)
-        keyTitle.BackgroundTransparency = 1
-        keyTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-        keyTitle.Parent = keyFrame
-        
-        local keyInput = Instance.new("TextBox")
-        keyInput.Name = "KeyInput"
-        keyInput.Size = UDim2.new(0.8, 0, 0, 30)
-        keyInput.Position = UDim2.new(0.1, 0, 0.4, 0)
-        keyInput.Text = ""
-        keyInput.PlaceholderText = "Enter Key"
-        keyInput.Parent = keyFrame
-        
-        local submitButton = Instance.new("TextButton")
-        submitButton.Name = "Submit"
-        submitButton.Size = UDim2.new(0.4, 0, 0, 30)
-        submitButton.Position = UDim2.new(0.3, 0, 0.7, 0)
-        submitButton.Text = "Submit"
-        submitButton.Parent = keyFrame
-        
-        submitButton.MouseButton1Click:Connect(function()
-            if keyInput.Text == keySystem.Key then
-                keyFrame:Destroy()
-                keySystem.CorrectKeyCallback()
-                return self:CreateMainUI(table)
-            else
-                keyInput.Text = ""
-                keySystem.IncorrectKeyCallback()
-            end
-        end)
-        
-        return keyFrame
-    end
-    
-    return self:CreateMainUI(table)
-end
-
-function Library:CreateMainUI(table)
     local windowName = table.Name
+
     local main = Instance.new("Frame")
     main.Name = "main"
     main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
@@ -146,8 +88,6 @@ function Library:CreateMainUI(table)
     local UICorner15 = Instance.new("UICorner")
     UICorner15.Name = "UICorner2"
     UICorner15.Parent = Toggle
-end
-
 
     local tabHandler = {}
 

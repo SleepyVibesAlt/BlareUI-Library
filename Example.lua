@@ -2,17 +2,6 @@ local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Slee
 
 local win = BlareLib:Create({
     Name = "Blare Library",
-    KeySystem = true,
-    Key = "MySecretKey123",
-    KeySystemTitle = "Authentication Required",
-    KeySystemSubtitle = "Please enter your key to continue",
-    KeySystemNote = "Get your key from our Discord server",
-    OnCorrectKey = function()
-        print("Correct key entered!")
-    end,
-    OnIncorrectKey = function()
-        print("Incorrect key!")
-    end,
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
