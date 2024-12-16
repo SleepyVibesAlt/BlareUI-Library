@@ -13,9 +13,9 @@ local win = BlareLib:Create({
     }
 })
 
-Library:Blacklist({"BLXoo7i", "Player2", "Player3"})
+BlareLib:Blacklist({"BLXoo7i", "Player2", "Player3"})
 
-if Library:IsBlacklisted("PlayerName") then
+if BlareLib:IsBlacklisted("PlayerName") then
     print("Player is blacklisted!")
 end
 

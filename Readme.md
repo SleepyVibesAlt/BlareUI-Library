@@ -95,10 +95,10 @@ end) --> Default, Min, Max, CallBack
 ## Creating Blacklist
 ```lua
 --> Blacklist individual players
-Library:Blacklist("PlayerName")
+BlareLib:Blacklist("PlayerName")
 
 --> Blacklist multiple players at once
-Library:Blacklist({"Player1", "Player2", "Player3"})
+BlareLib:Blacklist({"Player1", "Player2", "Player3"})
 ```
 
 ## Creating Dropdown
