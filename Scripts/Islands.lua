@@ -142,10 +142,11 @@ MobFarmTab:Comment('The key where sword is, 1-9')
 MobFarmTab:Section('Slime Island')
 
 MobFarmTab:Toggle('Farm Slimes', function(v)
-    local Slime = game.workspace.WildernessIsland.Entities.slime
+    local Slimes = game.workspace.WildernessIsland.Entities
     SlimeFarm = v
     while SlimeFarm do
-        for _, slime in pairs(Slime:GetChildren()) do
+        print("Searching for slimes...")
+        for _, slime in pairs(Slimes:GetChildren()) do
             if slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 then
                 print("Found slime, attacking...")
                 
@@ -171,5 +172,4 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
         task.wait(1)
     end
 end)
-
 BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. "!", 2)
