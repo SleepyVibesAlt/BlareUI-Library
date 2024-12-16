@@ -9,12 +9,6 @@ local win = BlareLib:Create({
     }
 })
 
-BlareLib:Blacklist({"Player1", "Player2", "Player3"})
-
-if BlareLib:IsBlacklisted("PlayerName") then
-    print("Player is blacklisted!")
-end
-
 local maintab = win:Tab('Main')
 local charactertab = win:Tab('Character')
 local uitab = win:Tab('UI')

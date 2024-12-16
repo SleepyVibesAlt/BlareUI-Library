@@ -35,7 +35,7 @@ AutoFarmTab:Textbox('Autofarm Radius', function(value)
 end)
 AutoFarmTab:Comment('Lower these for better chance of the anticheat not detecting')
 
-AutoFarmTab:Section('Resource')
+AutoFarmTab:Section('Resource Farming')
 AutoFarmTab:Toggle('Auto Fish', function(v)
     autoFish = v
     if autoFish then
