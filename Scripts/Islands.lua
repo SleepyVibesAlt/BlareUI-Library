@@ -7,7 +7,7 @@ local MaxHealth = Humanoid.MaxHealth
 local win = BlareLib:Create({
     Name = "Islands Script",
     StartupSound = {
-        Toggle = false,
+        Toggle = true,
         SoundID = "rbxassetid://6958727243",
         TimePosition = 1
     }
