@@ -41,17 +41,16 @@ function Library:Blacklist(names)
             end
         end
     end
-end
 
-game.Players.PlayerAdded:Connect(function(player)
-    for _, blacklistedName in pairs(Library.BlacklistedPlayers) do
-        if player.Name:lower() == blacklistedName:lower() then
-            player:Kick("You are blacklisted")
-            break
+    if game.Players.LocalPlayer then
+        for _, blacklistedName in pairs(Library.BlacklistedPlayers) do
+            if game.Players.LocalPlayer.Name:lower() == blacklistedName:lower() then
+                game.Players.LocalPlayer:Kick("You are blacklisted")
+                break
+            end
         end
     end
-end)
-
+end
 function Library:Create(table)
     local windowName = table.Name
 
