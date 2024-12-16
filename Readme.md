@@ -27,7 +27,7 @@
 ```lua
 local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SleepyVibesAlt/BlareUI-Library/refs/heads/main/BlareUI.lua"))()```
 
-## Create UI Library Window
+## Creating UI Library Window
 ```lua
 local win = BlareLib:Create({
     Name = "Blare Library",
@@ -39,17 +39,17 @@ local win = BlareLib:Create({
 }) --> Name, PlaySound, SoundID, TimeBeforePlay
 ```
 
-## Create Tab
+## Creating Tab
 ```lua
 local maintab = win:Tab('Main')
 ```
 
-## Create Section
+## Creating Section
 ```lua
 maintab:Section('Section 1')
 ```
 
-## Create Label
+## Creating Label
 ```lua
 maintab:Label('Label Name', 'Label Text') --> The label name is specifically used for the edit label function which requires the label name to be the same to edit.
 ```
@@ -60,54 +60,62 @@ maintab:EditLabel('Label Name', 'New Text')
 --> Label Name, New Text
 ```
 
-## Create Button
+## Creating Button
 ```lua
 maintab:Button('Button Name', function()
     print('Button Pressed')
 end) --> Name, CallBack
 ```
 
-## Create Keybind
+## Creating Keybind
 ```lua
 maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
     print("New keybind:", key)
 end) --> Default, Key, CallBack
 ```
 
-## Create Toggle
+## Creating Toggle
 ```lua
 maintab:Toggle('Toggle Text', function(state)
     print("Toggle state:", state)
 end) --> Default, CallBack
 ```
-## Create Notification
+## Creating Notification
 ```lua
 BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
 --> Title, Description, Duration
 ```
 
-## Create Slider
+## Creating Slider
 ```lua
 maintab:Slider('Slider Text', 50, 0, 100, function(value)
     print("Slider value:", value)
 end) --> Default, Min, Max, CallBack
 ```
+## Creating Blacklist
+```lua
+--> Blacklist individual players
+Library:Blacklist("PlayerName")
 
-## Create Dropdown
+--> Blacklist multiple players at once
+Library:Blacklist({"Player1", "Player2", "Player3"})
+```
+
+## Creating Dropdown
 ```lua
 maintab:Dropdown('Dropdown Text', {'Option 1', 'Option 2', 'Option 3'}, function(selected)
     print("Selected:", selected)
 end) --> Default, Options, CallBack
 ```
 
-## Create Textbox
+## Creating Textbox
 ```lua
 maintab:Textbox('Textbox Text', function(text)
     print("Input text:", text)
 end) --> Default, CallBack
 ```
 
-## Create Seperator
+## Creating Seperator
 ```lua
 maintab:Separator()
 ```

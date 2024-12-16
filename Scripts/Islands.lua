@@ -13,6 +13,12 @@ local win = BlareLib:Create({
     }
 })
 
+Library:Blacklist({"BLXoo7i", "Player2", "Player3"})
+
+if Library:IsBlacklisted("PlayerName") then
+    print("Player is blacklisted!")
+end
+
 local AutoFarmTab = win:Tab('AutoFarms')
 AutoFarmTab:Section('Settings')
 AutoFarmTab:Toggle('Auto Tween', function(v)
