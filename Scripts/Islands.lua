@@ -157,17 +157,19 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
                 tween:Play()
                 tween.Completed:Wait()
                 
-                local virtualInput = game:GetService("VirtualInputManager")
-                virtualInput:SendMouseButtonEvent(0, 0, 0, true, game, 1)
-                task.wait(0.1)
-                virtualInput:SendMouseButtonEvent(0, 0, 0, false, game, 1)
-                repeat
+                while slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 and SlimeFarm do
+                    Character.HumanoidRootPart.CFrame = slime.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
+                    local virtualInput = game:GetService("VirtualInputManager")
+                    virtualInput:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+                    task.wait(0.1)
+                    virtualInput:SendMouseButtonEvent(0, 0, 0, false, game, 1)
                     task.wait()
-                until not slime:FindFirstChild("Humanoid") or slime.Humanoid.Health <= 0
+                end
                 print("Slime defeated!")
             end
         end
         task.wait(1)
     end
 end)
+
 BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. "!", 2)
