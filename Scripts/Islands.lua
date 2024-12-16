@@ -67,9 +67,6 @@ AutoFarmTab:Toggle('Auto Fish', function(v)
     end
 end)
 
-
-AutoFarmTab:Section('Ores')
-
 AutofarmTab:Toggle('Iron Ore', function(v)
     ironFarm = v
     if ironFarm then
