@@ -41,7 +41,7 @@ AutoFarmTab:Toggle('Iron Ore', function(v)
     IronOre = v
     while IronOre do
         if ShouldTween then
-            local ironOre = workspace:FindFirstChild("rockIron")
+            local ironOre = workspace:GetDescendants("IronOre")[1]
             if ironOre then
                 local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
                 local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {CFrame = ironOre.CFrame * CFrame.new(0, 3, 0)})
@@ -49,18 +49,23 @@ AutoFarmTab:Toggle('Iron Ore', function(v)
                 tween.Completed:Wait()
             end
         end
-        
-        local args = {
-            [1] = {
-                ["xkpOrfvithbzcvKundjsvoamBnpkqBsXm"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nkyaxebDphmkcyha",
-                ["part"] = workspace:FindFirstChild("rockIron"):FindFirstChild("1"),
-                ["block"] = workspace:FindFirstChild("rockIron"),
-                ["norm"] = Vector3.new(-3459.94384765625, 37.332237243652344, -3543.42919921875),
-                ["pos"] = Vector3.new(-0.26722002029418945, 0.8833552598953247, -0.3850674331188202)
-            }
-        }
+        local rockIron = workspace:FindFirstChild("rockIron")
+        if rockIron then
+            local part = rockIron:FindFirstChild("1")
+            if part then
+                local args = {
+                    [1] = {
+                        ["xkpOrfvithbzcvKundjsvoamBnpkqBsXm"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nkyaxebDphmkcyha",
+                        ["part"] = part,
+                        ["block"] = rockIron,
+                        ["norm"] = part.Position - Character.HumanoidRootPart.Position,
+                        ["pos"] = (part.Position - rockIron.Position).Unit
+                    }
+                }
 
-        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_BLOCK_HIT_REQUEST:InvokeServer(unpack(args))
+                game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_BLOCK_HIT_REQUEST:InvokeServer(unpack(args))
+            end
+        end
         task.wait(0.1)
     end
 end)
