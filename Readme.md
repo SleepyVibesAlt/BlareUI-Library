@@ -93,11 +93,6 @@ maintab:Slider('Slider Text', 50, 0, 100, function(value)
 end) --> Default, Min, Max, CallBack
 ```
 
-## Create Search Bar
-```lua
-BlareLib:SearchBar()
-```
-
 ## Create Dropdown
 ```lua
 maintab:Dropdown('Dropdown Text', {'Option 1', 'Option 2', 'Option 3'}, function(selected)

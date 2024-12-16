@@ -14,7 +14,6 @@ local win = BlareLib:Create({
 })
 
 local AutoFarmTab = win:Tab('AutoFarms')
-BlareLib:SearchBar()
 AutoFarmTab:Section('Settings')
 AutoFarmTab:Toggle('Auto Tween', function(v)
     tweenEnabled = v

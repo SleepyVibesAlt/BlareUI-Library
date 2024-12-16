@@ -26,7 +26,7 @@ function Library:Create(table)
     main.Name = "main"
     main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
     main.Position = UDim2.fromScale(0.244, 0.292)
-    main.Size = UDim2.fromOffset(600, 400)
+    main.Size = UDim2.fromOffset(488, 299)
 
     local title = Instance.new("TextLabel")
     title.Name = "title"
@@ -48,7 +48,7 @@ function Library:Create(table)
     tabContainer.Name = "tabContainer"
     tabContainer.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
     tabContainer.Position = UDim2.fromScale(0.0342, 0.188)
-    tabContainer.Size = UDim2.fromOffset(566, 35)
+    tabContainer.Size = UDim2.fromOffset(454, 30)
 
     local uICorner1 = Instance.new("UICorner")
     uICorner1.Name = "uICorner1"
@@ -115,7 +115,7 @@ function Library:Create(table)
         container.Name = "container"
         container.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
         container.Position = UDim2.fromScale(0.0342, 0.31)
-        container.Size = UDim2.fromOffset(566, 284)
+        container.Size = UDim2.fromOffset(454, 183)
         
         local uICorner2 = Instance.new("UICorner")
         uICorner2.Name = "uICorner2"
@@ -133,7 +133,7 @@ function Library:Create(table)
         holder.BackgroundTransparency = 1
         holder.BorderColor3 = Color3.fromRGB(33, 33, 33)
         holder.Position = UDim2.fromScale(0.0022, 0.00404)
-        holder.Size = UDim2.fromOffset(564, 283)
+        holder.Size = UDim2.fromOffset(452, 182)
         holder.CanvasSize = UDim2.fromOffset(0, 0)
 
 
@@ -186,7 +186,7 @@ function Library:Create(table)
             local label = Instance.new("Frame")
             label.Name = Name
             label.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            label.Size = UDim2.fromOffset(553, 64)
+            label.Size = UDim2.fromOffset(441, 32)
             label.Parent = holder
     
             local uICorner3 = Instance.new("UICorner")
@@ -248,7 +248,7 @@ function Library:Create(table)
             local keybind = Instance.new("Frame")
             keybind.Name = "keybind"
             keybind.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            keybind.Size = UDim2.fromOffset(553, 64)
+            keybind.Size = UDim2.fromOffset(441, 32)
             
             local uICorner = Instance.new("UICorner")
             uICorner.CornerRadius = UDim.new(0, 6)
@@ -311,59 +311,6 @@ function Library:Create(table)
                 end
             }
         end        
-
-        function Library:SearchBar()
-            local searchContainer = Instance.new("Frame")
-            searchContainer.Name = "SearchContainer"
-            searchContainer.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-            searchContainer.Position = UDim2.fromScale(0.0342, 0.125)
-            searchContainer.Size = UDim2.fromOffset(454, 30)
-            searchContainer.Parent = main
-            
-            local uICorner = Instance.new("UICorner")
-            uICorner.CornerRadius = UDim.new(0, 6)
-            uICorner.Parent = searchContainer
-            
-            local searchBox = Instance.new("TextBox")
-            searchBox.Name = "SearchBox"
-            searchBox.PlaceholderText = "Search..."
-            searchBox.Text = ""
-            searchBox.TextColor3 = Color3.fromRGB(195, 195, 195)
-            searchBox.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
-            searchBox.BackgroundTransparency = 1
-            searchBox.Font = Enum.Font.Gotham
-            searchBox.TextSize = 13
-            searchBox.Position = UDim2.fromScale(0.02, 0)
-            searchBox.Size = UDim2.fromScale(0.96, 1)
-            searchBox.Parent = searchContainer
-            
-            local function performSearch()
-                local searchText = searchBox.Text:lower()
-                for _, container in pairs(main:GetChildren()) do
-                    if container.Name == "container" then
-                        for _, element in pairs(container.holder:GetChildren()) do
-                            if element:FindFirstChild("textLabel") or element:FindFirstChild("textLabel1") 
-                            or element:FindFirstChild("textLabel4") or element:FindFirstChild("textLabel5") then
-                                local elementText = (element:FindFirstChild("textLabel") or 
-                                                   element:FindFirstChild("textLabel1") or 
-                                                   element:FindFirstChild("textLabel4") or 
-                                                   element:FindFirstChild("textLabel5")).Text:lower()
-                                
-                                if searchText == "" then
-                                    element.Visible = true
-                                else
-                                    element.Visible = elementText:find(searchText) and true or false
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-            
-            searchBox:GetPropertyChangedSignal("Text"):Connect(performSearch)
-            
-            return searchBox
-        end
         
         function ElementHandler:Separator()
             local separator = Instance.new("Frame")
@@ -385,7 +332,7 @@ function Library:Create(table)
             button.Name = "button"
             button.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
             button.Position = UDim2.fromScale(0, 0.135)
-            button.Size = UDim2.fromOffset(553, 64)
+            button.Size = UDim2.fromOffset(441, 32)
             button.Text = ""
             button.AutoButtonColor = false
 
@@ -441,7 +388,7 @@ function Library:Create(table)
             local dropdown = Instance.new("Frame")
             dropdown.Name = "dropdown"
             dropdown.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            dropdown.Size = UDim2.fromOffset(553, 64)
+            dropdown.Size = UDim2.fromOffset(441, 32)
             dropdown.ZIndex = 1
         
             local uICorner = Instance.new("UICorner")
@@ -496,7 +443,7 @@ function Library:Create(table)
             dropFrame.Name = "dropFrame"
             dropFrame.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
             dropFrame.Position = UDim2.fromOffset(0, 40)
-            dropdown.Size = UDim2.fromOffset(553, 64)
+            dropdown.Size = UDim2.fromOffset(441, 32)
             dropFrame.ClipsDescendants = true
             dropFrame.Visible = false
             dropFrame.ZIndex = 1
@@ -673,7 +620,7 @@ function Library:Create(table)
             local slider = Instance.new("TextButton")
             slider.Name = "slider"
             slider.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            slider.Size = UDim2.fromOffset(553, 64)
+            slider.Size = UDim2.fromOffset(441, 32)
             slider.Text = ""
             slider.AutoButtonColor = false
 
@@ -784,7 +731,7 @@ function Library:Create(table)
             local toggle1 = Instance.new("TextButton")
             toggle1.Name = "toggle1"
             toggle1.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            toggle1.Size = UDim2.fromOffset(553, 64)
+            toggle1.Size = UDim2.fromOffset(441, 32)
             toggle1.Text = ""
             toggle1.AutoButtonColor = false
 
@@ -859,7 +806,7 @@ function Library:Create(table)
             comment.TextSize = 11
             comment.TextXAlignment = Enum.TextXAlignment.Left
             comment.BackgroundTransparency = 1
-            comment.Size = UDim2.fromOffset(553, 20)
+            comment.Size = UDim2.fromOffset(441, 20)
             comment.Parent = holder
             
             local listLayout = holder:FindFirstChildWhichIsA('UIListLayout')
@@ -875,7 +822,7 @@ function Library:Create(table)
             local textbox = Instance.new("Frame")
             textbox.Name = "textbox"
             textbox.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            textbox.Size = UDim2.fromOffset(553, 64)
+            textbox.Size = UDim2.fromOffset(441, 32)
 
             local uICorner13 = Instance.new("UICorner")
             uICorner13.Name = "uICorner13"
