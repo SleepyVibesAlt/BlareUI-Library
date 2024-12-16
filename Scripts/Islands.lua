@@ -1,6 +1,7 @@
 local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SleepyVibesAlt/BlareUI-Library/refs/heads/main/BlareUI.lua"))()
 local Player = game.Players.LocalPlayer
-local Humanoid = Player.Character.Humanoid
+local Character = Player.Character or Player.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
 local Health = Humanoid.Health
 local MaxHealth = Humanoid.MaxHealth
 
@@ -21,7 +22,7 @@ end)
 
 AutoFarmTab:Textbox('Autofarm Radius', function(value)
     Radius = tonumber(value)
-    print("Radius set to:", fov)
+    print("Radius set to:", Radius)
 end)
 AutoFarmTab:Comment('Lower these for better chance of the anticheat not detecting')
 
@@ -30,20 +31,22 @@ AutoFarmTab:Toggle('Auto Fish', function(v)
     autoFish = v
     if autoFish then
         spawn(function()
-            while autoFish do
+            while autoFish and task.wait(10) do
+                if not Player.Character or not Player.Character:FindFirstChild("HumanoidRootPart") then continue end
+                
                 local args = {
                     [1] = "cdf239f8-f9a1-4ca0-86a5-413afe000191",
                     [2] = {
                         [1] = {
-                            ["playerLocation"] = game.Players.LocalPlayer.Character.HumanoidRootPart.Position,
-                            ["direction"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.LookVector,
+                            ["playerLocation"] = Player.Character.HumanoidRootPart.Position,
+                            ["direction"] = Player.Character.HumanoidRootPart.CFrame.LookVector,
                             ["strength"] = 0.5
                         }
                     }
                 }
                 
                 game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged:FindFirstChild("jtEIwpvoyxfyedcIomzEcuywKczW/rpjmsslmMwtNp"):FireServer(unpack(args))
-                wait(10)
+                task.wait(1)
                 local args = {
                     [1] = {
                         ["success"] = true
@@ -60,13 +63,16 @@ AutoFarmTab:Toggle('Autofarm Wood', function(v)
     getWood = v
     if getWood then
         spawn(function()
-            while getWood do
+            while getWood and task.wait() do
+                if not Player.Character or not Player.Character:FindFirstChild("HumanoidRootPart") then continue end
+                
                 for _, v in pairs(workspace:GetDescendants()) do
-                    if v.Name == "trunk" and (v.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= Radius then
+                    if not getWood then break end
+                    if v.Name == "trunk" and (v.Position - Player.Character.HumanoidRootPart.Position).Magnitude <= Radius then
                         if tweenEnabled then
                             local tweenService = game:GetService("TweenService")
                             local tweenInfo = TweenInfo.new(2.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0)
-                            local tween = tweenService:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, tweenInfo, {
+                            local tween = tweenService:Create(Player.Character.HumanoidRootPart, tweenInfo, {
                                 CFrame = CFrame.new(v.Position + Vector3.new(0, 3, 0))
                             })
                             tween:Play()
@@ -82,10 +88,9 @@ AutoFarmTab:Toggle('Autofarm Wood', function(v)
                             }
                         }
                         game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_BLOCK_HIT_REQUEST:InvokeServer(unpack(args))
-                        wait(1)
+                        task.wait(1)
                     end
                 end
-                wait()
             end
         end)
     end
@@ -96,13 +101,16 @@ AutoFarmTab:Toggle('AutoFarm IronOre', function(v)
     getIron = v
     if getIron then
         spawn(function()
-            while getIron do
+            while getIron and task.wait() do
+                if not Player.Character or not Player.Character:FindFirstChild("HumanoidRootPart") then continue end
+                
                 for _, v in pairs(workspace:GetDescendants()) do
-                    if v.Name == "rockIron" and (v.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= Radius then
+                    if not getIron then break end
+                    if v.Name == "rockIron" and (v.Position - Player.Character.HumanoidRootPart.Position).Magnitude <= Radius then
                         if tweenEnabled then
                             local tweenService = game:GetService("TweenService")
                             local tweenInfo = TweenInfo.new(2.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0)
-                            local tween = tweenService:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, tweenInfo, {
+                            local tween = tweenService:Create(Player.Character.HumanoidRootPart, tweenInfo, {
                                 CFrame = CFrame.new(v.Position + Vector3.new(0, 3, 0))
                             })
                             tween:Play()
@@ -114,14 +122,13 @@ AutoFarmTab:Toggle('AutoFarm IronOre', function(v)
                                 ["part"] = v:FindFirstChild("1"),
                                 ["block"] = v,
                                 ["norm"] = v.Position,
-                                ["pos"] = (v.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Unit
+                                ["pos"] = (v.Position - Player.Character.HumanoidRootPart.Position).Unit
                             }
                         }
                         game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_BLOCK_HIT_REQUEST:InvokeServer(unpack(args))
-                        wait(0.5)
+                        task.wait(0.5)
                     end
                 end
-                wait()
             end
         end)
     end
@@ -131,13 +138,16 @@ AutoFarmTab:Toggle('AutoFarm Electrite', function(v)
     getElectrite = v
     if getElectrite then
         spawn(function()
-            while getElectrite do
+            while getElectrite and task.wait() do
+                if not Player.Character or not Player.Character:FindFirstChild("HumanoidRootPart") then continue end
+                
                 for _, v in pairs(workspace:GetDescendants()) do
-                    if v.Name == "rockElectrite" and (v.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= Radius then
+                    if not getElectrite then break end
+                    if v.Name == "rockElectrite" and (v.Position - Player.Character.HumanoidRootPart.Position).Magnitude <= Radius then
                         if tweenEnabled then
                             local tweenService = game:GetService("TweenService")
                             local tweenInfo = TweenInfo.new(2.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out, 0, false, 0)
-                            local tween = tweenService:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, tweenInfo, {
+                            local tween = tweenService:Create(Player.Character.HumanoidRootPart, tweenInfo, {
                                 CFrame = CFrame.new(v.Position + Vector3.new(0, 3, 0))
                             })
                             tween:Play()
@@ -149,14 +159,13 @@ AutoFarmTab:Toggle('AutoFarm Electrite', function(v)
                                 ["part"] = v:FindFirstChild("1"),
                                 ["block"] = v,
                                 ["norm"] = v.Position,
-                                ["pos"] = (v.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Unit
+                                ["pos"] = (v.Position - Player.Character.HumanoidRootPart.Position).Unit
                             }
                         }
                         game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_BLOCK_HIT_REQUEST:InvokeServer(unpack(args))
-                        wait(0.5)
+                        task.wait(0.5)
                     end
                 end
-                wait()
             end
         end)
     end
@@ -167,11 +176,14 @@ AutoFarmTab:Toggle('Collect Starfruits', function(v)
     getStarfruit = v
     if getStarfruit then
         spawn(function()
-            while getStarfruit do
+            while getStarfruit and task.wait(0.1) do
+                if not Player.Character or not Player.Character:FindFirstChild("HumanoidRootPart") then continue end
+                
                 for _, starfruit in pairs(workspace:GetDescendants()) do
+                    if not getStarfruit then break end
                     if starfruit.Name == "starfruit" and starfruit:IsA("Part") then
-                        local humanoid = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
-                        local humanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                        local humanoid = Player.Character:FindFirstChild("Humanoid")
+                        local humanoidRootPart = Player.Character:FindFirstChild("HumanoidRootPart")
                         
                         if humanoid and humanoidRootPart then
                             local distance = (starfruit.Position - humanoidRootPart.Position).Magnitude
@@ -188,19 +200,18 @@ AutoFarmTab:Toggle('Collect Starfruits', function(v)
                                 
                                 local args = {
                                     [1] = {
-                                        ["player"] = game:GetService("Players").LocalPlayer,
+                                        ["player"] = Player,
                                         ["tukiqepvhyyBj"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nFOenfsq",
                                         ["model"] = starfruit
                                     }
                                 }
                                 
                                 game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_HARVEST_CROP_REQUEST:InvokeServer(unpack(args))
-                                wait(1)
+                                task.wait(1)
                             end
                         end
                     end
                 end
-                wait(0.1)
             end
         end)
     end
@@ -210,11 +221,14 @@ AutoFarmTab:Toggle('Collect Red Mushrooms', function(v)
     getMushroom = v
     if getMushroom then
         spawn(function()
-            while getMushroom do
+            while getMushroom and task.wait(0.1) do
+                if not Player.Character or not Player.Character:FindFirstChild("HumanoidRootPart") then continue end
+                
                 for _, mushroom in pairs(workspace:GetDescendants()) do
+                    if not getMushroom then break end
                     if mushroom.Name == "mushroomRed" and mushroom:IsA("Part") then
-                        local humanoid = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
-                        local humanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                        local humanoid = Player.Character:FindFirstChild("Humanoid")
+                        local humanoidRootPart = Player.Character:FindFirstChild("HumanoidRootPart")
                         
                         if humanoid and humanoidRootPart then
                             local distance = (mushroom.Position - humanoidRootPart.Position).Magnitude
@@ -231,19 +245,18 @@ AutoFarmTab:Toggle('Collect Red Mushrooms', function(v)
                                 
                                 local args = {
                                     [1] = {
-                                        ["player"] = game:GetService("Players").LocalPlayer,
+                                        ["player"] = Player,
                                         ["tukiqepvhyyBj"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nFOenfsq",
                                         ["model"] = mushroom
                                     }
                                 }
                                 
                                 game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_HARVEST_CROP_REQUEST:InvokeServer(unpack(args))
-                                wait(1)
+                                task.wait(1)
                             end
                         end
                     end
                 end
-                wait(0.1)
             end
         end)
     end
@@ -254,8 +267,8 @@ charactertab:Section('Player Settings')
 charactertab:Button('Anti-AFK', function()
     local vu = game:GetService("VirtualUser")
     game:GetService("Players").LocalPlayer.Idled:Connect(function()
-    vu:CaptureController()
-    vu:ClickButton2(Vector2.new())
+        vu:CaptureController()
+        vu:ClickButton2(Vector2.new())
     end)    
 end)
 
