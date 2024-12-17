@@ -125,35 +125,6 @@ end)
 local MobFarmTab = win:Tab('Mob Farm')
 MobFarmTab:Section('Settings')
 
-MobFarmTab:Textbox('Red Berry Slot', function(value)
-    local newPos = tonumber(value)
-    local Position = 3
-    if newPos then
-        Position = newPos
-        print("Food Position set to:", Position)
-        BlareLib:CreateNotification("Updated!", "Food positon updated: "..  2)
-    else
-        BlareLib:CreateNotification("Invalid Input", "Please enter a number, words don't work!", 3)
-    end
-end)
-MobFarmTab:Comment('The slot where the Red Berries is, slots 1-9')
-
-MobFarmTab:Toggle('Auto Heal (Red Berries)', function(v)
-    AutoHeal = v
-    while AutoHeal do
-        local Health = Character:WaitForChild("Humanoid").Health
-        local MaxHealth = Character:WaitForChild("Humanoid").MaxHealth
-        
-        if Health < MaxHealth then
-            local virtualInput = game:GetService("VirtualInputManager")
-            virtualInput:SendKeyEvent(true, tostring(Position), false, game)
-            task.wait(0.1)
-            print("Red Berries used")
-        end
-        task.wait(0.1)
-    end
-end)
-
 MobFarmTab:Section('Slime Island')
 
 MobFarmTab:Toggle('Farm Slimes', function(v)
@@ -174,7 +145,7 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
         end
         
         if closestSlime then
-            local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Linear)
+            local tweenInfo = TweenInfo.new(5, Enum.EasingStyle.Linear)
             local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {
                 CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
             })
@@ -184,10 +155,9 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
             while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
                 Character.HumanoidRootPart.CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
                 local virtualInput = game:GetService("VirtualInputManager")
-                virtualInput:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
                 task.wait(0.1)
-                virtualInput:SendMouseButtonEvent(0, 0, 0, false, game, 1)
-                task.wait()
+                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)                task.wait()
             end
             print("Slime defeated!")
         end
