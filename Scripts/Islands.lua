@@ -145,12 +145,9 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
         end
         
         if closestSlime then
-            local tweenInfo = TweenInfo.new(5, Enum.EasingStyle.Linear)
-            local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {
-                CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 8, 0)
-            })
-            tween:Play()
-            tween.Completed:Wait()
+            -- Walk to slime instead of tweening
+            Humanoid:MoveTo(closestSlime.HumanoidRootPart.Position)
+            Humanoid.MoveToFinished:Wait()
             
             while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
                 Character.HumanoidRootPart.CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 8, 0)
@@ -167,4 +164,4 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
     end
 end)
 
-BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. ", we hope u enjoy!", 2)
+BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. "!", 2)
