@@ -18,7 +18,7 @@ local win = BlareLib:Create({
 })
 
 local AutoFarmTab = win:Tab('AutoFarms')
-AutoFarmTab:Section('Settings')
+AutoFarmTab:Section('Setting')
 AutoFarmTab:Toggle('Auto Goto', function(v)
     ShouldGoto = v
 end)
