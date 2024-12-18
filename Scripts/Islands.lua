@@ -132,7 +132,7 @@ MobFarmTab:Textbox('Search Distance', function(value)
         BlareLib:CreateNotification("Invalid Input", "Please enter a number!", 3)
     end
 end)
-MobFarmTab:Comment('Please equip your sword before enabling and also go to the island first.')
+MobFarmTab:Comment('Please equip your sword before enabling and also go to the island first. Sometimes the autofarm might bug the gui due to the automatic clicking!')
 MobFarmTab:Section('Slime Island')
 
 MobFarmTab:Toggle('Farm Slimes', function(v)
