@@ -145,9 +145,9 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
         end
         
         if closestSlime then
-            local tweenInfo = TweenInfo.new(5, Enum.EasingStyle.Linear)
+            local tweenInfo = TweenInfo.new(10, Enum.EasingStyle.Linear)
             local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {
-                CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 2, 0)
+                CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
             })
             tween:Play()
             tween.Completed:Wait()
