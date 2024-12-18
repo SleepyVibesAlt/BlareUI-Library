@@ -17,6 +17,8 @@ local win = BlareLib:Create({
     }
 })
 
+win:SetStatus("Loading...", Color3.fromRGB(255, 255, 0))
+
 local AutoFarmTab = win:Tab('AutoFarms')
 AutoFarmTab:Section('Settings')
 AutoFarmTab:Toggle('Auto Goto', function(v)
