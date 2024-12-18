@@ -193,6 +193,7 @@ MobFarmTab:Toggle('Test', function(v)
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
                 local EntityUUID = closestSlime.EntityUUID.Value
                 print(EntityUUID)
+                wait(1)
             end
             print("Slime defeated!")
         end
