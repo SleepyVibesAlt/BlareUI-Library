@@ -17,8 +17,6 @@ local win = BlareLib:Create({
     }
 })
 
-win:SetStatus("Loading...", Color3.fromRGB(255, 255, 0))
-
 local AutoFarmTab = win:Tab('AutoFarms')
 AutoFarmTab:Section('Settings')
 AutoFarmTab:Toggle('Auto Goto', function(v)
@@ -172,7 +170,7 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
     end
 end)
 
-MobFarmTab:Toggle('Farm Slimes', function(v)
+MobFarmTab:Toggle('Test', function(v)
     local Slimes = game.workspace.WildernessIsland.Entities
     SlimeFarm = v
     while SlimeFarm do

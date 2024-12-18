@@ -163,17 +163,6 @@ function Library:Create(table)
         container.Parent = main
         container.Visible = false
 
-        function tabHandler:SetStatus(text, color)
-            local statusText = main:WaitForChild("StatusBar"):WaitForChild("StatusText")
-            statusText.Text = text
-            
-            if color then
-                statusText.TextColor3 = color
-            else
-                statusText.TextColor3 = Color3.fromRGB(195, 195, 195)
-            end
-        end
-
         --// Event
         main1.MouseButton1Click:Connect(function()
             for _,v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
