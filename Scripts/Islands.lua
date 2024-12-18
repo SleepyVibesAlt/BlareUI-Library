@@ -117,11 +117,8 @@ AutoFarmTab:Toggle('Eletrite Ore', function(v)
 end)
 
 local MobFarmTab = win:Tab('Mob Farm')
-MobFarmTab:Section('Settings')
 
-MobFarmTab:Toggle('Anti Stuck', function(v)
-    AntiStuck = v
-end)
+MobFarmTab:Section('Settings')
 
 local SearchDistance = 300
 
@@ -144,7 +141,7 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
     while SlimeFarm do
         local closestSlime = nil
         local closestDistance = math.huge
-        
+       
         for _, slime in pairs(Slimes:GetChildren()) do
             if slime.Name == "slime" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 and SlimeFarm then
                 local distance = (slime.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
@@ -154,28 +151,12 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
                 end
             end
         end
-        
+       
         if closestSlime then
-            local lastPos = Character.HumanoidRootPart.Position
-            local stuckTimer = 0
-            
             while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
                 Humanoid:MoveTo(closestSlime.HumanoidRootPart.Position)
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
-                
-                if AntiStuck then
-                    if (lastPos - Character.HumanoidRootPart.Position).Magnitude < 0.1 then
-                        stuckTimer = stuckTimer + 1
-                        if stuckTimer > 20 then
-                            Character.Humanoid.Health = 0
-                            stuckTimer = 0
-                        end
-                    else
-                        stuckTimer = 0
-                    end
-                    lastPos = Character.HumanoidRootPart.Position
-                end
-                
+               
                 local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
                 task.wait()
@@ -194,7 +175,7 @@ MobFarmTab:Toggle('Farm slimeKing', function(v)
     while SlimeKingFarm do
         local closestSlime = nil
         local closestDistance = math.huge
-        
+       
         for _, slime in pairs(Slimes:GetChildren()) do
             if slime.Name == "slimeKing" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 and SlimeKingFarm then
                 local distance = (slime.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
@@ -204,28 +185,12 @@ MobFarmTab:Toggle('Farm slimeKing', function(v)
                 end
             end
         end
-        
+       
         if closestSlime then
-            local lastPos = Character.HumanoidRootPart.Position
-            local stuckTimer = 0
-            
             while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeKingFarm do
                 Humanoid:MoveTo(closestSlime.HumanoidRootPart.Position)
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
-                
-                if AntiStuck then
-                    if (lastPos - Character.HumanoidRootPart.Position).Magnitude < 0.1 then
-                        stuckTimer = stuckTimer + 1
-                        if stuckTimer > 20 then
-                            Character.Humanoid.Health = 0
-                            stuckTimer = 0
-                        end
-                    else
-                        stuckTimer = 0
-                    end
-                    lastPos = Character.HumanoidRootPart.Position
-                end
-                
+               
                 local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
                 task.wait()
@@ -246,7 +211,7 @@ MobFarmTab:Toggle('Farm buffalkor', function(v)
     while BuffalkorFarm do
         local closestBuffalkor = nil
         local closestDistance = math.huge
-        
+       
         for _, mob in pairs(Entities:GetChildren()) do
             if mob.Name == "buffalkor" and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 and BuffalkorFarm then
                 local distance = (mob.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
@@ -256,28 +221,12 @@ MobFarmTab:Toggle('Farm buffalkor', function(v)
                 end
             end
         end
-        
+       
         if closestBuffalkor then
-            local lastPos = Character.HumanoidRootPart.Position
-            local stuckTimer = 0
-            
             while closestBuffalkor:FindFirstChild("Humanoid") and closestBuffalkor.Humanoid.Health > 0 and BuffalkorFarm do
                 Humanoid:MoveTo(closestBuffalkor.HumanoidRootPart.Position)
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestBuffalkor.HumanoidRootPart.Position)
-                
-                if AntiStuck then
-                    if (lastPos - Character.HumanoidRootPart.Position).Magnitude < 0.1 then
-                        stuckTimer = stuckTimer + 1
-                        if stuckTimer > 20 then
-                            Character.Humanoid.Health = 0
-                            stuckTimer = 0
-                        end
-                    else
-                        stuckTimer = 0
-                    end
-                    lastPos = Character.HumanoidRootPart.Position
-                end
-                
+               
                 local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
                 task.wait()
@@ -289,4 +238,5 @@ MobFarmTab:Toggle('Farm buffalkor', function(v)
         task.wait(0.1)
     end
 end)
+
 BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. ", we hope u enjoy!", 2)
