@@ -134,6 +134,7 @@ MobFarmTab:Textbox('Search Distance', function(value)
         BlareLib:CreateNotification("Invalid Input", "Please enter a number!", 3)
     end
 end)
+
 MobFarmTab:Comment('Please equip your sword before enabling and also go to the island first. Sometimes the autofarm might bug the gui due to the automatic clicking!')
 MobFarmTab:Section('Slime Island')
 
@@ -171,6 +172,47 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
     end
 end)
 
+MobFarmTab:Toggle('Farm Slimes', function(v)
+    local Slimes = game.workspace.WildernessIsland.Entities
+    SlimeFarm = v
+    while SlimeFarm do
+        local closestSlime = nil
+        local closestDistance = math.huge
+       
+        for _, slime in pairs(Slimes:GetChildren()) do
+            if slime.Name == "slime" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 and SlimeFarm then
+                local distance = (slime.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
+                if distance < closestDistance and distance <= SearchDistance then
+                    closestSlime = slime
+                    closestDistance = distance
+                end
+            end
+        end
+       
+        if closestSlime then
+            while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
+                Humanoid:MoveTo(closestSlime.HumanoidRootPart.Position)
+                workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
+                local EntityUUID = slime.EntityUUID
+                local args = {
+                    [1] = EntityUUID,
+                    [2] = {
+                        [1] = {
+                            ["UiItXhnkf"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nTwudhybaivliemzqrcNmf",
+                            ["hitUnit"] = workspace.WildernessIsland.Entities[slime]
+                        }
+                    }
+                }
+                
+                game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged:FindFirstChild("jiqEhnmoMV/ZlgessyomwyEX"):FireServer(unpack(args))
+                print(EntityUUID)
+                print("Remote fired!")
+            end
+            print("Slime defeated!")
+        end
+        task.wait(0.1)
+    end
+end)
 MobFarmTab:Toggle('Farm slimeKing', function(v)
     local Slimes = game.workspace.WildernessIsland.Entities
     SlimeKingFarm = v
