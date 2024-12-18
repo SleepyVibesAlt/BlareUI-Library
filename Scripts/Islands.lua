@@ -160,40 +160,9 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
                
                 local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait()
+                task.wait(1)
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
-                task.wait()
-            end
-            print("Slime defeated!")
-        end
-        task.wait(0.1)
-    end
-end)
-
-MobFarmTab:Toggle('Test', function(v)
-    local Slimes = game.workspace.WildernessIsland.Entities
-    SlimeFarm = v
-    while SlimeFarm do
-        local closestSlime = nil
-        local closestDistance = math.huge
-       
-        for _, slime in pairs(Slimes:GetChildren()) do
-            if slime.Name == "slime" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 and SlimeFarm then
-                local distance = (slime.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
-                if distance < closestDistance and distance <= SearchDistance then
-                    closestSlime = slime
-                    closestDistance = distance
-                end
-            end
-        end
-       
-        if closestSlime then
-            while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
-                Humanoid:MoveTo(closestSlime.HumanoidRootPart.Position)
-                workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
-                local EntityUUID = closestSlime.EntityUUID.Value
-                print(EntityUUID)
-                wait(1)
+                task.wait(1)
             end
             print("Slime defeated!")
         end
