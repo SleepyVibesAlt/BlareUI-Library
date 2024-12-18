@@ -167,7 +167,7 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
                     if (lastPos - Character.HumanoidRootPart.Position).Magnitude < 0.1 then
                         stuckTimer = stuckTimer + 1
                         if stuckTimer > 20 then
-                            Character:BreakJoints()
+                            Character.Humanoid.Health = 0
                             stuckTimer = 0
                         end
                     else
@@ -178,7 +178,7 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
                 
                 local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait(0.05)
+                task.wait()
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
                 task.wait()
             end
@@ -217,7 +217,7 @@ MobFarmTab:Toggle('Farm slimeKing', function(v)
                     if (lastPos - Character.HumanoidRootPart.Position).Magnitude < 0.1 then
                         stuckTimer = stuckTimer + 1
                         if stuckTimer > 20 then
-                            Character:BreakJoints()
+                            Character.Humanoid.Health = 0
                             stuckTimer = 0
                         end
                     else
@@ -228,7 +228,7 @@ MobFarmTab:Toggle('Farm slimeKing', function(v)
                 
                 local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait(0.05)
+                task.wait()
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
                 task.wait()
             end
@@ -269,7 +269,7 @@ MobFarmTab:Toggle('Farm buffalkor', function(v)
                     if (lastPos - Character.HumanoidRootPart.Position).Magnitude < 0.1 then
                         stuckTimer = stuckTimer + 1
                         if stuckTimer > 20 then
-                            Character:BreakJoints()
+                            Character.Humanoid.Health = 0
                             stuckTimer = 0
                         end
                     else
@@ -280,7 +280,7 @@ MobFarmTab:Toggle('Farm buffalkor', function(v)
                 
                 local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait(0.05)
+                task.wait()
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
                 task.wait()
             end
@@ -289,5 +289,4 @@ MobFarmTab:Toggle('Farm buffalkor', function(v)
         task.wait(0.1)
     end
 end)
-
 BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. ", we hope u enjoy!", 2)
