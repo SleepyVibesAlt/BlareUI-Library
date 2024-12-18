@@ -123,7 +123,7 @@ MobFarmTab:Toggle('Anti Stuck', function(v)
     AntiStuck = v
 end)
 
-local SearchDistance = 50
+local SearchDistance = 300
 
 MobFarmTab:Textbox('Search Distance', function(value)
     local newDistance = tonumber(value)
