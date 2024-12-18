@@ -192,19 +192,7 @@ MobFarmTab:Toggle('Test', function(v)
                 Humanoid:MoveTo(closestSlime.HumanoidRootPart.Position)
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
                 local EntityUUID = closestSlime.EntityUUID.Value
-                local args = {
-                    [1] = EntityUUID,
-                    [2] = {
-                        [1] = {
-                            ["UiItXhnkf"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nTwudhybaivliemzqrcNmf",
-                            ["hitUnit"] = workspace.WildernessIsland.Entities[closestSlime]
-                        }
-                    }
-                }
-                
-                game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged:FindFirstChild("jiqEhnmoMV/ZlgessyomwyEX"):FireServer(unpack(args))
                 print(EntityUUID)
-                print("Remote fired!")
             end
             print("Slime defeated!")
         end
