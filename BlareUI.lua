@@ -783,22 +783,22 @@ function Library:Create(table)
                 game:GetService('TweenService'):Create(toggle1, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(38,38,38)}):Play()
             end)
         
-            toggle1.MouseButton1Click:Connect(function(input)
-                if input and input.UserInputType == Enum.UserInputType.MouseButton1 and not input:IsVirtual() then
-                    toggleState = not toggleState
-                    
-                    if toggleState then
-                        game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(23, 143, 75)}):Play()
-                        game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(32, 202, 106)}):Play()
-                    else
-                        game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(45, 45, 45)}):Play()
-                        game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(76, 76, 76)}):Play()
-                    end
-            
-                    task.spawn(function()
-                        callback(toggleState)
-                    end)
+            toggle1.MouseButton1Click:Connect(function()
+                toggleState = not toggleState
+                
+                if toggleState then
+                    game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(23, 143, 75)}):Play()
+                    game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(32, 202, 106)}):Play()
+                else
+                    game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(45, 45, 45)}):Play()
+                    game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(76, 76, 76)}):Play()
                 end
+            
+                task.spawn(function()
+                    if UserInputService:GetLastInputType() ~= Enum.UserInputType.Virtual then
+                        callback(toggleState)
+                    end
+                end)
             end)            
         
             return {
