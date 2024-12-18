@@ -145,23 +145,26 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
         end
         
         if closestSlime then
-            local tweenInfo = TweenInfo.new(10, Enum.EasingStyle.Linear)
+            local tweenInfo = TweenInfo.new(5, Enum.EasingStyle.Linear)
             local tween = TweenService:Create(Character.HumanoidRootPart, tweenInfo, {
-                CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
+                CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 8, 0)
             })
             tween:Play()
             tween.Completed:Wait()
             
             while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
-                Character.HumanoidRootPart.CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 2, 0)
+                Character.HumanoidRootPart.CFrame = closestSlime.HumanoidRootPart.CFrame * CFrame.new(0, 8, 0)
+                workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
                 local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait(0.1)
-                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)                task.wait()
+                task.wait(0.05)
+                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
+                task.wait()
             end
             print("Slime defeated!")
         end
-        task.wait(1)
+        task.wait(0.1)
     end
 end)
-BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. "!", 2)
+
+BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. ", we hope u enjoy!", 2)
