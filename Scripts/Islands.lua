@@ -191,7 +191,7 @@ MobFarmTab:Toggle('Test', function(v)
             while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
                 Humanoid:MoveTo(closestSlime.HumanoidRootPart.Position)
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
-                local EntityUUID = slime.EntityUUID
+                local EntityUUID = slime.EntityUUID.Value
                 local args = {
                     [1] = EntityUUID,
                     [2] = {
