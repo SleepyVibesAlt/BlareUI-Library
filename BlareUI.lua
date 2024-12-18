@@ -544,12 +544,13 @@ function Library:Create(table)
         function Library:CreateNotification(title, description, duration)
             duration = duration or 3
             
-            -- Notification container
-            local notifContainer = Instance.new("Frame")
+            local notifContainer = Instance.new("TextButton")  -- Changed to TextButton
             notifContainer.Name = "NotificationContainer"
             notifContainer.Size = UDim2.new(0, 250, 0, 80)
             notifContainer.Position = UDim2.new(1, -260, 1, -90)
             notifContainer.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+            notifContainer.Text = ""  -- Empty text for button
+            notifContainer.AutoButtonColor = false  -- Disable button color change
             notifContainer.Parent = dark_UI
             
             local uICorner = Instance.new("UICorner")
@@ -606,13 +607,16 @@ function Library:Create(table)
             tweenIn:Play()
             progressTween:Play()
             
-            task.delay(duration, function()
+            local function closeNotification()
                 tweenOut:Play()
                 tweenOut.Completed:Wait()
                 notifContainer:Destroy()
-            end)
-        end
-        
+            end
+            
+            notifContainer.MouseButton1Click:Connect(closeNotification)
+            
+            task.delay(duration, closeNotification)
+        end        
         function ElementHandler:Slider(text, default, min, max, callback)
             text = text or "Slider"
             callback = callback or function() end
@@ -793,13 +797,11 @@ function Library:Create(table)
                     game:GetService('TweenService'):Create(frame3, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(45, 45, 45)}):Play()
                     game:GetService('TweenService'):Create(uIStroke1, TweenInfo.new(0.2), {Color = Color3.fromRGB(76, 76, 76)}):Play()
                 end
-            
+        
                 task.spawn(function()
-                    if UserInputService:GetLastInputType() ~= Enum.UserInputType.Virtual then
-                        callback(toggleState)
-                    end
+                    callback(toggleState)
                 end)
-            end)            
+            end)         
         
             return {
                 SetState = function(state)
