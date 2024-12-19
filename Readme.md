@@ -9,13 +9,12 @@
 --> Added Keybinds
 --> Added Dropdown
 --> Added Notification
---> Drag Mobile Supported
 --> Added Key System
 ```
 
 ## To Be Added
 ```lua
-
+--> Reaction Notification
 ```
 
 ## Getting Loadstring
