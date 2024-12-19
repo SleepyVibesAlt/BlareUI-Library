@@ -38,7 +38,8 @@ local win = BlareLib:Create({
         SoundID = "rbxassetid://6958727243",
         TimePosition = 1
     }
-}) --> Name, UseKey, PlaySound, SoundID, TimeBeforePlay
+}) --> Name, UseKey, Key, PlaySound, SoundID, TimeBeforePlay
+--> The key with be DEFAULT_KEY is not added already.
 ```
 
 ## Creating Tab

@@ -25,13 +25,23 @@ function Library:Create(table)
     local useKey = table.UseKey or false
     local key = table.Key or "DEFAULT_KEY"
 
+    local main = Instance.new("Frame")
+    main.Name = "main"
+    main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+    main.Position = UDim2.fromScale(0.244, 0.292)
+    main.Size = UDim2.fromOffset(488, 299)
+    main.Parent = dark_UI
+
     if useKey then
+        main.Visible = false
+        
         local keyFrame = Instance.new("Frame")
         keyFrame.Name = "keySystem"
         keyFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
         keyFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
         keyFrame.Size = UDim2.fromOffset(300, 150)
         keyFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+        keyFrame.Parent = dark_UI
         
         local keyCorner = Instance.new("UICorner")
         keyCorner.CornerRadius = UDim.new(0, 6)
@@ -78,8 +88,6 @@ function Library:Create(table)
         keyButtonCorner.CornerRadius = UDim.new(0, 6)
         keyButtonCorner.Parent = keyButton
 
-        keyFrame.Parent = dark_UI
-
         keyButton.MouseButton1Click:Connect(function()
             if keyInput.Text == key then
                 keyFrame:Destroy()
@@ -90,13 +98,6 @@ function Library:Create(table)
             end
         end)
     end
-
-    local main = Instance.new("Frame")
-    main.Name = "main"
-    main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-    main.Position = UDim2.fromScale(0.244, 0.292)
-    main.Size = UDim2.fromOffset(488, 299)
-    if useKey then main.Visible = false end
 
     local title = Instance.new("TextLabel")
     title.Name = "title"
@@ -139,7 +140,6 @@ function Library:Create(table)
     uIPadding.Parent = tabContainer
 
     tabContainer.Parent = main
-    main.Parent = dark_UI
     main.AnchorPoint = Vector2.new(0.5,0.5)
     main.Position = UDim2.new(0.5,0,0.5,0)
 
@@ -154,7 +154,7 @@ function Library:Create(table)
     Toggle.TextSize = 12
     Toggle.Parent = dark_UI
     Toggle.Font = Enum.Font.Gotham
-    
+
     local UICorner15 = Instance.new("UICorner")
     UICorner15.Name = "UICorner2"
     UICorner15.Parent = Toggle
