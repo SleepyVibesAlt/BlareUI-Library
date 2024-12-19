@@ -17,11 +17,18 @@ local win = BlareLib:Create({
 })
 
 local function Highlight(Part)
+    local newPart = Instance.new("Part")
+    newPart.Size = Vector3.new(4,4,4)
+    newPart.Transparency = 0.5
+    newPart.CFrame = Part.CFrame
+    newPart.Anchored = true
+    newPart.CanCollide = false
+    newPart.Parent = Part
+    
     local highlight = Instance.new("Highlight")
     highlight.FillColor = Color3.fromRGB(0, 255, 0)
-    highlight.Parent = Part
+    highlight.Parent = newPart
 end
-
 local function MoveToTarget(targetPosition)
     local character = game.Players.LocalPlayer.Character
     if character and character:FindFirstChild("HumanoidRootPart") then
@@ -86,6 +93,7 @@ SettingsTab:Toggle('Anti-Cheat Debuffer', function(v)
     end
 end)
 
+SettingsTab:Comment('When using Auto-Tween enable the Anti-Cheat Debuffer.')
 SettingsTab:Comment('Anti-Cheat Debuffer in BETA.')
 
 local Distance = 300
@@ -283,7 +291,51 @@ ResourceTab:Toggle('Marble Rock', function(v)
         end
         task.wait(0.1)
     end
-end)-- Mob Farm Tab
+end)
+
+ResourceTab:Toggle('Obsidian Rock', function(v)
+    print("Obsidian Rock toggled:", v)
+    wait(1)
+    ObsidianRock = v
+    while ObsidianRock do
+        local rocks = workspace:GetDescendants()
+        local closestRock = nil
+        local closestDistance = math.huge
+        
+        for _, rock in pairs(rocks) do
+            if rock.Name == "rockObsidian" and rock:IsA("Part") then
+                local distance = (rock.Position - Character.HumanoidRootPart.Position).Magnitude
+                if distance <= Distance and distance < closestDistance then
+                    closestRock = rock
+                    closestDistance = distance
+                end
+            end
+        end
+        
+        if closestRock then
+            Highlight(closestRock)
+            local movement = MoveToTarget(closestRock.Position)
+            if ShouldGoto then
+                movement.Completed:Wait()
+            else
+                movement:Wait()
+            end
+            
+            local args = {
+                [1] = {
+                    ["xkpOrfvithbzcvKundjsvoamBnpkqBsXm"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nkyaxebDphmkcyha",
+                    ["part"] = closestRock:FindFirstChild("1"),
+                    ["block"] = closestRock,
+                    ["norm"] = closestRock.Position,
+                    ["pos"] = closestRock.Position - Character.HumanoidRootPart.Position
+                }
+            }
+            
+            game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_BLOCK_HIT_REQUEST:InvokeServer(unpack(args))
+        end
+        task.wait(0.1)
+    end
+end)
 local MobFarmTab = win:Tab('Mob Farm')
 MobFarmTab:Comment('Please equip your sword before enabling and also go to the island first.')
 
@@ -485,6 +537,48 @@ MobFarmTab:Toggle('Farm Wizard Boss', function(v)
                 task.wait(0.1)
             end
             print("Wizard Boss defeated!")
+        end
+        task.wait(0.1)
+    end
+end)
+
+MobFarmTab:Section('Pirate Island')
+
+MobFarmTab:Toggle('Farm Skeleton Pirate', function(v)
+    local Entities = game.workspace.WildernessIsland.Entities
+    PirateFarm = v
+    while PirateFarm do
+        local closestPirate = nil
+        local closestDistance = math.huge
+        
+        for _, mob in pairs(Entities:GetChildren()) do
+            if mob.Name == "skeletonPirate" and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 and PirateFarm then
+                local distance = (mob.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
+                if distance < closestDistance and distance <= Distance then
+                    closestPirate = mob
+                    closestDistance = distance
+                end
+            end
+        end
+        
+        if closestPirate then
+            while closestPirate:FindFirstChild("Humanoid") and closestPirate.Humanoid.Health > 0 and PirateFarm do
+                local movement = MoveToTarget(closestPirate.HumanoidRootPart.Position)
+                if ShouldGoto then
+                    movement.Completed:Wait()
+                else
+                    movement:Wait()
+                end
+                
+                workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestPirate.HumanoidRootPart.Position)
+                
+                local virtualInput = game:GetService("VirtualInputManager")
+                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
+                task.wait(0.1)
+                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
+                task.wait(0.1)
+            end
+            print("Pirate defeated!")
         end
         task.wait(0.1)
     end
