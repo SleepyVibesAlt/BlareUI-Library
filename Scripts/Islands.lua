@@ -9,6 +9,8 @@ local TweenService = game:GetService("TweenService")
 
 local win = BlareLib:Create({
     Name = "Islands Script",
+    UseKey = true, -- Toggle key system on/off
+    Key = "12345", -- Your desired key
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
@@ -16,25 +18,12 @@ local win = BlareLib:Create({
     }
 })
 
-local function Highlight(Part)
-    local newPart = Instance.new("Part")
-    newPart.Size = Vector3.new(4,4,4)
-    newPart.Transparency = 0.5
-    newPart.CFrame = Part.CFrame
-    newPart.Anchored = true
-    newPart.CanCollide = false
-    newPart.Parent = Part
-    
-    local highlight = Instance.new("Highlight")
-    highlight.FillColor = Color3.fromRGB(0, 255, 0)
-    highlight.Parent = newPart
-end
 local function MoveToTarget(targetPosition)
     local character = game.Players.LocalPlayer.Character
     if character and character:FindFirstChild("HumanoidRootPart") then
         if ShouldGoto then
             local tweenInfo = TweenInfo.new(
-                (character.HumanoidRootPart.Position - targetPosition).Magnitude / 20,
+                (character.HumanoidRootPart.Position - targetPosition).Magnitude / 35,
                 Enum.EasingStyle.Linear
             )
             
