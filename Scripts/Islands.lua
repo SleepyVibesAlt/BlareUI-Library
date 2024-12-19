@@ -127,7 +127,6 @@ ResourceTab:Toggle('Iron Ore', function(v)
         end
         
         if closestRock then
-            Highlight(closestRock)
             local movement = MoveToTarget(closestRock.Position)
             if ShouldGoto then
                 movement.Completed:Wait()
@@ -171,7 +170,6 @@ ResourceTab:Toggle('Eletrite Ore', function(v)
         end
         
         if closestRock then
-            Highlight(closestRock)
             local movement = MoveToTarget(closestRock.Position)
             if ShouldGoto then
                 movement.Completed:Wait()
@@ -217,7 +215,6 @@ ResourceTab:Toggle('Slate Rock', function(v)
         end
         
         if closestRock then
-            Highlight(closestRock)
             local movement = MoveToTarget(closestRock.Position)
             if ShouldGoto then
                 movement.Completed:Wait()
@@ -261,7 +258,6 @@ ResourceTab:Toggle('Marble Rock', function(v)
         end
         
         if closestRock then
-            Highlight(closestRock)
             local movement = MoveToTarget(closestRock.Position)
             if ShouldGoto then
                 movement.Completed:Wait()
@@ -305,7 +301,6 @@ ResourceTab:Toggle('Obsidian Rock', function(v)
         end
         
         if closestRock then
-            Highlight(closestRock)
             local movement = MoveToTarget(closestRock.Position)
             if ShouldGoto then
                 movement.Completed:Wait()

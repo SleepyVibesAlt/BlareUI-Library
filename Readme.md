@@ -25,15 +25,18 @@ local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Slee
 ## Creating UI Library Window
 ```lua
 local win = BlareLib:Create({
-    Name = "Blare Library",
+    Name = "Islands Script",
     UseKey = true,
     Key = "12345",
     StartupSound = {
-        PlaySound = true,
+        Toggle = true,
         SoundID = "rbxassetid://6958727243",
         TimePosition = 1
-    }
-}) --> Name, UseKey, Key, PlaySound, SoundID, TimeBeforePlay
+    },
+    Discord = "https://discord.gg/yourserver", 
+    KeyLink = "https://linkvertise.com/yourkey"
+})
+--> Name, UseKey, Key, PlaySound, SoundID, TimeBeforePlay
 --> The key with be DEFAULT_KEY is not added already.
 ```
 

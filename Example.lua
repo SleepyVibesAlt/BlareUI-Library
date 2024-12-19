@@ -1,14 +1,16 @@
 local BlareLib = loadstring(game:HttpGet("https://pastebin.com/raw/usdU5N7w"))()
 
 local win = BlareLib:Create({
-    Name = "Blare Library",
+    Name = "Islands Script",
     UseKey = true,
     Key = "12345",
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
         TimePosition = 1
-    }
+    },
+    Discord = "https://discord.gg/yourserver", 
+    KeyLink = "https://linkvertise.com/yourkey"
 })
 
 local maintab = win:Tab('Main')

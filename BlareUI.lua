@@ -20,177 +20,186 @@ local HTTPService = game:GetService("HttpService")
 
 local Library = {}
 
-if useKey then
-    main.Visible = false
-    
-    local keyFrame = Instance.new("Frame")
-    keyFrame.Name = "keySystem"
-    keyFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-    keyFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-    keyFrame.Size = UDim2.fromOffset(400, 200)
-    keyFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-    keyFrame.Parent = dark_UI
-    
-    local keyGradient = Instance.new("UIGradient")
-    keyGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(28, 28, 28)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(35, 35, 35))
-    })
-    keyGradient.Parent = keyFrame
-    
-    local keyCorner = Instance.new("UICorner")
-    keyCorner.CornerRadius = UDim.new(0, 6)
-    keyCorner.Parent = keyFrame
-    
-    local keyTitle = Instance.new("TextLabel")
-    keyTitle.Name = "title"
-    keyTitle.Font = Enum.Font.GothamBold
-    keyTitle.Text = windowName .. " Key System"
-    keyTitle.TextColor3 = Color3.fromRGB(168, 168, 168)
-    keyTitle.TextSize = 22
-    keyTitle.BackgroundTransparency = 1
-    keyTitle.Position = UDim2.fromScale(0.5, 0.1)
-    keyTitle.Size = UDim2.fromOffset(300, 28)
-    keyTitle.AnchorPoint = Vector2.new(0.5, 0)
-    keyTitle.Parent = keyFrame
+function Library:Create(table)
+    local windowName = table.Name
+    local useKey = table.UseKey or false
+    local key = table.Key or "DEFAULT_KEY"
 
-    local keySubtitle = Instance.new("TextLabel")
-    keySubtitle.Font = Enum.Font.Gotham
-    keySubtitle.Text = "Enter your key to access " .. windowName
-    keySubtitle.TextColor3 = Color3.fromRGB(120, 120, 120)
-    keySubtitle.TextSize = 14
-    keySubtitle.BackgroundTransparency = 1
-    keySubtitle.Position = UDim2.fromScale(0.5, 0.25)
-    keySubtitle.Size = UDim2.fromOffset(300, 20)
-    keySubtitle.AnchorPoint = Vector2.new(0.5, 0)
-    keySubtitle.Parent = keyFrame
+    local main = Instance.new("Frame")
+    main.Name = "main"
+    main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+    main.Position = UDim2.fromScale(0.244, 0.292)
+    main.Size = UDim2.fromOffset(488, 299)
+    main.Parent = dark_UI
 
-    local keyInput = Instance.new("TextBox")
-    keyInput.Size = UDim2.new(0.8, 0, 0, 35)
-    keyInput.Position = UDim2.new(0.5, 0, 0.45, 0)
-    keyInput.AnchorPoint = Vector2.new(0.5, 0)
-    keyInput.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-    keyInput.PlaceholderText = "Enter Key"
-    keyInput.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
-    keyInput.Text = ""
-    keyInput.TextColor3 = Color3.fromRGB(195, 195, 195)
-    keyInput.Font = Enum.Font.GothamSemibold
-    keyInput.TextSize = 14
-    keyInput.Parent = keyFrame
-    
-    local keyInputPadding = Instance.new("UIPadding")
-    keyInputPadding.PaddingLeft = UDim.new(0, 10)
-    keyInputPadding.Parent = keyInput
+    if useKey then
+        main.Visible = false
+        
+        local keyFrame = Instance.new("Frame")
+        keyFrame.Name = "keySystem"
+        keyFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+        keyFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+        keyFrame.Size = UDim2.fromOffset(300, 150)
+        keyFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+        keyFrame.Parent = dark_UI
+        
+        local keyCorner = Instance.new("UICorner")
+        keyCorner.CornerRadius = UDim.new(0, 6)
+        keyCorner.Parent = keyFrame
+        
+        local keyTitle = Instance.new("TextLabel")
+        keyTitle.Name = "title"
+        keyTitle.Font = Enum.Font.Gotham
+        keyTitle.Text = windowName .. " Key System"
+        keyTitle.TextColor3 = Color3.fromRGB(168, 168, 168)
+        keyTitle.TextSize = 20
+        keyTitle.BackgroundTransparency = 1
+        keyTitle.Position = UDim2.fromScale(0.5, 0.1)
+        keyTitle.Size = UDim2.fromOffset(200, 28)
+        keyTitle.AnchorPoint = Vector2.new(0.5, 0)
+        keyTitle.Parent = keyFrame
 
-    local keyInputCorner = Instance.new("UICorner")
-    keyInputCorner.CornerRadius = UDim.new(0, 6)
-    keyInputCorner.Parent = keyInput
+        local keyInput = Instance.new("TextBox")
+        keyInput.Size = UDim2.new(0.8, 0, 0, 30)
+        keyInput.Position = UDim2.new(0.5, 0, 0.4, 0)
+        keyInput.AnchorPoint = Vector2.new(0.5, 0)
+        keyInput.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+        keyInput.PlaceholderText = "Enter Key"
+        keyInput.Text = ""
+        keyInput.TextColor3 = Color3.fromRGB(195, 195, 195)
+        keyInput.Font = Enum.Font.Gotham
+        keyInput.Parent = keyFrame
 
-    local verifyButton = Instance.new("TextButton")
-    verifyButton.Size = UDim2.new(0.3, 0, 0, 35)
-    verifyButton.Position = UDim2.new(0.5, 0, 0.7, 0)
-    verifyButton.AnchorPoint = Vector2.new(0.5, 0)
-    verifyButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    verifyButton.Text = "Verify Key"
-    verifyButton.TextColor3 = Color3.fromRGB(195, 195, 195)
-    verifyButton.Font = Enum.Font.GothamBold
-    verifyButton.TextSize = 14
-    verifyButton.Parent = keyFrame
-    
-    local verifyCorner = Instance.new("UICorner")
-    verifyCorner.CornerRadius = UDim.new(0, 6)
-    verifyCorner.Parent = verifyButton
+        local keyInputCorner = Instance.new("UICorner")
+        keyInputCorner.CornerRadius = UDim.new(0, 6)
+        keyInputCorner.Parent = keyInput
 
-    local getKeyButton = Instance.new("TextButton")
-    getKeyButton.Size = UDim2.new(0.3, 0, 0, 35)
-    getKeyButton.Position = UDim2.new(0.8, 0, 0.7, 0)
-    getKeyButton.AnchorPoint = Vector2.new(0.5, 0)
-    getKeyButton.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
-    getKeyButton.Text = "Get Key"
-    getKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    getKeyButton.Font = Enum.Font.GothamBold
-    getKeyButton.TextSize = 14
-    getKeyButton.Parent = keyFrame
+        local keyButton = Instance.new("TextButton")
+        keyButton.Size = UDim2.new(0.4, 0, 0, 30)
+        keyButton.Position = UDim2.new(0.5, 0, 0.7, 0)
+        keyButton.AnchorPoint = Vector2.new(0.5, 0)
+        keyButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+        keyButton.Text = "Submit"
+        keyButton.TextColor3 = Color3.fromRGB(195, 195, 195)
+        keyButton.Font = Enum.Font.Gotham
+        keyButton.Parent = keyFrame
 
-    local getKeyCorner = Instance.new("UICorner")
-    getKeyCorner.CornerRadius = UDim.new(0, 6)
-    getKeyCorner.Parent = getKeyButton
+        local keyButtonCorner = Instance.new("UICorner")
+        keyButtonCorner.CornerRadius = UDim.new(0, 6)
+        keyButtonCorner.Parent = keyButton
 
-    local discordButton = Instance.new("TextButton")
-    discordButton.Size = UDim2.new(0.3, 0, 0, 35)
-    discordButton.Position = UDim2.new(0.2, 0, 0.7, 0)
-    discordButton.AnchorPoint = Vector2.new(0.5, 0)
-    discordButton.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
-    discordButton.Text = "Discord"
-    discordButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    discordButton.Font = Enum.Font.GothamBold
-    discordButton.TextSize = 14
-    discordButton.Parent = keyFrame
+        local getKeyButton = Instance.new("TextButton")
+        getKeyButton.Size = UDim2.new(0.4, 0, 0, 30)
+        getKeyButton.Position = UDim2.new(0.3, 0, 0.7, 0)
+        getKeyButton.AnchorPoint = Vector2.new(0.5, 0)
+        getKeyButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+        getKeyButton.Text = "Get Key"
+        getKeyButton.TextColor3 = Color3.fromRGB(195, 195, 195)
+        getKeyButton.Font = Enum.Font.Gotham
+        getKeyButton.Parent = keyFrame
 
-    local discordCorner = Instance.new("UICorner")
-    discordCorner.CornerRadius = UDim.new(0, 6)
-    discordCorner.Parent = discordButton
+        local getKeyCorner = Instance.new("UICorner")
+        getKeyCorner.CornerRadius = UDim.new(0, 6)
+        getKeyCorner.Parent = getKeyButton
 
-    local function shake()
-        local originalPos = keyFrame.Position
-        local shake = TweenService:Create(keyFrame, TweenInfo.new(0.1, Enum.EasingStyle.Bounce, Enum.EasingDirection.InOut), {
-            Position = originalPos + UDim2.new(0, 10, 0, 0)
-        })
-        local shakeBack = TweenService:Create(keyFrame, TweenInfo.new(0.1, Enum.EasingStyle.Bounce, Enum.EasingDirection.InOut), {
-            Position = originalPos
-        })
-        shake:Play()
-        shake.Completed:Connect(function()
-            shakeBack:Play()
+        local discordButton = Instance.new("TextButton")
+        discordButton.Size = UDim2.new(0.4, 0, 0, 30)
+        discordButton.Position = UDim2.new(0.7, 0, 0.7, 0)
+        discordButton.AnchorPoint = Vector2.new(0.5, 0)
+        discordButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+        discordButton.Text = "Discord"
+        discordButton.TextColor3 = Color3.fromRGB(195, 195, 195)
+        discordButton.Font = Enum.Font.Gotham
+        discordButton.Parent = keyFrame
+
+        local discordCorner = Instance.new("UICorner")
+        discordCorner.CornerRadius = UDim.new(0, 6)
+        discordCorner.Parent = discordButton
+
+        getKeyButton.MouseButton1Click:Connect(function()
+            setclipboard(table.KeyLink)
+            Library:CreateNotification("Success", "Key link copied to clipboard!", 2)
+        end)
+
+        discordButton.MouseButton1Click:Connect(function()
+            setclipboard(table.Discord)
+            Library:CreateNotification("Success", "Discord link copied to clipboard!", 2)
+        end)
+
+        keyButton.MouseButton1Click:Connect(function()
+            if keyInput.Text == key then
+                keyFrame:Destroy()
+                Library:CreateNotification("Success", "Key Verified!", 2)
+                main.Visible = true
+            else
+                Library:CreateNotification("Error", "Invalid Key!", 2)
+            end
         end)
     end
 
-    verifyButton.MouseButton1Click:Connect(function()
-        if keyInput.Text == "" then
-            Library:CreateNotification("Error", "Please enter a key!", 2)
-            shake()
-            return
-        end
+    local title = Instance.new("TextLabel")
+    title.Name = "title"
+    title.Font = Enum.Font.Gotham
+    title.Text = windowName
+    title.TextColor3 = Color3.fromRGB(168, 168, 168)
+    title.TextSize = 20
+    title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    title.BackgroundTransparency = 1
+    title.Position = UDim2.fromScale(0.41, 0.0543)
+    title.Size = UDim2.fromOffset(83, 28)
+    title.Parent = main
 
-        verifyButton.Text = "Verifying..."
-        TweenService:Create(verifyButton, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(40, 40, 40)}):Play()
-        
-        wait(1)
-        
-        if keyInput.Text == key then
-            TweenService:Create(verifyButton, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(23, 143, 75)}):Play()
-            verifyButton.Text = "Verified!"
-            wait(0.5)
-            
-            TweenService:Create(keyFrame, TweenInfo.new(0.3), {
-                Size = UDim2.fromOffset(0, 0),
-                BackgroundTransparency = 1
-            }):Play()
-            
-            wait(0.3)
-            keyFrame:Destroy()
-            Library:CreateNotification("Success", "Key verified successfully!", 2)
-            main.Visible = true
-        else
-            TweenService:Create(verifyButton, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(184, 41, 41)}):Play()
-            verifyButton.Text = "Invalid Key!"
-            shake()
-            wait(0.5)
-            TweenService:Create(verifyButton, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(45, 45, 45)}):Play()
-            verifyButton.Text = "Verify Key"
-        end
-    end)
+    local uICorner = Instance.new("UICorner")
+    uICorner.Name = "uICorner"
+    uICorner.Parent = main
 
-    getKeyButton.MouseButton1Click:Connect(function()
-        setclipboard(table.KeyLink)
-        Library:CreateNotification("Success", "Link copied to clipboard!", 2)
+    local tabContainer = Instance.new("Frame")
+    tabContainer.Name = "tabContainer"
+    tabContainer.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    tabContainer.Position = UDim2.fromScale(0.0342, 0.188)
+    tabContainer.Size = UDim2.fromOffset(454, 30)
+
+    local uICorner1 = Instance.new("UICorner")
+    uICorner1.Name = "uICorner1"
+    uICorner1.CornerRadius = UDim.new(0, 6)
+    uICorner1.Parent = tabContainer
+
+    local uIListLayout = Instance.new("UIListLayout")
+    uIListLayout.Name = "uIListLayout"
+    uIListLayout.Padding = UDim.new(0, 8)
+    uIListLayout.FillDirection = Enum.FillDirection.Horizontal
+    uIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    uIListLayout.Parent = tabContainer
+
+    local uIPadding = Instance.new("UIPadding")
+    uIPadding.Name = "uIPadding"
+    uIPadding.PaddingLeft = UDim.new(0, 7)
+    uIPadding.PaddingTop = UDim.new(0, 4)
+    uIPadding.Parent = tabContainer
+
+    tabContainer.Parent = main
+    main.AnchorPoint = Vector2.new(0.5,0.5)
+    main.Position = UDim2.new(0.5,0,0.5,0)
+
+    local Toggle = Instance.new("TextButton")
+    Toggle.Name = "Toggle"
+    Toggle.Size = UDim2.new(0, 160, 0, 20)
+    Toggle.Position = UDim2.new(0.5, -90, 0, -36)
+    Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    Toggle.BackgroundTransparency = 0.5
+    Toggle.Text = "Toggle Ui"
+    Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Toggle.TextSize = 12
+    Toggle.Parent = dark_UI
+    Toggle.Font = Enum.Font.Gotham
+
+    local UICorner15 = Instance.new("UICorner")
+    UICorner15.Name = "UICorner2"
+    UICorner15.Parent = Toggle
+
+    Toggle.MouseButton1Click:Connect(function()
+        main.Visible = not main.Visible
     end)
-    
-    discordButton.MouseButton1Click:Connect(function()
-        setclipboard(table.Discord)
-        Library:CreateNotification("Success", "Discord invite copied!", 2)
-    end)    
-end
 
     local tabHandler = {}
 
