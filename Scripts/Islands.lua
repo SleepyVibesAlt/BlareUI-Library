@@ -160,9 +160,9 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
                
                 local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait(0.5)
+                task.wait(0.2)
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
-                task.wait(0.5)
+                task.wait(0.2)
             end
             print("Slime defeated!")
         end
@@ -194,9 +194,9 @@ MobFarmTab:Toggle('Farm slimeKing', function(v)
                
                 local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait(0.5)
+                task.wait(0.2)
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
-                task.wait(0.5)
+                task.wait(0.2)
             end
             print("Slime King defeated!")
         end
@@ -230,9 +230,9 @@ MobFarmTab:Toggle('Farm buffalkor', function(v)
                
                 local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait(0.5)
+                task.wait(0.2)
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
-                task.wait(0.5)
+                task.wait(0.2)
             end
             print("Buffalkor defeated!")
         end
