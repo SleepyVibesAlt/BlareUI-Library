@@ -22,12 +22,82 @@ local Library = {}
 
 function Library:Create(table)
     local windowName = table.Name
+    local useKey = table.UseKey or false
+    local key = table.Key or "DEFAULT_KEY"
 
     local main = Instance.new("Frame")
     main.Name = "main"
     main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
     main.Position = UDim2.fromScale(0.244, 0.292)
     main.Size = UDim2.fromOffset(488, 299)
+    main.Parent = dark_UI
+
+    if useKey then
+        main.Visible = false
+        
+        local keyFrame = Instance.new("Frame")
+        keyFrame.Name = "keySystem"
+        keyFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+        keyFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+        keyFrame.Size = UDim2.fromOffset(300, 150)
+        keyFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+        keyFrame.Parent = dark_UI
+        
+        local keyCorner = Instance.new("UICorner")
+        keyCorner.CornerRadius = UDim.new(0, 6)
+        keyCorner.Parent = keyFrame
+        
+        local keyTitle = Instance.new("TextLabel")
+        keyTitle.Name = "title"
+        keyTitle.Font = Enum.Font.Gotham
+        keyTitle.Text = windowName .. " Key System"
+        keyTitle.TextColor3 = Color3.fromRGB(168, 168, 168)
+        keyTitle.TextSize = 20
+        keyTitle.BackgroundTransparency = 1
+        keyTitle.Position = UDim2.fromScale(0.5, 0.1)
+        keyTitle.Size = UDim2.fromOffset(200, 28)
+        keyTitle.AnchorPoint = Vector2.new(0.5, 0)
+        keyTitle.Parent = keyFrame
+
+        local keyInput = Instance.new("TextBox")
+        keyInput.Size = UDim2.new(0.8, 0, 0, 30)
+        keyInput.Position = UDim2.new(0.5, 0, 0.4, 0)
+        keyInput.AnchorPoint = Vector2.new(0.5, 0)
+        keyInput.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+        keyInput.PlaceholderText = "Enter Key"
+        keyInput.Text = ""
+        keyInput.TextColor3 = Color3.fromRGB(195, 195, 195)
+        keyInput.Font = Enum.Font.Gotham
+        keyInput.Parent = keyFrame
+
+        local keyInputCorner = Instance.new("UICorner")
+        keyInputCorner.CornerRadius = UDim.new(0, 6)
+        keyInputCorner.Parent = keyInput
+
+        local keyButton = Instance.new("TextButton")
+        keyButton.Size = UDim2.new(0.4, 0, 0, 30)
+        keyButton.Position = UDim2.new(0.5, 0, 0.7, 0)
+        keyButton.AnchorPoint = Vector2.new(0.5, 0)
+        keyButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+        keyButton.Text = "Submit"
+        keyButton.TextColor3 = Color3.fromRGB(195, 195, 195)
+        keyButton.Font = Enum.Font.Gotham
+        keyButton.Parent = keyFrame
+
+        local keyButtonCorner = Instance.new("UICorner")
+        keyButtonCorner.CornerRadius = UDim.new(0, 6)
+        keyButtonCorner.Parent = keyButton
+
+        keyButton.MouseButton1Click:Connect(function()
+            if keyInput.Text == key then
+                keyFrame:Destroy()
+                Library:CreateNotification("Success", "Key Verified!", 2)
+                main.Visible = true
+            else
+                Library:CreateNotification("Error", "Invalid Key!", 2)
+            end
+        end)
+    end
 
     local title = Instance.new("TextLabel")
     title.Name = "title"
@@ -70,9 +140,7 @@ function Library:Create(table)
     uIPadding.Parent = tabContainer
 
     tabContainer.Parent = main
-    main.Parent = dark_UI
     main.AnchorPoint = Vector2.new(0.5,0.5)
-
     main.Position = UDim2.new(0.5,0,0.5,0)
 
     local Toggle = Instance.new("TextButton")
@@ -86,6 +154,7 @@ function Library:Create(table)
     Toggle.TextSize = 12
     Toggle.Parent = dark_UI
     Toggle.Font = Enum.Font.Gotham
+
     local UICorner15 = Instance.new("UICorner")
     UICorner15.Name = "UICorner2"
     UICorner15.Parent = Toggle
