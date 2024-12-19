@@ -16,7 +16,9 @@ local win = BlareLib:Create({
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
         TimePosition = 1
-    }
+    },
+    Discord = "https://discord.gg/yourserver", 
+    KeyLink = "https://linkvertise.com/yourkey"
 })
 
 local function MoveToTarget(targetPosition)
