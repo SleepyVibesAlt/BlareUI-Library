@@ -20,6 +20,7 @@ local HTTPService = game:GetService("HttpService")
 
 local Library = {}
 
+local keyVerified = not useKey
 function Library:Create(table)
     local windowName = table.Name
     local useKey = table.UseKey or false
@@ -27,7 +28,7 @@ function Library:Create(table)
 
     if useKey then
         local keyFrame = Instance.new("Frame")
-        keyFrame.Name = "keySystem"
+        keyFrame.Name = "key-System"
         keyFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
         keyFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
         keyFrame.Size = UDim2.fromOffset(300, 150)
@@ -79,17 +80,6 @@ function Library:Create(table)
         keyButtonCorner.Parent = keyButton
 
         keyFrame.Parent = dark_UI
-
-        keyButton.MouseButton1Click:Connect(function()
-            if keyInput.Text == key then
-                keyFrame:Destroy()
-                Library:CreateNotification("Success", "Key Verified!", 2)
-                main.Visible = true
-            else
-                Library:CreateNotification("Error", "Invalid Key!", 2)
-            end
-        end)
-    end
 
     local main = Instance.new("Frame")
     main.Name = "main"
@@ -160,7 +150,9 @@ function Library:Create(table)
     UICorner15.Parent = Toggle
 
     Toggle.MouseButton1Click:Connect(function()
-        main.Visible = not main.Visible
+        if keyVerified then
+            main.Visible = not main.Visible
+        end
     end)
 
     local tabHandler = {}
@@ -233,6 +225,17 @@ function Library:Create(table)
         container.Visible = false
 
         --// Event
+        keyButton.MouseButton1Click:Connect(function()
+            if keyInput.Text == key then
+                keyVerified = true
+                keyFrame:Destroy()
+                Library:CreateNotification("Success", "Key Verified!", 2)
+                main.Visible = true
+            else
+                Library:CreateNotification("Error", "Invalid Key!", 2)
+            end
+        end)
+
         main1.MouseButton1Click:Connect(function()
             for _,v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
                 if v.Name == "container" then
@@ -613,13 +616,13 @@ function Library:Create(table)
         function Library:CreateNotification(title, description, duration)
             duration = duration or 3
             
-            local notifContainer = Instance.new("TextButton")  -- Changed to TextButton
+            local notifContainer = Instance.new("TextButton")
             notifContainer.Name = "NotificationContainer"
             notifContainer.Size = UDim2.new(0, 250, 0, 80)
             notifContainer.Position = UDim2.new(1, -260, 1, -90)
             notifContainer.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-            notifContainer.Text = ""  -- Empty text for button
-            notifContainer.AutoButtonColor = false  -- Disable button color change
+            notifContainer.Text = ""
+            notifContainer.AutoButtonColor = false
             notifContainer.Parent = dark_UI
             
             local uICorner = Instance.new("UICorner")
