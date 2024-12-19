@@ -136,39 +136,39 @@ AutoFarmTab:Toggle('Iron Ore', function(v)
     print("Iron Ore toggled:", v)
     wait(1)
     IronOre = v
+    local currentTarget = nil
+    
     while IronOre do
-        BlareLib:CreateNotification("Searching", "Looking for Iron Ore...", 1)
-        local rocks = workspace:GetDescendants()
-        local closestRock = nil
-        local closestDistance = math.huge
-        
-        for _, rock in pairs(rocks) do
-            if rock.Name == "rockIron" and rock:IsA("Part") then
-                local distance = (rock.Position - Character.HumanoidRootPart.Position).Magnitude
-                if distance <= Radius and distance < closestDistance then
-                    closestRock = rock
-                    closestDistance = distance
+        if not currentTarget or not currentTarget:IsA("Part") then
+            local rocks = workspace:GetDescendants()
+            local closestDistance = math.huge
+            
+            for _, rock in pairs(rocks) do
+                if rock.Name == "rockIron" and rock:IsA("Part") then
+                    local distance = (rock.Position - Character.HumanoidRootPart.Position).Magnitude
+                    if distance <= Radius and distance < closestDistance then
+                        currentTarget = rock
+                        closestDistance = distance
+                    end
                 end
             end
         end
         
-        if closestRock then
-            BlareLib:CreateNotification("Mining", "Mining Iron Ore...", 1)
+        if currentTarget then
             if ShouldGoto then
-                smartMoveTo(closestRock.Position)
+                smartMoveTo(currentTarget.Position)
             end
             local args = {
                 [1] = {
                     ["xkpOrfvithbzcvKundjsvoamBnpkqBsXm"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nkyaxebDphmkcyha",
-                    ["part"] = closestRock:FindFirstChild("1"),
-                    ["block"] = closestRock,
-                    ["norm"] = closestRock.Position,
-                    ["pos"] = closestRock.Position - Character.HumanoidRootPart.Position
+                    ["part"] = currentTarget:FindFirstChild("1"),
+                    ["block"] = currentTarget,
+                    ["norm"] = currentTarget.Position,
+                    ["pos"] = currentTarget.Position - Character.HumanoidRootPart.Position
                 }
             }
             
             game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_BLOCK_HIT_REQUEST:InvokeServer(unpack(args))
-            BlareLib:CreateNotification("Success", "Iron Ore mined!", 1)
         end
         task.wait(0.2)
     end
@@ -178,39 +178,39 @@ AutoFarmTab:Toggle('Eletrite Ore', function(v)
     print("Eletrite Ore toggled:", v)
     wait(1)
     EletriteOre = v
+    local currentTarget = nil
+    
     while EletriteOre do
-        BlareLib:CreateNotification("Searching", "Looking for Eletrite Ore...", 1)
-        local rocks = workspace:GetDescendants()
-        local closestRock = nil
-        local closestDistance = math.huge
-        
-        for _, rock in pairs(rocks) do
-            if rock.Name == "rockElectrite" and rock:IsA("Part") then
-                local distance = (rock.Position - Character.HumanoidRootPart.Position).Magnitude
-                if distance <= Radius and distance < closestDistance then
-                    closestRock = rock
-                    closestDistance = distance
+        if not currentTarget or not currentTarget:IsA("Part") then
+            local rocks = workspace:GetDescendants()
+            local closestDistance = math.huge
+            
+            for _, rock in pairs(rocks) do
+                if rock.Name == "rockElectrite" and rock:IsA("Part") then
+                    local distance = (rock.Position - Character.HumanoidRootPart.Position).Magnitude
+                    if distance <= Radius and distance < closestDistance then
+                        currentTarget = rock
+                        closestDistance = distance
+                    end
                 end
             end
         end
         
-        if closestRock then
-            BlareLib:CreateNotification("Mining", "Mining Eletrite Ore...", 1)
+        if currentTarget then
             if ShouldGoto then
-                smartMoveTo(closestRock.Position)
+                smartMoveTo(currentTarget.Position)
             end
             local args = {
                 [1] = {
                     ["xkpOrfvithbzcvKundjsvoamBnpkqBsXm"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nkyaxebDphmkcyha",
-                    ["part"] = closestRock:FindFirstChild("1"),
-                    ["block"] = closestRock,
-                    ["norm"] = closestRock.Position,
-                    ["pos"] = closestRock.Position - Character.HumanoidRootPart.Position
+                    ["part"] = currentTarget:FindFirstChild("1"),
+                    ["block"] = currentTarget,
+                    ["norm"] = currentTarget.Position,
+                    ["pos"] = currentTarget.Position - Character.HumanoidRootPart.Position
                 }
             }
             
             game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.CLIENT_BLOCK_HIT_REQUEST:InvokeServer(unpack(args))
-            BlareLib:CreateNotification("Success", "Eletrite Ore mined!", 1)
         end
         task.wait(0.2)
     end
@@ -239,35 +239,31 @@ MobFarmTab:Section('Slime Island')
 MobFarmTab:Toggle('Farm Slimes', function(v)
     local Slimes = game.workspace.WildernessIsland.Entities
     SlimeFarm = v
+    local currentTarget = nil
+    
     while SlimeFarm do
-        BlareLib:CreateNotification("Searching", "Looking for Slimes...", 1)
-        local closestSlime = nil
-        local closestDistance = math.huge
-       
-        for _, slime in pairs(Slimes:GetChildren()) do
-            if slime.Name == "slime" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 and SlimeFarm then
-                local distance = (slime.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
-                if distance < closestDistance and distance <= SearchDistance then
-                    closestSlime = slime
-                    closestDistance = distance
+        if not currentTarget or not currentTarget:FindFirstChild("Humanoid") or currentTarget.Humanoid.Health <= 0 then
+            local closestDistance = math.huge
+            for _, slime in pairs(Slimes:GetChildren()) do
+                if slime.Name == "slime" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 then
+                    local distance = (slime.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
+                    if distance < closestDistance and distance <= SearchDistance then
+                        currentTarget = slime
+                        closestDistance = distance
+                    end
                 end
             end
         end
-       
-        if closestSlime then
-            BlareLib:CreateNotification("Combat", "Attacking Slime...", 1)
-            while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
-                smartMoveTo(closestSlime.HumanoidRootPart.Position)
-                workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
-               
-                local virtualInput = game:GetService("VirtualInputManager")
-                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait(0.2)
-                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
-                task.wait(0.2)
-            end
-            BlareLib:CreateNotification("Success", "Slime defeated!", 1)
-            print("Slime defeated!")
+        
+        if currentTarget and currentTarget:FindFirstChild("Humanoid") and currentTarget.Humanoid.Health > 0 then
+            smartMoveTo(currentTarget.HumanoidRootPart.Position)
+            workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, currentTarget.HumanoidRootPart.Position)
+            
+            local virtualInput = game:GetService("VirtualInputManager")
+            virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
+            task.wait(0.2)
+            virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
+            task.wait(0.2)
         end
         task.wait(0.1)
     end
@@ -276,35 +272,31 @@ end)
 MobFarmTab:Toggle('Farm slimeKing', function(v)
     local Slimes = game.workspace.WildernessIsland.Entities
     SlimeKingFarm = v
+    local currentTarget = nil
+    
     while SlimeKingFarm do
-        BlareLib:CreateNotification("Searching", "Looking for Slime King...", 1)
-        local closestSlime = nil
-        local closestDistance = math.huge
-       
-        for _, slime in pairs(Slimes:GetChildren()) do
-            if slime.Name == "slimeKing" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 and SlimeKingFarm then
-                local distance = (slime.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
-                if distance < closestDistance and distance <= SearchDistance then
-                    closestSlime = slime
-                    closestDistance = distance
+        if not currentTarget or not currentTarget:FindFirstChild("Humanoid") or currentTarget.Humanoid.Health <= 0 then
+            local closestDistance = math.huge
+            for _, slime in pairs(Slimes:GetChildren()) do
+                if slime.Name == "slimeKing" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 then
+                    local distance = (slime.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
+                    if distance < closestDistance and distance <= SearchDistance then
+                        currentTarget = slime
+                        closestDistance = distance
+                    end
                 end
             end
         end
-       
-        if closestSlime then
-            BlareLib:CreateNotification("Combat", "Attacking Slime King...", 1)
-            while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeKingFarm do
-                smartMoveTo(closestSlime.HumanoidRootPart.Position)
-                workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
-               
-                local virtualInput = game:GetService("VirtualInputManager")
-                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait(0.2)
-                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
-                task.wait(0.2)
-            end
-            BlareLib:CreateNotification("Success", "Slime King defeated!", 1)
-            print("Slime King defeated!")
+        
+        if currentTarget and currentTarget:FindFirstChild("Humanoid") and currentTarget.Humanoid.Health > 0 then
+            smartMoveTo(currentTarget.HumanoidRootPart.Position)
+            workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, currentTarget.HumanoidRootPart.Position)
+            
+            local virtualInput = game:GetService("VirtualInputManager")
+            virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
+            task.wait(0.2)
+            virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
+            task.wait(0.2)
         end
         task.wait(0.1)
     end
@@ -315,39 +307,34 @@ MobFarmTab:Section('Buffalkor Island')
 MobFarmTab:Toggle('Farm buffalkor', function(v)
     local Entities = game.workspace.WildernessIsland.Entities
     BuffalkorFarm = v
+    local currentTarget = nil
+    
     while BuffalkorFarm do
-        BlareLib:CreateNotification("Searching", "Looking for Buffalkor...", 1)
-        local closestBuffalkor = nil
-        local closestDistance = math.huge
-       
-        for _, mob in pairs(Entities:GetChildren()) do
-            if mob.Name == "buffalkor" and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 and BuffalkorFarm then
-                local distance = (mob.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
-                if distance < closestDistance and distance <= SearchDistance then
-                    closestBuffalkor = mob
-                    closestDistance = distance
+        if not currentTarget or not currentTarget:FindFirstChild("Humanoid") or currentTarget.Humanoid.Health <= 0 then
+            local closestDistance = math.huge
+            for _, mob in pairs(Entities:GetChildren()) do
+                if mob.Name == "buffalkor" and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 then
+                    local distance = (mob.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
+                    if distance < closestDistance and distance <= SearchDistance then
+                        currentTarget = mob
+                        closestDistance = distance
+                    end
                 end
             end
         end
-       
-        if closestBuffalkor then
-            BlareLib:CreateNotification("Combat", "Attacking Buffalkor...", 1)
-            while closestBuffalkor:FindFirstChild("Humanoid") and closestBuffalkor.Humanoid.Health > 0 and BuffalkorFarm do
-                smartMoveTo(closestBuffalkor.HumanoidRootPart.Position)
-                workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestBuffalkor.HumanoidRootPart.Position)
-               
-                local virtualInput = game:GetService("VirtualInputManager")
-                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait(0.2)
-                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
-                task.wait(0.2)
-            end
-            BlareLib:CreateNotification("Success", "Buffalkor defeated!", 1)
-            print("Buffalkor defeated!")
+        
+        if currentTarget and currentTarget:FindFirstChild("Humanoid") and currentTarget.Humanoid.Health > 0 then
+            smartMoveTo(currentTarget.HumanoidRootPart.Position)
+            workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, currentTarget.HumanoidRootPart.Position)
+            
+            local virtualInput = game:GetService("VirtualInputManager")
+            virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
+            task.wait(0.2)
+            virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
+            task.wait(0.2)
         end
         task.wait(0.1)
     end
 end)
-
 
 BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. ", we hope u enjoy!", 2)
