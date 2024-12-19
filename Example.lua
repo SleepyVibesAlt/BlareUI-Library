@@ -2,6 +2,8 @@ local BlareLib = loadstring(game:HttpGet("https://pastebin.com/raw/usdU5N7w"))()
 
 local win = BlareLib:Create({
     Name = "Blare Library",
+    UseKey = true,
+    Key = "12345",
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",

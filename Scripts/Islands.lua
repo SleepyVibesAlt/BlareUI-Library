@@ -9,8 +9,8 @@ local TweenService = game:GetService("TweenService")
 
 local win = BlareLib:Create({
     Name = "Islands Script",
-    UseKey = true, -- Toggle key system on/off
-    Key = "12345", -- Your desired key
+    UseKey = true,
+    Key = "12345",
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",

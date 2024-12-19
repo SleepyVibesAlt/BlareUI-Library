@@ -159,6 +159,8 @@ function Library:Create(table)
     UICorner15.Name = "UICorner2"
     UICorner15.Parent = Toggle
 
+    main.Visible = true
+
     Toggle.MouseButton1Click:Connect(function()
         main.Visible = not main.Visible
     end)

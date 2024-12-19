@@ -31,12 +31,14 @@ local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Slee
 ```lua
 local win = BlareLib:Create({
     Name = "Blare Library",
+    UseKey = true,
+    Key = "12345",
     StartupSound = {
         PlaySound = true,
         SoundID = "rbxassetid://6958727243",
         TimePosition = 1
     }
-}) --> Name, PlaySound, SoundID, TimeBeforePlay
+}) --> Name, UseKey, PlaySound, SoundID, TimeBeforePlay
 ```
 
 ## Creating Tab
