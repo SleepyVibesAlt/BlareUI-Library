@@ -5,7 +5,6 @@ local Humanoid = Character:WaitForChild("Humanoid")
 local PlayerName = Player.Name
 local Health = Humanoid.Health
 local MaxHealth = Humanoid.MaxHealth
-local Radius = 50
 local TweenService = game:GetService("TweenService")
 
 local win = BlareLib:Create({
@@ -17,10 +16,64 @@ local win = BlareLib:Create({
     }
 })
 
+-- Add this at the top with other services
+local PathfindingService = game:GetService("PathfindingService")
+
+-- Create a path object
+local path = PathfindingService:CreatePath({
+    AgentRadius = 2,
+    AgentHeight = 5,
+    AgentCanJump = true
+})
+
+local function smartMoveTo(destination)
+    path:ComputeAsync(Character.HumanoidRootPart.Position, destination)
+    
+    if path.Status == Enum.PathStatus.Success then
+        local waypoints = path:GetWaypoints()
+        
+        for _, waypoint in ipairs(waypoints) do
+            Humanoid:MoveTo(waypoint.Position)
+            local reachedWaypoint = Humanoid.MoveToFinished:Wait()
+            if not reachedWaypoint then
+                Humanoid.Jump = true
+            end
+        end
+    end
+end
+
 local AutoFarmTab = win:Tab('AutoFarms')
 AutoFarmTab:Section('Setting')
+local Radius = 50
 AutoFarmTab:Toggle('Auto Goto', function(v)
     ShouldGoto = v
+end)
+
+AutoFarmTab:Toggle('Anti-Stuck', function(v)
+    AntiStuck = v
+    while AntiStuck do
+        Character.HumanoidRootPart.CanCollide = false
+        for _, part in pairs(Character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+        wait(5)
+        if not AntiStuck then break end
+        Character.HumanoidRootPart.CanCollide = true
+        for _, part in pairs(Character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = true
+            end
+        end
+        wait(5)
+    end
+    Character.HumanoidRootPart.CanCollide = true
+    for _, part in pairs(Character:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.CanCollide = true
+        end
+    end
 end)
 
 AutoFarmTab:Textbox('Autofarm Radius', function(value)
@@ -57,8 +110,7 @@ AutoFarmTab:Toggle('Iron Ore', function(v)
         
         if closestRock then
             if ShouldGoto then
-                Humanoid:MoveTo(closestRock.Position)
-                Humanoid.MoveToFinished:Wait()
+                smartMoveTo(closestRock.Position)
             end
             local args = {
                 [1] = {
@@ -97,8 +149,7 @@ AutoFarmTab:Toggle('Eletrite Ore', function(v)
         
         if closestRock then
             if ShouldGoto then
-                Humanoid:MoveTo(closestRock.Position)
-                Humanoid.MoveToFinished:Wait()
+                smartMoveTo(closestRock.Position)
             end
             local args = {
                 [1] = {
@@ -155,7 +206,7 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
        
         if closestSlime then
             while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
-                Humanoid:MoveTo(closestSlime.HumanoidRootPart.Position)
+                smartMoveTo(closestSlime.HumanoidRootPart.Position)
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
                
                 local virtualInput = game:GetService("VirtualInputManager")
@@ -189,7 +240,7 @@ MobFarmTab:Toggle('Farm slimeKing', function(v)
        
         if closestSlime then
             while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeKingFarm do
-                Humanoid:MoveTo(closestSlime.HumanoidRootPart.Position)
+                smartMoveTo(closestSlime.HumanoidRootPart.Position)
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
                
                 local virtualInput = game:GetService("VirtualInputManager")
@@ -225,7 +276,7 @@ MobFarmTab:Toggle('Farm buffalkor', function(v)
        
         if closestBuffalkor then
             while closestBuffalkor:FindFirstChild("Humanoid") and closestBuffalkor.Humanoid.Health > 0 and BuffalkorFarm do
-                Humanoid:MoveTo(closestBuffalkor.HumanoidRootPart.Position)
+                smartMoveTo(closestBuffalkor.HumanoidRootPart.Position)
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestBuffalkor.HumanoidRootPart.Position)
                
                 local virtualInput = game:GetService("VirtualInputManager")
