@@ -5,22 +5,17 @@
 
 ## Update
 ```lua
---> Added Textbox
---> Added Seperator
---> Fixed crashing
 --> Added Toggle
 --> Added Keybinds
 --> Added Dropdown
 --> Added Notification
---> Added SearchBar
 --> Drag Mobile Supported
---> Added Animations (WIP)
+--> Added Key System
 ```
 
 ## To Be Added
 ```lua
---> Key System
---> Panic Function
+
 ```
 
 ## Getting Loadstring
