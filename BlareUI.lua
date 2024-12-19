@@ -79,6 +79,16 @@ function Library:Create(table)
         keyButtonCorner.Parent = keyButton
 
         keyFrame.Parent = dark_UI
+
+        keyButton.MouseButton1Click:Connect(function()
+            if keyInput.Text == key then
+                keyFrame:Destroy()
+                Library:CreateNotification("Success", "Key Verified!", 2)
+                main.Visible = true
+            else
+                Library:CreateNotification("Error", "Invalid Key!", 2)
+            end
+        end)
     end
 
     local main = Instance.new("Frame")
@@ -148,6 +158,10 @@ function Library:Create(table)
     local UICorner15 = Instance.new("UICorner")
     UICorner15.Name = "UICorner2"
     UICorner15.Parent = Toggle
+
+    Toggle.MouseButton1Click:Connect(function()
+        main.Visible = not main.Visible
+    end)
 
     local tabHandler = {}
 
@@ -219,23 +233,6 @@ function Library:Create(table)
         container.Visible = false
 
         --// Event
-
-        Toggle.MouseButton1Click:Connect(function()
-            if not useKey then
-                main.Visible = not main.Visible
-            end
-        end)
-
-        keyButton.MouseButton1Click:Connect(function()
-            if keyInput.Text == key then
-                keyFrame:Destroy()
-                Library:CreateNotification("Success", "Key Verified!", 2)
-                main.Visible = true
-            else
-                Library:CreateNotification("Error", "Invalid Key!", 2)
-            end
-        end)
-
         main1.MouseButton1Click:Connect(function()
             for _,v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
                 if v.Name == "container" then
