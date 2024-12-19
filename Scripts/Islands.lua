@@ -19,10 +19,10 @@ local win = BlareLib:Create({
 local PathfindingService = game:GetService("PathfindingService")
 
 local path = PathfindingService:CreatePath({
-    AgentRadius = 5,
-    AgentHeight = 7,
+    AgentRadius = 1.5,
+    AgentHeight = 2,
     AgentCanJump = true,
-    WaypointSpacing = 4,
+    WaypointSpacing = 2,
     Costs = {
         Water = 50,
         Jump = 5
