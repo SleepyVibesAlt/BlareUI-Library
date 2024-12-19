@@ -20,7 +20,6 @@ local HTTPService = game:GetService("HttpService")
 
 local Library = {}
 
-local keyVerified = not useKey
 function Library:Create(table)
     local windowName = table.Name
     local useKey = table.UseKey or false
@@ -28,7 +27,7 @@ function Library:Create(table)
 
     if useKey then
         local keyFrame = Instance.new("Frame")
-        keyFrame.Name = "key-System"
+        keyFrame.Name = "keySystem"
         keyFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
         keyFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
         keyFrame.Size = UDim2.fromOffset(300, 150)
@@ -80,6 +79,7 @@ function Library:Create(table)
         keyButtonCorner.Parent = keyButton
 
         keyFrame.Parent = dark_UI
+    end
 
     local main = Instance.new("Frame")
     main.Name = "main"
@@ -148,12 +148,6 @@ function Library:Create(table)
     local UICorner15 = Instance.new("UICorner")
     UICorner15.Name = "UICorner2"
     UICorner15.Parent = Toggle
-
-    Toggle.MouseButton1Click:Connect(function()
-        if keyVerified then
-            main.Visible = not main.Visible
-        end
-    end)
 
     local tabHandler = {}
 
@@ -225,9 +219,15 @@ function Library:Create(table)
         container.Visible = false
 
         --// Event
+
+        Toggle.MouseButton1Click:Connect(function()
+            if not useKey then
+                main.Visible = not main.Visible
+            end
+        end)
+
         keyButton.MouseButton1Click:Connect(function()
             if keyInput.Text == key then
-                keyVerified = true
                 keyFrame:Destroy()
                 Library:CreateNotification("Success", "Key Verified!", 2)
                 main.Visible = true
@@ -616,13 +616,13 @@ function Library:Create(table)
         function Library:CreateNotification(title, description, duration)
             duration = duration or 3
             
-            local notifContainer = Instance.new("TextButton")
+            local notifContainer = Instance.new("TextButton")  -- Changed to TextButton
             notifContainer.Name = "NotificationContainer"
             notifContainer.Size = UDim2.new(0, 250, 0, 80)
             notifContainer.Position = UDim2.new(1, -260, 1, -90)
             notifContainer.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-            notifContainer.Text = ""
-            notifContainer.AutoButtonColor = false
+            notifContainer.Text = ""  -- Empty text for button
+            notifContainer.AutoButtonColor = false  -- Disable button color change
             notifContainer.Parent = dark_UI
             
             local uICorner = Instance.new("UICorner")
