@@ -94,7 +94,7 @@ end)
 SettingsTab:Comment('When using Auto-Tween enable the Anti-Cheat Debuffer.')
 SettingsTab:Comment('Anti-Cheat Debuffer in BETA.')
 
-local Distance = 300
+local Distance = 1000
 
 SettingsTab:Section('Range Settings')
 SettingsTab:Textbox('Search Distance', function(value)
