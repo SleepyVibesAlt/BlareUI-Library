@@ -165,6 +165,10 @@ function Library:Create(table)
         Toggle.MouseButton1Click:Connect(function()
             main.Visible = not main.Visible
         end)
+
+        if not UseKey then
+            Toggle.Visible = true
+        end
     
         getKeyButton.MouseButton1Click:Connect(function()
             setclipboard(table.KeyLink)

@@ -1,4 +1,4 @@
-local BlareLib = loadstring(game:HttpGet("https://pastebin.com/raw/usdU5N7w"))()
+local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SleepyVibesAlt/BlareUI-Library/refs/heads/main/BlareUI.lua"))()
 assert(BlareLib, "Failed to load BlareLib")
 
 local Player = game.Players.LocalPlayer
