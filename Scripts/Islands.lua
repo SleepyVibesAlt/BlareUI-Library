@@ -11,9 +11,8 @@ local TweenService = game:GetService("TweenService")
 
 local win = BlareLib:Create({
     Name = "Islands Script",
-    UseKey = true,
-    Key = "12345",
-    Comment = "The key is 12345",
+    UseKey = false,
+    Key = "123456",
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
@@ -28,7 +27,7 @@ local function MoveToTarget(targetPosition)
     if character and character:FindFirstChild("HumanoidRootPart") then
         if ShouldGoto then
             local tweenInfo = TweenInfo.new(
-                (character.HumanoidRootPart.Position - targetPosition).Magnitude / 70,
+                (character.HumanoidRootPart.Position - targetPosition).Magnitude / 35,
                 Enum.EasingStyle.Linear
             )
             
@@ -36,15 +35,14 @@ local function MoveToTarget(targetPosition)
                 CFrame = CFrame.new(targetPosition)
             })
             tween:Play()
-            tween.Completed:Wait()
             return tween
         else
             Humanoid:MoveTo(targetPosition)
-            Humanoid.MoveToFinished:Wait()
             return Humanoid.MoveToFinished
         end
     end
 end
+
 -- Settings Tab
 local SettingsTab = win:Tab('Settings')
 
@@ -91,7 +89,7 @@ end)
 SettingsTab:Comment('When using Auto-Tween enable the Anti-Cheat Debuffer.')
 SettingsTab:Comment('Anti-Cheat Debuffer in BETA.')
 
-local Distance = 1000
+local Distance = 300
 
 SettingsTab:Section('Range Settings')
 SettingsTab:Textbox('Search Distance', function(value)
