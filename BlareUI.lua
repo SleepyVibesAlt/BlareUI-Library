@@ -34,7 +34,6 @@ function Library:Create(table)
 
     if useKey then
         main.Visible = false
-        Toggle.Visible = false
         
         local keyFrame = Instance.new("Frame")
         keyFrame.Name = "keySystem"
@@ -218,8 +217,10 @@ function Library:Create(table)
     Toggle.Text = "Toggle Ui"
     Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
     Toggle.TextSize = 12
+    Toggle.Visible = false
     Toggle.Parent = dark_UI
     Toggle.Font = Enum.Font.Gotham
+    
 
     local UICorner15 = Instance.new("UICorner")
     UICorner15.Name = "UICorner2"
