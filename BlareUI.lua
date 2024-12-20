@@ -240,8 +240,11 @@ function Library:Create(table)
     UICorner15.Parent = Toggle
 
     Toggle.MouseButton1Click:Connect(function()
-        if useKey then return end
-        main.Visible = not main.Visible
+        if useKey then
+            keyframe.Visible = not keyframe.Visible
+        else
+            main.Visible = not main.Visible
+        end
     end)
 
     local tabHandler = {}
