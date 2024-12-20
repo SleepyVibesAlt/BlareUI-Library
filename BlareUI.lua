@@ -20,51 +20,10 @@ local HTTPService = game:GetService("HttpService")
 
 local Library = {}
 
-local function CreateLoadingScreen(text, duration)
-    local loadingScreen = Instance.new("Frame")
-    loadingScreen.Name = "LoadingScreen"
-    loadingScreen.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    loadingScreen.Size = UDim2.fromScale(1, 1)
-    loadingScreen.Parent = dark_UI
-    
-    local loadingText = Instance.new("TextLabel")
-    loadingText.Font = Enum.Font.GothamBold
-    loadingText.Text = text or "Loading..."
-    loadingText.TextColor3 = Color3.fromRGB(195, 195, 195)
-    loadingText.TextSize = 24
-    loadingText.BackgroundTransparency = 1
-    loadingText.Position = UDim2.fromScale(0.5, 0.4)
-    loadingText.AnchorPoint = Vector2.new(0.5, 0.5)
-    loadingText.Parent = loadingScreen
-    
-    local progressBar = Instance.new("Frame")
-    progressBar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    progressBar.Size = UDim2.new(0.3, 0, 0, 6)
-    progressBar.Position = UDim2.fromScale(0.5, 0.5)
-    progressBar.AnchorPoint = Vector2.new(0.5, 0.5)
-    progressBar.Parent = loadingScreen
-    
-    local progress = Instance.new("Frame")
-    progress.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
-    progress.Size = UDim2.fromScale(0, 1)
-    progress.Parent = progressBar
-    
-    local cornerInstance = Instance.new("UICorner")
-    cornerInstance.CornerRadius = UDim.new(0, 3)
-    cornerInstance.Parent = progressBar
-    cornerInstance:Clone().Parent = progress
-    
-    TweenService:Create(progress, TweenInfo.new(duration or 2), {Size = UDim2.fromScale(1, 1)}):Play()
-    task.delay(duration or 2, function()
-        loadingScreen:Destroy()
-    end)
-end
-
 function Library:Create(table)
     local windowName = table.Name
     local useKey = table.UseKey or false
     local key = table.Key or "DEFAULT_KEY"
-    CreateLoadingScreen("Loading " .. table.Name, 5)
 
     local main = Instance.new("Frame")
     main.Name = "main"
@@ -143,7 +102,7 @@ function Library:Create(table)
         keyButton.Size = UDim2.new(0.3, 0, 0, 35)
         keyButton.Position = UDim2.new(0.5, 0, 0.75, 0)
         keyButton.AnchorPoint = Vector2.new(0.5, 0)
-        keyButton.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
+        keyButton.BackgroundColor3 = Color3.fromRGB(45,45,45)
         keyButton.Text = "Submit"
         keyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         keyButton.Font = Enum.Font.GothamBold
@@ -265,7 +224,7 @@ function Library:Create(table)
     UICorner15.Parent = Toggle
 
     Toggle.MouseButton1Click:Connect(function()
-        if useKey and keyFrame and keyFrame.Parent then
+        if keyFrame then
             keyFrame.Visible = not keyFrame.Visible
         else
             main.Visible = not main.Visible
@@ -1130,6 +1089,7 @@ function Library:Create(table)
 
     local DragFrames = {
         main,
+        keyFrame,
     }
 
     for _, frame in ipairs(DragFrames) do
