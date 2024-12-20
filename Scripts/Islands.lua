@@ -394,17 +394,12 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
                 end
                 
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
-                
-                local virtualInput = game:GetService("VirtualInputManager")
-                virtualInput:SendMouseButtonEvent(1, 1, 0, true, game, 1)
+                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
+                Attack(closestSlime)
                 task.wait(0.1)
+                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
                 Attack(closestSlime)
-                virtualInput:SendMouseButtonEvent(1, 1, 0, true, game, 1)
-                ask.wait(0.1)
-                Attack(closestSlime)
-                virtualInput:SendMouseButtonEvent(1, 1, 0, true, game, 1)
-                ask.wait(0.1)
-                Attack(closestSlime)
+                task.wait(0.1)
             end
             print("Slime defeated!")
         end
