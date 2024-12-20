@@ -154,6 +154,10 @@ function Library:Create(table)
         Toggle.Visible = false
         Toggle.Parent = dark_UI
         Toggle.Font = Enum.Font.Gotham
+
+        Toggle.MouseButton1Click:Connect(function()
+            main.Visible = not main.Visible
+        end)
     
         getKeyButton.MouseButton1Click:Connect(function()
             setclipboard(table.KeyLink)
@@ -223,11 +227,7 @@ function Library:Create(table)
 
     local UICorner15 = Instance.new("UICorner")
     UICorner15.Name = "UICorner2"
-    UICorner15.Parent = Toggle
-
-    Toggle.MouseButton1Click:Connect(function()
-        main.Visible = not main.Visible
-    end)    
+    UICorner15.Parent = Toggle   
 
     local tabHandler = {}
 
