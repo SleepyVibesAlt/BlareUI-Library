@@ -27,32 +27,24 @@ local function MoveToTarget(targetPosition)
     local character = game.Players.LocalPlayer.Character
     if character and character:FindFirstChild("HumanoidRootPart") then
         if ShouldGoto then
-            local startTime = tick()
-            local function switchMovement()
-                if tick() - startTime < 4 then
-                    local tweenInfo = TweenInfo.new(
-                        (character.HumanoidRootPart.Position - targetPosition).Magnitude / 35,
-                        Enum.EasingStyle.Linear
-                    )
-                    
-                    local tween = TweenService:Create(character.HumanoidRootPart, tweenInfo, {
-                        CFrame = CFrame.new(targetPosition)
-                    })
-                    tween:Play()
-                    return tween
-                else
-                    startTime = tick()
-                    Humanoid:MoveTo(targetPosition)
-                    return Humanoid.MoveToFinished
-                end
-            end
-            return switchMovement()
+            local tweenInfo = TweenInfo.new(
+                (character.HumanoidRootPart.Position - targetPosition).Magnitude / 35,
+                Enum.EasingStyle.Linear
+            )
+            
+            local tween = TweenService:Create(character.HumanoidRootPart, tweenInfo, {
+                CFrame = CFrame.new(targetPosition)
+            })
+            tween:Play()
+            return tween
         else
             Humanoid:MoveTo(targetPosition)
             return Humanoid.MoveToFinished
         end
     end
 end
+local function Attack(Entity, EntityUUID)
+
 -- Settings Tab
 local SettingsTab = win:Tab('Settings')
 

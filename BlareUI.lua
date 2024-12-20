@@ -154,7 +154,7 @@ function Library:Create(table)
         Toggle.Text = "Toggle Ui"
         Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
         Toggle.TextSize = 12
-        Toggle.Visible = false
+        Toggle.Visible = not useKey
         Toggle.Parent = dark_UI
         Toggle.Font = Enum.Font.Gotham
 
@@ -165,10 +165,6 @@ function Library:Create(table)
         Toggle.MouseButton1Click:Connect(function()
             main.Visible = not main.Visible
         end)
-
-        if not UseKey then
-            Toggle.Visible = true
-        end
     
         getKeyButton.MouseButton1Click:Connect(function()
             setclipboard(table.KeyLink)
