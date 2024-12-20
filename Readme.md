@@ -29,7 +29,8 @@ assert(BlareLib, "Failed to load BlareLib")
 local win = BlareLib:Create({
     Name = "Example Script",
     UseKey = true,
-    Key = "Sleeping",
+    Key = "12345",
+    Comment = "The key is 12345",
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
