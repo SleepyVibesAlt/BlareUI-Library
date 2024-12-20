@@ -1,5 +1,5 @@
 print("Script Source Released on 17.03.2024 (DD/MM/YYYY because Islands is Dead!")
-warn("THIS SCRIPT IS DISCONTINUED FROM NOW!")
+warn("This script was disconntinued by nekohub but now i will continue it for free")
 for i = 1, 50 do
   print("Nekohub on Top | discord.gg/MbsxuDEzgT")
 end

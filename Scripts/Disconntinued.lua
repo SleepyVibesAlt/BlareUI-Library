@@ -1,4 +1,4 @@
-local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SleepyVibesAlt/BlareUI-Library/refs/heads/main/BlareUI.lua"))()
+--[[local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SleepyVibesAlt/BlareUI-Library/refs/heads/main/BlareUI.lua"))()
 assert(BlareLib, "Failed to load BlareLib")
 
 local Player = game.Players.LocalPlayer
@@ -611,4 +611,4 @@ MobFarmTab:Toggle('Farm Skeleton Pirate', function(v)
     end
 end)
 
-BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. ", we hope u enjoy!", 2)
+BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. ", we hope u enjoy!", 2)--]]
