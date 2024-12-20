@@ -11,12 +11,13 @@ local TweenService = game:GetService("TweenService")
 
 local win = BlareLib:Create({
     Name = "Islands Script",
-    UseKey = false,
+    UseKey = true,
     Key = "123456",
+    Comment = "Key = 123456"
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
-        TimePosition = 1
+        TimePosition = 1,
     },
     Discord = "https://discord.gg/yourserver", 
     KeyLink = "https://linkvertise.com/yourkey"

@@ -187,26 +187,6 @@ function Library:Create(table)
             end
         end)
     end
-
-    Toggle.Name = "Toggle"
-    Toggle.Size = UDim2.new(0, 160, 0, 20)
-    Toggle.Position = UDim2.new(0.5, -90, 0, -36)
-    Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    Toggle.BackgroundTransparency = 0.5
-    Toggle.Text = "Toggle Ui"
-    Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Toggle.TextSize = 12
-    Toggle.Visible = false
-    Toggle.Parent = dark_UI
-    Toggle.Font = Enum.Font.Gotham
-
-    local UICorner15 = Instance.new("UICorner")
-    UICorner15.Name = "UICorner2"
-    UICorner15.Parent = Toggle  
-
-    Toggle.MouseButton1Click:Connect(function()
-        main.Visible = not main.Visible
-    end)
     
     local title = Instance.new("TextLabel")
     title.Name = "title"
