@@ -57,35 +57,51 @@ SettingsTab:Toggle('Anti-Cheat Debuffer', function(v)
     local character = player.Character or player.CharacterAdded:Wait()
     
     local humanoid = character:WaitForChild("Humanoid")
-    humanoid:ChangeState(11)
+    local rootPart = character:WaitForChild("HumanoidRootPart")
     
-    game:GetService('RunService').Stepped:Connect(function()
+    local function updateNoclip()
         if noclip then
             for _, part in pairs(character:GetDescendants()) do
-                if part:IsA('BasePart') then
+                if part:IsA('BasePart') and part ~= rootPart then
                     part.CanCollide = false
                 end
             end
-        end
-    end)
-    
-    if noclip then
-        workspace.Gravity = 0
-    else
-        workspace.Gravity = 196.2
-        humanoid:ChangeState(7)
-        game:GetService('RunService').Stepped:Connect(function()
-            if noclip then
-                for _, part in pairs(character:GetDescendants()) do
-                    if part:IsA('BasePart') then
-                        part.CanCollide = true
-                    end
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, false)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying, false)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed, false)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics, false)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming, false)
+            humanoid:ChangeState(11)
+            workspace.Gravity = 50
+        else
+            for _, part in pairs(character:GetDescendants()) do
+                if part:IsA('BasePart') then
+                    part.CanCollide = true
                 end
             end
-        end)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, true)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, true)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying, true)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed, true)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics, true)
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming, true)
+            humanoid:ChangeState(7)
+            workspace.Gravity = 196.2
+        end
     end
+    
+    local connection
+    connection = game:GetService('RunService').Heartbeat:Connect(function()
+        if character and character:FindFirstChild("Humanoid") then
+            updateNoclip()
+        else
+            if connection then
+                connection:Disconnect()
+            end
+        end
+    end)
 end)
-
 SettingsTab:Comment('When using Auto-Tween enable the Anti-Cheat Debuffer.')
 SettingsTab:Comment('Anti-Cheat Debuffer in BETA.')
 
