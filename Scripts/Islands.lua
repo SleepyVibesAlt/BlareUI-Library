@@ -28,7 +28,7 @@ local function MoveToTarget(targetPosition)
     if character and character:FindFirstChild("HumanoidRootPart") then
         if ShouldGoto then
             local tweenInfo = TweenInfo.new(
-                (character.HumanoidRootPart.Position - targetPosition).Magnitude / 35,
+                (character.HumanoidRootPart.Position - targetPosition).Magnitude / 70,
                 Enum.EasingStyle.Linear
             )
             
