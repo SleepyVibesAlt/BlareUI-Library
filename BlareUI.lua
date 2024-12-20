@@ -39,9 +39,16 @@ function Library:Create(table)
         keyFrame.Name = "keySystem"
         keyFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
         keyFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-        keyFrame.Size = UDim2.fromOffset(300, 150)
+        keyFrame.Size = UDim2.fromOffset(400, 200)
         keyFrame.AnchorPoint = Vector2.new(0.5, 0.5)
         keyFrame.Parent = dark_UI
+        
+        local keyGradient = Instance.new("UIGradient")
+        keyGradient.Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(28, 28, 28)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(35, 35, 35))
+        })
+        keyGradient.Parent = keyFrame
         
         local keyCorner = Instance.new("UICorner")
         keyCorner.CornerRadius = UDim.new(0, 6)
@@ -49,83 +56,103 @@ function Library:Create(table)
         
         local keyTitle = Instance.new("TextLabel")
         keyTitle.Name = "title"
-        keyTitle.Font = Enum.Font.Gotham
+        keyTitle.Font = Enum.Font.GothamBold
         keyTitle.Text = windowName .. " Key System"
         keyTitle.TextColor3 = Color3.fromRGB(168, 168, 168)
-        keyTitle.TextSize = 20
+        keyTitle.TextSize = 22
         keyTitle.BackgroundTransparency = 1
         keyTitle.Position = UDim2.fromScale(0.5, 0.1)
-        keyTitle.Size = UDim2.fromOffset(200, 28)
+        keyTitle.Size = UDim2.fromOffset(300, 28)
         keyTitle.AnchorPoint = Vector2.new(0.5, 0)
         keyTitle.Parent = keyFrame
-
+    
+        local keySubtitle = Instance.new("TextLabel")
+        keySubtitle.Font = Enum.Font.Gotham
+        keySubtitle.Text = "Enter your key to access " .. windowName
+        keySubtitle.TextColor3 = Color3.fromRGB(120, 120, 120)
+        keySubtitle.TextSize = 14
+        keySubtitle.BackgroundTransparency = 1
+        keySubtitle.Position = UDim2.fromScale(0.5, 0.25)
+        keySubtitle.Size = UDim2.fromOffset(300, 20)
+        keySubtitle.AnchorPoint = Vector2.new(0.5, 0)
+        keySubtitle.Parent = keyFrame
+    
         local keyInput = Instance.new("TextBox")
-        keyInput.Size = UDim2.new(0.8, 0, 0, 30)
-        keyInput.Position = UDim2.new(0.5, 0, 0.4, 0)
+        keyInput.Size = UDim2.new(0.8, 0, 0, 35)
+        keyInput.Position = UDim2.new(0.5, 0, 0.45, 0)
         keyInput.AnchorPoint = Vector2.new(0.5, 0)
         keyInput.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
         keyInput.PlaceholderText = "Enter Key"
+        keyInput.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
         keyInput.Text = ""
         keyInput.TextColor3 = Color3.fromRGB(195, 195, 195)
-        keyInput.Font = Enum.Font.Gotham
+        keyInput.Font = Enum.Font.GothamSemibold
+        keyInput.TextSize = 14
         keyInput.Parent = keyFrame
-
+        
+        local keyInputPadding = Instance.new("UIPadding")
+        keyInputPadding.PaddingLeft = UDim.new(0, 10)
+        keyInputPadding.Parent = keyInput
+    
         local keyInputCorner = Instance.new("UICorner")
         keyInputCorner.CornerRadius = UDim.new(0, 6)
         keyInputCorner.Parent = keyInput
-
+    
         local keyButton = Instance.new("TextButton")
-        keyButton.Size = UDim2.new(0.4, 0, 0, 30)
-        keyButton.Position = UDim2.new(0.5, 0, 0.7, 0)
+        keyButton.Size = UDim2.new(0.3, 0, 0, 35)
+        keyButton.Position = UDim2.new(0.5, 0, 0.6, 0)
         keyButton.AnchorPoint = Vector2.new(0.5, 0)
-        keyButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+        keyButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
         keyButton.Text = "Submit"
         keyButton.TextColor3 = Color3.fromRGB(195, 195, 195)
-        keyButton.Font = Enum.Font.Gotham
+        keyButton.Font = Enum.Font.GothamBold
+        keyButton.TextSize = 14
         keyButton.Parent = keyFrame
-
+        
         local keyButtonCorner = Instance.new("UICorner")
         keyButtonCorner.CornerRadius = UDim.new(0, 6)
         keyButtonCorner.Parent = keyButton
-
+    
         local getKeyButton = Instance.new("TextButton")
-        getKeyButton.Size = UDim2.new(0.4, 0, 0, 30)
-        getKeyButton.Position = UDim2.new(0.3, 0, 0.7, 0)
+        getKeyButton.Size = UDim2.new(0.3, 0, 0, 35)
+        getKeyButton.Position = UDim2.new(0.8, 0, 0.8, 0)
         getKeyButton.AnchorPoint = Vector2.new(0.5, 0)
-        getKeyButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+        getKeyButton.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
         getKeyButton.Text = "Get Key"
-        getKeyButton.TextColor3 = Color3.fromRGB(195, 195, 195)
-        getKeyButton.Font = Enum.Font.Gotham
+        getKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        getKeyButton.Font = Enum.Font.GothamBold
+        getKeyButton.TextSize = 14
         getKeyButton.Parent = keyFrame
-
+    
         local getKeyCorner = Instance.new("UICorner")
         getKeyCorner.CornerRadius = UDim.new(0, 6)
         getKeyCorner.Parent = getKeyButton
-
+    
         local discordButton = Instance.new("TextButton")
-        discordButton.Size = UDim2.new(0.4, 0, 0, 30)
-        discordButton.Position = UDim2.new(0.7, 0, 0.7, 0)
+        discordButton.Size = UDim2.new(0.3, 0, 0, 35)
+        discordButton.Position = UDim2.new(0.2, 0, 0.8, 0)
         discordButton.AnchorPoint = Vector2.new(0.5, 0)
-        discordButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+        discordButton.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
         discordButton.Text = "Discord"
-        discordButton.TextColor3 = Color3.fromRGB(195, 195, 195)
-        discordButton.Font = Enum.Font.Gotham
+        discordButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        discordButton.Font = Enum.Font.GothamBold
+        discordButton.TextSize = 14
         discordButton.Parent = keyFrame
-
+    
         local discordCorner = Instance.new("UICorner")
         discordCorner.CornerRadius = UDim.new(0, 6)
         discordCorner.Parent = discordButton
-
+    
         getKeyButton.MouseButton1Click:Connect(function()
             setclipboard(table.KeyLink)
             Library:CreateNotification("Success", "Key link copied to clipboard!", 2)
         end)
-
+    
         discordButton.MouseButton1Click:Connect(function()
             setclipboard(table.Discord)
             Library:CreateNotification("Success", "Discord link copied to clipboard!", 2)
         end)
-
+    
         keyButton.MouseButton1Click:Connect(function()
             if keyInput.Text == key then
                 keyFrame:Destroy()
@@ -136,7 +163,7 @@ function Library:Create(table)
             end
         end)
     end
-
+    
     local title = Instance.new("TextLabel")
     title.Name = "title"
     title.Font = Enum.Font.Gotham
@@ -198,6 +225,7 @@ function Library:Create(table)
     UICorner15.Parent = Toggle
 
     Toggle.MouseButton1Click:Connect(function()
+        if useKey then return end
         main.Visible = not main.Visible
     end)
 
