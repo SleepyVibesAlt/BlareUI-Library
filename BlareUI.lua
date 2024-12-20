@@ -99,7 +99,7 @@ function Library:Create(table)
         keyInputCorner.Parent = keyInput
     
         local keyButton = Instance.new("TextButton")
-        keyButton.Size = UDim2.new(0.3, 0, 0, 35)
+        keyButton.Size = UDim2.new(0.25, 0, 0, 35)
         keyButton.Position = UDim2.new(0.5, 0, 0.75, 0)
         keyButton.AnchorPoint = Vector2.new(0.5, 0)
         keyButton.BackgroundColor3 = Color3.fromRGB(45,45,45)
@@ -114,8 +114,8 @@ function Library:Create(table)
         keyButtonCorner.Parent = keyButton
     
         local getKeyButton = Instance.new("TextButton")
-        getKeyButton.Size = UDim2.new(0.3, 0, 0, 35)
-        getKeyButton.Position = UDim2.new(0.8, 0, 0.75, 0)
+        getKeyButton.Size = UDim2.new(0.25, 0, 0, 35)
+        getKeyButton.Position = UDim2.new(0.85, 0, 0.75, 0)
         getKeyButton.AnchorPoint = Vector2.new(0.5, 0)
         getKeyButton.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
         getKeyButton.Text = "Get Key"
@@ -129,8 +129,8 @@ function Library:Create(table)
         getKeyCorner.Parent = getKeyButton
     
         local discordButton = Instance.new("TextButton")
-        discordButton.Size = UDim2.new(0.3, 0, 0, 35)
-        discordButton.Position = UDim2.new(0.2, 0, 0.75, 0)
+        discordButton.Size = UDim2.new(0.25, 0, 0, 35)
+        discordButton.Position = UDim2.new(0.15, 0, 0.75, 0)
         discordButton.AnchorPoint = Vector2.new(0.5, 0)
         discordButton.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
         discordButton.Text = "Discord"
@@ -141,7 +141,6 @@ function Library:Create(table)
         local discordCorner = Instance.new("UICorner")
         discordCorner.CornerRadius = UDim.new(0, 6)
         discordCorner.Parent = discordButton
-
         local Toggle = Instance.new("TextButton")
         Toggle.Name = "Toggle"
         Toggle.Size = UDim2.new(0, 160, 0, 20)
