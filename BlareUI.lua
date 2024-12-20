@@ -24,6 +24,7 @@ function Library:Create(table)
     local windowName = table.Name
     local useKey = table.UseKey or false
     local key = table.Key or "DEFAULT_KEY"
+    local Comment = table.Comment or "Enter your key to gain access to the script."
 
     local main = Instance.new("Frame")
     main.Name = "main"
@@ -68,7 +69,7 @@ function Library:Create(table)
     
         local keySubtitle = Instance.new("TextLabel")
         keySubtitle.Font = Enum.Font.Gotham
-        keySubtitle.Text = "Enter your key to access " .. windowName
+        keySubtitle.Text = Comment
         keySubtitle.TextColor3 = Color3.fromRGB(120, 120, 120)
         keySubtitle.TextSize = 14
         keySubtitle.BackgroundTransparency = 1
