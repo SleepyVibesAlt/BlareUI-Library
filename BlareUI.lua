@@ -20,10 +20,51 @@ local HTTPService = game:GetService("HttpService")
 
 local Library = {}
 
+local function CreateLoadingScreen(text, duration)
+    local loadingScreen = Instance.new("Frame")
+    loadingScreen.Name = "LoadingScreen"
+    loadingScreen.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    loadingScreen.Size = UDim2.fromScale(1, 1)
+    loadingScreen.Parent = dark_UI
+    
+    local loadingText = Instance.new("TextLabel")
+    loadingText.Font = Enum.Font.GothamBold
+    loadingText.Text = text or "Loading..."
+    loadingText.TextColor3 = Color3.fromRGB(195, 195, 195)
+    loadingText.TextSize = 24
+    loadingText.BackgroundTransparency = 1
+    loadingText.Position = UDim2.fromScale(0.5, 0.4)
+    loadingText.AnchorPoint = Vector2.new(0.5, 0.5)
+    loadingText.Parent = loadingScreen
+    
+    local progressBar = Instance.new("Frame")
+    progressBar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    progressBar.Size = UDim2.new(0.3, 0, 0, 6)
+    progressBar.Position = UDim2.fromScale(0.5, 0.5)
+    progressBar.AnchorPoint = Vector2.new(0.5, 0.5)
+    progressBar.Parent = loadingScreen
+    
+    local progress = Instance.new("Frame")
+    progress.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
+    progress.Size = UDim2.fromScale(0, 1)
+    progress.Parent = progressBar
+    
+    local cornerInstance = Instance.new("UICorner")
+    cornerInstance.CornerRadius = UDim.new(0, 3)
+    cornerInstance.Parent = progressBar
+    cornerInstance:Clone().Parent = progress
+    
+    TweenService:Create(progress, TweenInfo.new(duration or 2), {Size = UDim2.fromScale(1, 1)}):Play()
+    task.delay(duration or 2, function()
+        loadingScreen:Destroy()
+    end)
+end
+
 function Library:Create(table)
     local windowName = table.Name
     local useKey = table.UseKey or false
     local key = table.Key or "DEFAULT_KEY"
+    CreateLoadingScreen("Loading " .. table.Name, 5)
 
     local main = Instance.new("Frame")
     main.Name = "main"
@@ -100,11 +141,11 @@ function Library:Create(table)
     
         local keyButton = Instance.new("TextButton")
         keyButton.Size = UDim2.new(0.3, 0, 0, 35)
-        keyButton.Position = UDim2.new(0.5, 0, 0.8, 0)
+        keyButton.Position = UDim2.new(0.5, 0, 0.75, 0)
         keyButton.AnchorPoint = Vector2.new(0.5, 0)
-        keyButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+        keyButton.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
         keyButton.Text = "Submit"
-        keyButton.TextColor3 = Color3.fromRGB(195, 195, 195)
+        keyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         keyButton.Font = Enum.Font.GothamBold
         keyButton.TextSize = 14
         keyButton.Parent = keyFrame
@@ -115,7 +156,7 @@ function Library:Create(table)
     
         local getKeyButton = Instance.new("TextButton")
         getKeyButton.Size = UDim2.new(0.3, 0, 0, 35)
-        getKeyButton.Position = UDim2.new(0.8, 0, 0.8, 0)
+        getKeyButton.Position = UDim2.new(0.8, 0, 0.75, 0)
         getKeyButton.AnchorPoint = Vector2.new(0.5, 0)
         getKeyButton.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
         getKeyButton.Text = "Get Key"
@@ -130,15 +171,14 @@ function Library:Create(table)
     
         local discordButton = Instance.new("TextButton")
         discordButton.Size = UDim2.new(0.3, 0, 0, 35)
-        discordButton.Position = UDim2.new(0.2, 0, 0.8, 0)
+        discordButton.Position = UDim2.new(0.2, 0, 0.75, 0)
         discordButton.AnchorPoint = Vector2.new(0.5, 0)
         discordButton.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
         discordButton.Text = "Discord"
         discordButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         discordButton.Font = Enum.Font.GothamBold
         discordButton.TextSize = 14
-        discordButton.Parent = keyFrame
-    
+        discordButton.Parent = keyFrame    
         local discordCorner = Instance.new("UICorner")
         discordCorner.CornerRadius = UDim.new(0, 6)
         discordCorner.Parent = discordButton
