@@ -26,23 +26,32 @@ local function MoveToTarget(targetPosition)
     local character = game.Players.LocalPlayer.Character
     if character and character:FindFirstChild("HumanoidRootPart") then
         if ShouldGoto then
-            local tweenInfo = TweenInfo.new(
-                (character.HumanoidRootPart.Position - targetPosition).Magnitude / 35,
-                Enum.EasingStyle.Linear
-            )
-            
-            local tween = TweenService:Create(character.HumanoidRootPart, tweenInfo, {
-                CFrame = CFrame.new(targetPosition)
-            })
-            tween:Play()
-            return tween
+            local startTime = tick()
+            local function switchMovement()
+                if tick() - startTime < 4 then
+                    local tweenInfo = TweenInfo.new(
+                        (character.HumanoidRootPart.Position - targetPosition).Magnitude / 35,
+                        Enum.EasingStyle.Linear
+                    )
+                    
+                    local tween = TweenService:Create(character.HumanoidRootPart, tweenInfo, {
+                        CFrame = CFrame.new(targetPosition)
+                    })
+                    tween:Play()
+                    return tween
+                else
+                    startTime = tick()
+                    Humanoid:MoveTo(targetPosition)
+                    return Humanoid.MoveToFinished
+                end
+            end
+            return switchMovement()
         else
             Humanoid:MoveTo(targetPosition)
             return Humanoid.MoveToFinished
         end
     end
 end
-
 -- Settings Tab
 local SettingsTab = win:Tab('Settings')
 
@@ -73,7 +82,7 @@ SettingsTab:Toggle('Anti-Cheat Debuffer', function(v)
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics, false)
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming, false)
             humanoid:ChangeState(11)
-            workspace.Gravity = 50
+            workspace.Gravity = 0
         else
             for _, part in pairs(character:GetDescendants()) do
                 if part:IsA('BasePart') then
@@ -102,6 +111,7 @@ SettingsTab:Toggle('Anti-Cheat Debuffer', function(v)
         end
     end)
 end)
+
 SettingsTab:Comment('When using Auto-Tween enable the Anti-Cheat Debuffer.')
 SettingsTab:Comment('Anti-Cheat Debuffer in BETA.')
 

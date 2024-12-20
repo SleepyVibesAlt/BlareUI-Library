@@ -161,13 +161,13 @@ function Library:Create(table)
         UICorner15.Name = "UICorner2"
         UICorner15.Parent = Toggle  
 
-        if UseKey == false then
-            Toggle.Visible = true
-        end
-        
         Toggle.MouseButton1Click:Connect(function()
             main.Visible = not main.Visible
         end)
+
+        if UseKey == false then
+            Toggle.Visible = true
+        end
     
         getKeyButton.MouseButton1Click:Connect(function()
             setclipboard(table.KeyLink)
