@@ -2,9 +2,10 @@ local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Slee
 assert(BlareLib, "Failed to load BlareLib")
 
 local win = BlareLib:Create({
-    Name = "Islands Script",
+    Name = "Example Script",
     UseKey = true,
-    Key = "12345",
+    Key = "Sleeping",
+    SaveKey = true
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",

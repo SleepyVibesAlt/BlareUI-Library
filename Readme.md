@@ -5,11 +5,12 @@
 
 ## Update
 ```lua
---> Added Toggle
---> Added Keybinds
 --> Added Dropdown
 --> Added Notification
 --> Added Key System
+--> Added Get-Key
+--> Added Discord
+--> Added Save-Key Feature
 ```
 
 ## To Be Added
@@ -26,9 +27,10 @@ assert(BlareLib, "Failed to load BlareLib")
 ## Creating UI Library Window
 ```lua
 local win = BlareLib:Create({
-    Name = "Islands Script",
+    Name = "Example Script",
     UseKey = true,
-    Key = "12345",
+    Key = "Sleeping",
+    SaveKey = true
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
@@ -37,7 +39,6 @@ local win = BlareLib:Create({
     Discord = "https://discord.gg/yourserver", 
     KeyLink = "https://linkvertise.com/yourkey"
 })
---> Name, UseKey, Key, PlaySound, SoundID, TimeBeforePlay
 --> The key with be DEFAULT_KEY is not added already.
 ```
 

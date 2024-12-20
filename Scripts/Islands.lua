@@ -13,13 +13,12 @@ local win = BlareLib:Create({
     Name = "Islands Script",
     UseKey = true,
     Key = "Sleeping",
-    SaveKey = false
+    SaveKey = true
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
         TimePosition = 1
     },
-
     Discord = "https://discord.gg/yourserver", 
     KeyLink = "https://linkvertise.com/yourkey"
 })
