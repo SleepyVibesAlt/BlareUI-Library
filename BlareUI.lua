@@ -138,11 +138,13 @@ function Library:Create(table)
         discordButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         discordButton.Font = Enum.Font.GothamBold
         discordButton.TextSize = 14
-        discordButton.Parent = keyFrame    
+        discordButton.Parent = keyFrame   
+
         local discordCorner = Instance.new("UICorner")
         discordCorner.CornerRadius = UDim.new(0, 6)
         discordCorner.Parent = discordButton
         local Toggle = Instance.new("TextButton")
+
         Toggle.Name = "Toggle"
         Toggle.Size = UDim2.new(0, 160, 0, 20)
         Toggle.Position = UDim2.new(0.5, -90, 0, -36)
@@ -154,6 +156,10 @@ function Library:Create(table)
         Toggle.Visible = false
         Toggle.Parent = dark_UI
         Toggle.Font = Enum.Font.Gotham
+
+        local UICorner15 = Instance.new("UICorner")
+        UICorner15.Name = "UICorner2"
+        UICorner15.Parent = Toggle  
 
         Toggle.MouseButton1Click:Connect(function()
             main.Visible = not main.Visible
@@ -223,11 +229,7 @@ function Library:Create(table)
 
     tabContainer.Parent = main
     main.AnchorPoint = Vector2.new(0.5,0.5)
-    main.Position = UDim2.new(0.5,0,0.5,0)
-
-    local UICorner15 = Instance.new("UICorner")
-    UICorner15.Name = "UICorner2"
-    UICorner15.Parent = Toggle   
+    main.Position = UDim2.new(0.5,0,0.5,0) 
 
     local tabHandler = {}
 
