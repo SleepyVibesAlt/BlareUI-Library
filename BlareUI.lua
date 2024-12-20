@@ -1123,11 +1123,11 @@ end
 
 local executor = "Unknown"
 executor = getexecutorname()
-print('===================================')
+print('===========================================')
 print('Welcome to BlareUi-Library')
 print('Library Version 1.0.0')
 print('Executor : '.. executor)
 print('Status : Functional')
-print('===================================')
+print('===========================================')
 
 return Library
