@@ -34,6 +34,7 @@ function Library:Create(table)
 
     if useKey then
         main.Visible = false
+        Toggle.Visible = false
         
         local keyFrame = Instance.new("Frame")
         keyFrame.Name = "keySystem"
@@ -157,7 +158,7 @@ function Library:Create(table)
                 keyFrame:Destroy()
                 Library:CreateNotification("Success", "Key Verified!", 2)
                 main.Visible = true
-                stringValue.Value = false
+                Toggle.Visible = true
             else
                 Library:CreateNotification("Error", "Invalid Key!", 2)
             end
@@ -224,18 +225,9 @@ function Library:Create(table)
     UICorner15.Name = "UICorner2"
     UICorner15.Parent = Toggle
 
-    local stringValue = Instance.new("BooleanValue")
-    stringValue.Name = "KeyToggle"
-    stringValue.Value = useKey
-    stringValue.Parent = dark_UI
-
     Toggle.MouseButton1Click:Connect(function()
-        if stringValue.Value then
-            keyFrame.Visible = not keyFrame.Visible
-        else
-            main.Visible = not main.Visible
-        end
-    end)  
+        main.Visible = not main.Visible
+    end)    
 
     local tabHandler = {}
 
@@ -1126,5 +1118,14 @@ function Library:Create(table)
 
     return tabHandler
 end
+
+local executor = "Unknown"
+executor = getexecutorname()
+print('===================================')
+print('Welcome to BlareUi-Library')
+print('Library Version 1.0.0')
+print('Executor : '.. executor)
+print('Status : Online')
+print('===================================')
 
 return Library
