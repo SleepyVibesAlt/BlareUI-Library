@@ -12,8 +12,7 @@ local TweenService = game:GetService("TweenService")
 local win = BlareLib:Create({
     Name = "Islands Script",
     UseKey = false,
-    Key = "1",
-    Comment = "The key is 1",
+    Key = "123456",
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
@@ -44,13 +43,13 @@ local function MoveToTarget(targetPosition)
     end
 end
 
-local function Attack(Entity)
+local function Attack(Entity, EntityUUID)
     local args = {
-        [1] = Entity.EntityUUID.Value,
+        [1] = "7af68bad-22b8-4b7f-a0e6-ca4996c9cbc1",
         [2] = {
             [1] = {
                 ["UiItXhnkf"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nTwudhybaivliemzqrcNmf",
-                ["hitUnit"] = workspace.WildernessIsland.Entities[Entity]
+                ["hitUnit"] = workspace.WildernessIsland.Entities[Entity].HumanoidRootPart,zz
             }
         }
     }
@@ -88,19 +87,11 @@ SettingsTab:Toggle('Anti-Cheat Debuffer', function(v)
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics, false)
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming, false)
             humanoid:ChangeState(11)
-            
-            -- Apply zero gravity to character parts only
-            for _, part in pairs(character:GetDescendants()) do
-                if part:IsA('BasePart') then
-                    part.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0, 0, 1, 1)
-                end
-            end
+            workspace.Gravity = 50
         else
             for _, part in pairs(character:GetDescendants()) do
                 if part:IsA('BasePart') then
                     part.CanCollide = true
-                    -- Reset physical properties
-                    part.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0.3, 0.5, 1, 1)
                 end
             end
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, true)
@@ -110,6 +101,7 @@ SettingsTab:Toggle('Anti-Cheat Debuffer', function(v)
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics, true)
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming, true)
             humanoid:ChangeState(7)
+            workspace.Gravity = 196.2
         end
     end
     
@@ -124,7 +116,6 @@ SettingsTab:Toggle('Anti-Cheat Debuffer', function(v)
         end
     end)
 end)
-
 SettingsTab:Comment('When using Auto-Tween enable the Anti-Cheat Debuffer.')
 SettingsTab:Comment('Anti-Cheat Debuffer in BETA.')
 
@@ -375,7 +366,7 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
         local closestDistance = math.huge
         
         for _, slime in pairs(Slimes:GetChildren()) do
-            if slime.Name == "slime" and slime:FindFirstChild("Humanoid") and slime:FindFirstChild("HumanoidRootPart") and slime.Humanoid.Health > 0 and SlimeFarm then
+            if slime.Name == "slime" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 and SlimeFarm then
                 local distance = (slime.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
                 if distance < closestDistance and distance <= Distance then
                     closestSlime = slime
@@ -385,7 +376,7 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
         end
         
         if closestSlime then
-            while closestSlime:FindFirstChild("Humanoid") and closestSlime:FindFirstChild("HumanoidRootPart") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
+            while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeFarm do
                 local movement = MoveToTarget(closestSlime.HumanoidRootPart.Position)
                 if ShouldGoto then
                     movement.Completed:Wait()
@@ -394,11 +385,11 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
                 end
                 
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
+                
+                local virtualInput = game:GetService("VirtualInputManager")
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                Attack(closestSlime)
                 task.wait(0.1)
                 virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
-                Attack(closestSlime)
                 task.wait(0.1)
             end
             print("Slime defeated!")
@@ -415,7 +406,7 @@ MobFarmTab:Toggle('Farm slimeKing', function(v)
         local closestDistance = math.huge
         
         for _, slime in pairs(Slimes:GetChildren()) do
-            if slime.Name == "slimeKing" and slime:FindFirstChild("Humanoid") and slime:FindFirstChild("HumanoidRootPart") and slime.Humanoid.Health > 0 and SlimeKingFarm then
+            if slime.Name == "slimeKing" and slime:FindFirstChild("Humanoid") and slime.Humanoid.Health > 0 and SlimeKingFarm then
                 local distance = (slime.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
                 if distance < closestDistance and distance <= Distance then
                     closestSlime = slime
@@ -425,7 +416,7 @@ MobFarmTab:Toggle('Farm slimeKing', function(v)
         end
         
         if closestSlime then
-            while closestSlime:FindFirstChild("Humanoid") and closestSlime:FindFirstChild("HumanoidRootPart") and closestSlime.Humanoid.Health > 0 and SlimeKingFarm do
+            while closestSlime:FindFirstChild("Humanoid") and closestSlime.Humanoid.Health > 0 and SlimeKingFarm do
                 local movement = MoveToTarget(closestSlime.HumanoidRootPart.Position)
                 if ShouldGoto then
                     movement.Completed:Wait()
@@ -456,7 +447,7 @@ MobFarmTab:Toggle('Farm buffalkor', function(v)
         local closestDistance = math.huge
         
         for _, mob in pairs(Entities:GetChildren()) do
-            if mob.Name == "buffalkor" and mob:FindFirstChild("Humanoid") and mob:FindFirstChild("HumanoidRootPart") and mob.Humanoid.Health > 0 and BuffalkorFarm then
+            if mob.Name == "buffalkor" and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 and BuffalkorFarm then
                 local distance = (mob.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
                 if distance < closestDistance and distance <= Distance then
                     closestBuffalkor = mob
@@ -466,7 +457,7 @@ MobFarmTab:Toggle('Farm buffalkor', function(v)
         end
         
         if closestBuffalkor then
-            while closestBuffalkor:FindFirstChild("Humanoid") and closestBuffalkor:FindFirstChild("HumanoidRootPart") and closestBuffalkor.Humanoid.Health > 0 and BuffalkorFarm do
+            while closestBuffalkor:FindFirstChild("Humanoid") and closestBuffalkor.Humanoid.Health > 0 and BuffalkorFarm do
                 local movement = MoveToTarget(closestBuffalkor.HumanoidRootPart.Position)
                 if ShouldGoto then
                     movement.Completed:Wait()
@@ -497,7 +488,7 @@ MobFarmTab:Toggle('Farm Lizard Wizard', function(v)
         local closestDistance = math.huge
         
         for _, mob in pairs(Entities:GetChildren()) do
-            if mob.Name == "wizardLizard" and mob:FindFirstChild("Humanoid") and mob:FindFirstChild("HumanoidRootPart") and mob.Humanoid.Health > 0 and WizardFarm then
+            if mob.Name == "wizardLizard" and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 and WizardFarm then
                 local distance = (mob.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
                 if distance < closestDistance and distance <= Distance then
                     closestWizard = mob
@@ -507,7 +498,7 @@ MobFarmTab:Toggle('Farm Lizard Wizard', function(v)
         end
         
         if closestWizard then
-            while closestWizard:FindFirstChild("Humanoid") and closestWizard:FindFirstChild("HumanoidRootPart") and closestWizard.Humanoid.Health > 0 and WizardFarm do
+            while closestWizard:FindFirstChild("Humanoid") and closestWizard.Humanoid.Health > 0 and WizardFarm do
                 local movement = MoveToTarget(closestWizard.HumanoidRootPart.Position)
                 if ShouldGoto then
                     movement.Completed:Wait()
@@ -537,7 +528,7 @@ MobFarmTab:Toggle('Farm Wizard Boss', function(v)
         local closestDistance = math.huge
         
         for _, mob in pairs(Entities:GetChildren()) do
-            if mob.Name == "wizardBoss" and mob:FindFirstChild("Humanoid") and mob:FindFirstChild("HumanoidRootPart") and mob.Humanoid.Health > 0 and WizardBossFarm then
+            if mob.Name == "wizardBoss" and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 and WizardBossFarm then
                 local distance = (mob.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
                 if distance < closestDistance and distance <= Distance then
                     closestWizardBoss = mob
@@ -547,7 +538,7 @@ MobFarmTab:Toggle('Farm Wizard Boss', function(v)
         end
         
         if closestWizardBoss then
-            while closestWizardBoss:FindFirstChild("Humanoid") and closestWizardBoss:FindFirstChild("HumanoidRootPart") and closestWizardBoss.Humanoid.Health > 0 and WizardBossFarm do
+            while closestWizardBoss:FindFirstChild("Humanoid") and closestWizardBoss.Humanoid.Health > 0 and WizardBossFarm do
                 local movement = MoveToTarget(closestWizardBoss.HumanoidRootPart.Position)
                 if ShouldGoto then
                     movement.Completed:Wait()
@@ -579,7 +570,7 @@ MobFarmTab:Toggle('Farm Skeleton Pirate', function(v)
         local closestDistance = math.huge
         
         for _, mob in pairs(Entities:GetChildren()) do
-            if mob.Name == "skeletonPirate" and mob:FindFirstChild("Humanoid") and mob:FindFirstChild("HumanoidRootPart") and mob.Humanoid.Health > 0 and PirateFarm then
+            if mob.Name == "skeletonPirate" and mob:FindFirstChild("Humanoid") and mob.Humanoid.Health > 0 and PirateFarm then
                 local distance = (mob.HumanoidRootPart.Position - Character.HumanoidRootPart.Position).Magnitude
                 if distance < closestDistance and distance <= Distance then
                     closestPirate = mob
@@ -589,7 +580,7 @@ MobFarmTab:Toggle('Farm Skeleton Pirate', function(v)
         end
         
         if closestPirate then
-            while closestPirate:FindFirstChild("Humanoid") and closestPirate:FindFirstChild("HumanoidRootPart") and closestPirate.Humanoid.Health > 0 and PirateFarm do
+            while closestPirate:FindFirstChild("Humanoid") and closestPirate.Humanoid.Health > 0 and PirateFarm do
                 local movement = MoveToTarget(closestPirate.HumanoidRootPart.Position)
                 if ShouldGoto then
                     movement.Completed:Wait()
@@ -610,4 +601,5 @@ MobFarmTab:Toggle('Farm Skeleton Pirate', function(v)
         task.wait(0.1)
     end
 end)
+
 BlareLib:CreateNotification("Island Script Initiated", "Welcome " .. PlayerName .. ", we hope u enjoy!", 2)
