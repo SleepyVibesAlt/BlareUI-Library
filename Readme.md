@@ -19,7 +19,9 @@
 
 ## Getting Loadstring
 ```lua
-local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SleepyVibesAlt/BlareUI-Library/refs/heads/main/BlareUI.lua"))()```
+local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SleepyVibesAlt/BlareUI-Library/refs/heads/main/BlareUI.lua"))()
+assert(BlareLib, "Failed to load BlareLib")
+```
 
 ## Creating UI Library Window
 ```lua
