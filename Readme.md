@@ -30,7 +30,6 @@ local win = BlareLib:Create({
     Name = "Example Script",
     UseKey = true,
     Key = "Sleeping",
-    SaveKey = true,
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
