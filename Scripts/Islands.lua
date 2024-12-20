@@ -22,7 +22,9 @@ local win = BlareLib:Create({
     KeyLink = "https://linkvertise.com/yourkey"
 })
 
-local FileName = "UpdatedNekoHub"
+repeat wait() until game:IsLoaded()
+
+local FileName = "Islands Script"
 local GameName = "Islands"
 
 local NotificationIcon = "rbxassetid://1234567890"
@@ -35,7 +37,173 @@ function SendNotification(Title, Text)
 	})
 end	
 
-SendNotification("Welcome!", "Welcome to "..FileName .. " " .. ScriptVersion.."!")
+if isfolder(FileName) then
+
+else
+	makefolder(FileName)
+end
+
+
+if isfolder(FileName.."/"..GameName) then
+
+else
+	makefolder(FileName.."/"..GameName)
+end
+
+function IsFile(Name)
+	return isfile(FileName.."/"..GameName.."/"..Name)
+end	
+
+function IsFolder(Name)
+	return isfolder(FileName.."/"..GameName.."/"..Name)
+end	
+
+
+function ReadFile(Name) 
+	if isfile(FileName.."/"..GameName.."/"..Name) == true then
+		return readfile(FileName.."/"..GameName.."/"..Name)
+	else
+		return readfile(FileName.."/"..GameName..Name)
+	end
+	return readfile(FileName.."/"..GameName.."/"..Name)
+end
+
+function CreateFolder(Name)
+	makefolder(FileName.."/"..GameName.."/"..Name)
+end	
+
+function CreateFile(Name, Data, CheckIfFile)
+	if CheckIfFile == true then
+		if isfile(FileName.."/"..GameName.."/"..Name) then
+
+		else
+			writefile(FileName.."/"..GameName.."/"..Name, Data)
+		end
+	else
+		writefile(FileName.."/"..GameName.."/"..Name, Data)
+	end
+end	
+
+-- local TemplateFile = game:HttpGet("https://pastebin.com/raw/yQUgfbZy")
+-- CreateFile("/Schematica/Template", TemplateFile, false)
+
+
+task.wait(1)
+
+function GetSchematicaFiles()
+	local Path = FileName.."/"..GameName.."/".."Schematica"
+
+	local Files = listfiles(Path)
+
+	if not Files or (#Files == 0) then
+		local TemplateFile = game:HttpGet("https://pastebin.com/raw/yQUgfbZy")
+		CreateFile("/Schematica/Template", TemplateFile, false)
+
+		task.wait(1)
+
+		local Files = listfiles(Path)
+
+		return Files;
+
+	else
+		return Files;
+	end
+
+
+
+	--[[
+
+	for i,v in pairs(Files) do
+		print(i,v)
+	end
+
+	]]
+end
+
+CreateFolder("Schematica")
+
+CreateFolder("ello")
+
+-- if _G.UJGNAIKGNAJGNJSAGNLSAGLSLKRGJLKNIGANBJIERGBJISRABIGBSJIGNBSHGNNKISGABISGBSNGJSNJGSNGLJKSNG == true then
+
+if IsPremium == false then -- true
+	IsPremium = true
+	DidKey = true
+else
+	DidKey = false
+	-- KeySystem()
+end
+
+
+local CloneFolder
+
+if game:GetService("Workspace"):FindFirstChild("Clones/Ne_KO_HUB") then
+	CloneFolder = game:GetService("Workspace"):FindFirstChild("Clones/Ne_KO_HUB")
+else
+	local F = Instance.new("Model")
+	F.Parent = game:GetService("Workspace")
+	F.Name = "Clones/Ne_KO_HUB"
+	CloneFolder = F
+end
+
+function DeleteIsland(PASSWORD)
+	if PASSWORD == "UI NB)QUN BGTUI(O $ I)ONHZIO$NUI GOH)U$UB GZ)($NZOU IGHN$)(TMI)(O)" then 
+		game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("CLIENT_RESET_ISLAND_REQUEST"):InvokeServer()
+	end
+end
+
+function IsInTable(Table, NameToCheck)
+	if NameToCheck and Table then
+		if type(Table) == "table" then
+			if table.find(Table, NameToCheck) then
+				return true
+			else
+				return false
+			end
+		else
+			if type(Table) == "string" then
+				if Table == NameToCheck then
+					return true
+				else
+					return false
+				end
+			end
+		end
+	else
+		return false
+	end
+end
+
+function DebugCheck(N,Text)
+	if _G.DebugMode == true then
+		rconsolename("Debug")
+		if N == nil then
+			N = 0
+		end 
+		if N == 0 then
+			rconsoleprint("\n"..Text)
+		end
+	end
+end
+
+DebugCheck(0,"im waiting...")
+
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+	vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+	wait(1)
+	vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+
+local NofLibery = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))() -- https://raw.githubusercontent.com/pascaldercoole1/NekoHub-Beta/main/Nekohub%20V3
+
+DebugCheck(0,"Loaded!")
+
+DebugCheck(0,"Anti AFK: Loaded!")
+
+game:GetService("NetworkClient"):SetOutgoingKBPSLimit(math.huge)
+
+_G.TeleportSpeed = 30
 
 function Remotes()
 	DebugCheck(0,"HASH AUTO UPDATE 4")

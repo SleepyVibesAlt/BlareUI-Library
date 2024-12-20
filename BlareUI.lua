@@ -1153,7 +1153,7 @@ function Library:Create(table)
 end
 
 local executor = "Unknown"
-local IsKeyActive =  false
+local IsKeyActive = false
 
 if UseKey then
     IsKeyActive = true
