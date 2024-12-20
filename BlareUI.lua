@@ -155,6 +155,12 @@ function Library:Create(table)
     
         keyButton.MouseButton1Click:Connect(function()
             if keyInput.Text == key then
+                if table.SaveKey then
+                    local data = {
+                        key = keyInput.Text
+                    }
+                    writefile("BlareUI_Key.txt", HTTPService:JSONEncode(data))
+                end
                 keyFrame:Destroy()
                 Library:CreateNotification("Success", "Key Verified!", 2)
                 main.Visible = true
@@ -162,7 +168,16 @@ function Library:Create(table)
                 Library:CreateNotification("Error", "Invalid Key!", 2)
             end
         end)
-    end
+        
+        if table.SaveKey then
+            if isfile("BlareUI_Key.txt") then
+                local data = HTTPService:JSONDecode(readfile("BlareUI_Key.txt"))
+                if data.key == key then
+                    keyFrame:Destroy()
+                    main.Visible = true
+                end
+            end
+        end
     
     local title = Instance.new("TextLabel")
     title.Name = "title"

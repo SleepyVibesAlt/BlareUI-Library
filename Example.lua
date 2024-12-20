@@ -56,5 +56,9 @@ maintab:Comment('This is a comment')
 
 BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
 
+maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
+    print("New keybind:", key)
+end)
+
 maintab:Separator()
 maintab:Section('Section 1')
