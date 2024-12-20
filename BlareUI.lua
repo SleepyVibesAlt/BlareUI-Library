@@ -87,7 +87,7 @@ function Library:Create(table)
         keyInput.Text = ""
         keyInput.TextColor3 = Color3.fromRGB(195, 195, 195)
         keyInput.Font = Enum.Font.GothamSemibold
-        keyInput.TextSize = 14
+        keyInput.TextSize = 19
         keyInput.Parent = keyFrame
         
         local keyInputPadding = Instance.new("UIPadding")
