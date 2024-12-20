@@ -11,7 +11,7 @@ local TweenService = game:GetService("TweenService")
 
 local win = BlareLib:Create({
     Name = "Islands Script",
-    UseKey = true,
+    UseKey = false,
     Key = "1",
     Comment = "The key is 1",
     StartupSound = {
@@ -43,7 +43,20 @@ local function MoveToTarget(targetPosition)
         end
     end
 end
-local function Attack(Entity, EntityUUID)
+
+local function Attack(Entity)
+    local args = {
+        [1] = Entity.EntityUUID.Value,
+        [2] = {
+            [1] = {
+                ["UiItXhnkf"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nTwudhybaivliemzqrcNmf",
+                ["hitUnit"] = workspace.WildernessIsland.Entities[Entity]
+            }
+        }
+    }
+    
+    game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged:FindFirstChild("jiqEhnmoMV/ZlgessyomwyEX"):FireServer(unpack(args))
+end
 
 -- Settings Tab
 local SettingsTab = win:Tab('Settings')
@@ -383,10 +396,15 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
                 
                 local virtualInput = game:GetService("VirtualInputManager")
-                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
+                virtualInput:SendMouseButtonEvent(1, 1, 0, true, game, 1)
                 task.wait(0.1)
-                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
-                task.wait(0.1)
+                Attack(closestSlime)
+                virtualInput:SendMouseButtonEvent(1, 1, 0, true, game, 1)
+                ask.wait(0.1)
+                Attack(closestSlime)
+                virtualInput:SendMouseButtonEvent(1, 1, 0, true, game, 1)
+                ask.wait(0.1)
+                Attack(closestSlime)
             end
             print("Slime defeated!")
         end

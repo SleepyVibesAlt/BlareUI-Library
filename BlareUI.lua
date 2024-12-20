@@ -215,6 +215,26 @@ function Library:Create(table)
     uICorner1.CornerRadius = UDim.new(0, 6)
     uICorner1.Parent = tabContainer
 
+    Toggle.Name = "Toggle"
+    Toggle.Size = UDim2.new(0, 160, 0, 20)
+    Toggle.Position = UDim2.new(0.5, -90, 0, -36)
+    Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    Toggle.BackgroundTransparency = 0.5
+    Toggle.Text = "Toggle Ui"
+    Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Toggle.TextSize = 12
+    Toggle.Visible = not useKey
+    Toggle.Parent = dark_UI
+    Toggle.Font = Enum.Font.Gotham
+
+    local UICorner15 = Instance.new("UICorner")
+    UICorner15.Name = "UICorner2"
+    UICorner15.Parent = Toggle  
+
+    Toggle.MouseButton1Click:Connect(function()
+        main.Visible = not main.Visible
+    end)
+
     local uIListLayout = Instance.new("UIListLayout")
     uIListLayout.Name = "uIListLayout"
     uIListLayout.Padding = UDim.new(0, 8)
