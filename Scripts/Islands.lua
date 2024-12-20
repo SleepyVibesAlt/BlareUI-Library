@@ -13,7 +13,6 @@ local win = BlareLib:Create({
     Name = "Islands Script",
     UseKey = true,
     Key = "Sleeping",
-    SaveKey = true,
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
