@@ -100,7 +100,7 @@ function Library:Create(table)
     
         local keyButton = Instance.new("TextButton")
         keyButton.Size = UDim2.new(0.3, 0, 0, 35)
-        keyButton.Position = UDim2.new(0.5, 0, 0.6, 0)
+        keyButton.Position = UDim2.new(0.5, 0, 0.8, 0)
         keyButton.AnchorPoint = Vector2.new(0.5, 0)
         keyButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
         keyButton.Text = "Submit"
