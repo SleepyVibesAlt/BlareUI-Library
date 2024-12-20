@@ -44,7 +44,6 @@ local function MoveToTarget(targetPosition)
     end
 end
 
--- Settings Tab
 local SettingsTab = win:Tab('Settings')
 
 SettingsTab:Section('Movement Settings')
@@ -105,7 +104,6 @@ SettingsTab:Textbox('Search Distance', function(value)
 end)
 SettingsTab:Comment('Lower or Disable some settings to reduce Anti-Cheat detection')
 
--- AutoFarm Tab
 local ResourceTab = win:Tab('Resource Farming')
 ResourceTab:Section('Ores')
 

@@ -1,4 +1,3 @@
---// Destroy other instances
 for _,v in pairs(game.CoreGui:GetChildren()) do
     if v.Name == "dark_UI" then
         v:Destroy()
@@ -254,7 +253,6 @@ function Library:Create(table)
     end
 
     function tabHandler:Tab(name)
-        --// Creating the yttab
         local main1 = Instance.new("TextButton")
         main1.Name = name
         main1.Font = Enum.Font.Gotham
@@ -268,7 +266,6 @@ function Library:Create(table)
         main1.Size = UDim2.fromOffset(10, 24)
         main1.Parent = tabContainer
 
-        --// Creating the container
         local container = Instance.new("Frame")
         container.Name = "container"
         container.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
@@ -316,7 +313,6 @@ function Library:Create(table)
         container.Parent = main
         container.Visible = false
 
-        --// Event
         main1.MouseButton1Click:Connect(function()
             for _,v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
                 if v.Name == "container" then
@@ -332,7 +328,6 @@ function Library:Create(table)
             game:GetService('TweenService'):Create(main1, TweenInfo.new(0.3), {TextTransparency = 0}):Play()
         end)
 
-        --// Elements
         local ElementHandler = {}
 
         function ElementHandler:Label(Name, text)
@@ -697,20 +692,19 @@ function Library:Create(table)
         function Library:CreateNotification(title, description, duration)
             duration = duration or 3
             
-            local notifContainer = Instance.new("TextButton")  -- Changed to TextButton
+            local notifContainer = Instance.new("TextButton")
             notifContainer.Name = "NotificationContainer"
             notifContainer.Size = UDim2.new(0, 250, 0, 80)
             notifContainer.Position = UDim2.new(1, -260, 1, -90)
             notifContainer.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-            notifContainer.Text = ""  -- Empty text for button
-            notifContainer.AutoButtonColor = false  -- Disable button color change
+            notifContainer.Text = ""
+            notifContainer.AutoButtonColor = false
             notifContainer.Parent = dark_UI
             
             local uICorner = Instance.new("UICorner")
             uICorner.CornerRadius = UDim.new(0, 6)
             uICorner.Parent = notifContainer
             
-            -- Title
             local titleLabel = Instance.new("TextLabel")
             titleLabel.Name = "Title"
             titleLabel.Font = Enum.Font.GothamBold
@@ -723,7 +717,6 @@ function Library:Create(table)
             titleLabel.Size = UDim2.new(0.9, 0, 0, 20)
             titleLabel.Parent = notifContainer
             
-            -- Description
             local descLabel = Instance.new("TextLabel")
             descLabel.Name = "Description"
             descLabel.Font = Enum.Font.Gotham
@@ -737,7 +730,6 @@ function Library:Create(table)
             descLabel.Size = UDim2.new(0.9, 0, 0.5, 0)
             descLabel.Parent = notifContainer
             
-            -- Progress bar
             local progressBar = Instance.new("Frame")
             progressBar.Name = "ProgressBar"
             progressBar.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
@@ -751,7 +743,6 @@ function Library:Create(table)
             progress.Size = UDim2.new(1, 0, 1, 0)
             progress.Parent = progressBar
             
-            -- Animations
             notifContainer.Position = UDim2.new(1, 0, 1, -90)
             local tweenIn = TweenService:Create(notifContainer, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Position = UDim2.new(1, -260, 1, -90)})
             local tweenOut = TweenService:Create(notifContainer, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Position = UDim2.new(1, 0, 1, -90)})
