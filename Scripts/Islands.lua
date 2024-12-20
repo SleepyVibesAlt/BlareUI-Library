@@ -13,7 +13,7 @@ local win = BlareLib:Create({
     Name = "Islands Script",
     UseKey = true,
     Key = "Sleeping",
-    SaveKey = true
+    SaveKey = true,
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
@@ -102,6 +102,7 @@ SettingsTab:Textbox('Search Distance', function(value)
         BlareLib:CreateNotification("Invalid Input", "Please enter a number!", 3)
     end
 end)
+
 SettingsTab:Comment('Lower or Disable some settings to reduce Anti-Cheat detection')
 
 local ResourceTab = win:Tab('Resource Farming')
