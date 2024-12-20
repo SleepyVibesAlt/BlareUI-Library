@@ -1153,11 +1153,20 @@ function Library:Create(table)
 end
 
 local executor = "Unknown"
+local IsKeyActive =  false
+
+if UseKey then
+    IsKeyActive = true
+else
+    IsKeyActive = false
+end
+
 executor = getexecutorname()
 print('===========================================')
 print('Welcome to BlareUi-Library')
 print('Library Version 1.0.0')
 print('Executor : '.. executor)
+print('IsKeyActive : ' .. IsKeyActive)
 print('Status : Functional')
 print('===========================================')
 
