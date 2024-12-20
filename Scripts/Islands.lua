@@ -1,4 +1,4 @@
-local BlareLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SleepyVibesAlt/BlareUI-Library/refs/heads/main/BlareUI.lua"))()
+local BlareLib = loadstring(game:HttpGet("https://pastebin.com/raw/usdU5N7w"))()
 assert(BlareLib, "Failed to load BlareLib")
 
 local Player = game.Players.LocalPlayer
@@ -12,12 +12,12 @@ local TweenService = game:GetService("TweenService")
 local win = BlareLib:Create({
     Name = "Islands Script",
     UseKey = true,
-    Key = "123456",
-    Comment = "Key = 123456"
+    Key = "1",
+    Comment = "The key is 1",
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
-        TimePosition = 1,
+        TimePosition = 1
     },
     Discord = "https://discord.gg/yourserver", 
     KeyLink = "https://linkvertise.com/yourkey"
