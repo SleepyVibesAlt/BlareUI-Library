@@ -22,6 +22,21 @@ local win = BlareLib:Create({
     KeyLink = "https://linkvertise.com/yourkey"
 })
 
+local FileName = "UpdatedNekoHub"
+local GameName = "Islands"
+
+local NotificationIcon = "rbxassetid://1234567890"
+
+function SendNotification(Title, Text)
+	game:GetService("StarterGui"):SetCore("SendNotification",{
+		Title = Title, -- Required
+		Text = Text, -- Required
+		Icon = NotificationIcon -- Optional
+	})
+end	
+
+SendNotification("Welcome!", "Welcome to "..FileName .. " " .. ScriptVersion.."!")
+
 function Remotes()
 	DebugCheck(0,"HASH AUTO UPDATE 4")
 
