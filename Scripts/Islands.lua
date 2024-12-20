@@ -12,7 +12,7 @@ local TweenService = game:GetService("TweenService")
 local win = BlareLib:Create({
     Name = "Islands Script",
     UseKey = true,
-    Key = "Sleeping",
+    Key = "12345",
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
@@ -43,6 +43,7 @@ local function MoveToTarget(targetPosition)
     end
 end
 
+-- Settings Tab
 local SettingsTab = win:Tab('Settings')
 
 SettingsTab:Section('Movement Settings')
@@ -101,9 +102,9 @@ SettingsTab:Textbox('Search Distance', function(value)
         BlareLib:CreateNotification("Invalid Input", "Please enter a number!", 3)
     end
 end)
-
 SettingsTab:Comment('Lower or Disable some settings to reduce Anti-Cheat detection')
 
+-- AutoFarm Tab
 local ResourceTab = win:Tab('Resource Farming')
 ResourceTab:Section('Ores')
 
