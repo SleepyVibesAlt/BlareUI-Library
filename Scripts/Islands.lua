@@ -22,6 +22,611 @@ local win = BlareLib:Create({
     KeyLink = "https://linkvertise.com/yourkey"
 })
 
+function Remotes()
+	DebugCheck(0,"HASH AUTO UPDATE 4")
+
+	function UpdateRemote(RemoteName, Value)
+		if game:FindFirstChild("_REMOTES_NEKO_") == nil then
+			local REMOTES = Instance.new("Folder")
+			REMOTES.Name = "_REMOTES_NEKO_"
+			REMOTES.Parent = game
+			UpdateRemote(RemoteName, Value)
+		else
+			if game:FindFirstChild("_REMOTES_NEKO_"):FindFirstChild(RemoteName) == nil then
+				local _NEWREMOTE = Instance.new("StringValue")
+				_NEWREMOTE.Name = RemoteName
+				_NEWREMOTE.Value = Value
+				_NEWREMOTE.Parent = game:FindFirstChild("_REMOTES_NEKO_")
+			else
+				DebugCheck(0,"Remote Update: "..RemoteName)
+				game:FindFirstChild("_REMOTES_NEKO_"):FindFirstChild(RemoteName).Value = Value
+			end
+		end
+	end
+
+	if IsFolder("/Hash System") and IsFile("Game Version") and ReadFile("Game Version") and game.PlaceVersion == tonumber(ReadFile("Game Version")) then
+		print("Ist Nicht geupdated!")
+
+		UpdateRemote("KillRemote", ReadFile("/Hash System/KillRemote")) -- 2
+		UpdateRemote("KillRemoteHashName", ReadFile("/Hash System/KillRemoteHashName")) -- 2
+		_G.KillRemoteHash = ReadFile("/Hash System/KillRemoteHash")
+
+		UpdateRemote("FishFarmFinishRemote", ReadFile("/Hash System/FishFarmFinishRemote")) -- 2
+		UpdateRemote("AngelRemote", ReadFile("/Hash System/AngelRemote")) -- 2
+
+		UpdateRemote("TOOL_PICKUPHashData", ReadFile("/Hash System/TOOL_PICKUPHashData")) -- 2
+		_G.TOOL_PICKUPHash = ReadFile("/Hash System/TOOL_PICKUPHash")
+
+		UpdateRemote("CropHashData", ReadFile("/Hash System/CropHashData")) -- 2
+		_G.CropHash = ReadFile("/Hash System/CropHash")
+
+		UpdateRemote("TreeHashData", ReadFile("/Hash System/TreeHashData")) -- 2
+		_G.TreeHash = ReadFile("/Hash System/TreeHash")
+		UpdateRemote("BlockHitHashData", ReadFile("/Hash System/BlockHitHashData")) -- 2
+		_G.BlockHitHash = ReadFile("/Hash System/BlockHitHash")
+
+		UpdateRemote("FlowerCollect", "client_request_1") -- 1
+		UpdateRemote("PetCollect", "CLIENT_PET_ANIMAL")
+		UpdateRemote("BlockRemote", "CLIENT_BLOCK_HIT_REQUEST")
+		UpdateRemote("SpiritRemote", "nflutpppqsFS/ZroaqkcspgrTkvpnkrdWcc")
+
+		UpdateRemote("CropPlaceHashData", ReadFile("/Hash System/CropPlaceHashData")) -- 2
+		_G.CropPlaceHash = ReadFile("/Hash System/CropPlaceHash") -- 2
+		_G.CropPlaceH1 = ReadFile("/Hash System/BlockPlaceHashData") 
+		UpdateRemote("BlockPlaceHashData", ReadFile("/Hash System/BlockPlaceHashData")) -- 2
+		_G.BlockPlaceHash = ReadFile("/Hash System/BlockPlaceHash") -- 2
+
+	else
+
+		CreateFolder("Hash System")
+
+		print("Getting Hashes!")
+
+		CreateFile("Game Version", tostring(game.PlaceVersion), false)
+
+		function Update()
+			local MOBRIGHT = ""
+			local MOBLEFT = ""
+			local mobRemoteName = ""
+			function UpdateMob()
+
+				local Tool
+
+				for i,v in pairs(game:GetService("ReplicatedStorage").Tools:GetChildren()) do 
+					if v.Name == "swordWood" then
+						local Clone = v:Clone()
+						Clone.Parent = game.Players.LocalPlayer.Character
+						task.wait(0.2)
+						Clone.Parent = game.Players.LocalPlayer.Backpack
+						task.wait(0.2)
+						Clone.Parent = game.Players.LocalPlayer.Character
+						task.wait(0.2)
+						Tool = Clone
+					end
+				end
+
+				local function getrem(p9)
+					rem = ""
+					for i,v in pairs(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@rbxts"].net.out["_NetManaged"]:GetChildren()) do
+						if v.Name:match(p9) then
+							rem = v
+						end
+					end
+					return rem.Name
+				end
+				local remleft = ""
+				mobrem = ""
+				for i,v in pairs(getgc(true)) do
+					if type(v) == "function" and getinfo(v).name == "attemptHit" then
+						for i2,v2 in pairs(getprotos(v)) do
+							for i3,v3 in pairs(getprotos(v2)) do
+								mobrem = getrem("/"..getconstants(v3)[1])
+								remleft = getconstants(v3)[4]
+							end
+						end
+					end
+				end
+
+
+				for i,v in pairs(getgc(true)) do
+					if type(v) == "function" and getinfo(v).name == "attemptHit" then
+						MOBRIGHT = getupvalues(v)[5]
+						task.wait() -- 1
+					end
+				end
+				print("mobrem:",mobrem)
+				mobramsides = string.split(mobrem, "/")
+
+				MOBLEFT = remleft
+				if mobramsides and mobramsides[1] and mobramsides[2] then
+					mobRemoteName = mobramsides[1].."/"..mobramsides[2]
+					if MOBRIGHT then
+						_G.KillRemoteHash = MOBRIGHT
+					else
+						_G.KillRemoteHash = nil
+					end 
+				else
+					_G.KillRemoteHash = nil
+					local RunService = game:GetService("RunService")
+					local CoreGui = game:GetService("CoreGui")
+
+
+
+
+				end
+				if Tool then
+					DebugCheck(0,"Sword ist da")
+
+					Tool.Parent = game.Players.LocalPlayer.Backpack
+					Tool:Destroy()
+				else
+					DebugCheck(0,"NO SWORD!")
+				end
+			end
+
+			UpdateMob()
+
+
+			local Remote1
+			local Remote15
+			local Remote2
+
+			function UpdateFish()
+
+				local Tool
+
+				for i,v in pairs(game:GetService("ReplicatedStorage").Tools:GetChildren()) do 
+					if v.Name == "fishingRod" then
+						local Clone = v:Clone()
+						Clone.Parent = game.Players.LocalPlayer.Character
+						task.wait(0.5)
+						Clone.Parent = game.Players.LocalPlayer.Backpack
+						task.wait(0.5)
+						Clone.Parent = game.Players.LocalPlayer.Character
+						task.wait(0.5)
+						Tool = Clone
+					end
+				end
+
+				local function getrem(p9)
+					rem = ""
+					for i,v in pairs(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@rbxts"].net.out["_NetManaged"]:GetChildren()) do
+						if v.Name:match(p9) then
+							rem = v
+						end
+					end
+					return rem.Name
+				end
+
+				local WerfRemote
+
+				local dump1
+				local dump2
+
+
+
+				if Tool then
+					local ToolScript = Tool:FindFirstChild("fishing-rod")
+
+					if Tool and ToolScript then
+						for i,v222 in pairs(getgc(true)) do
+							if type(v222) == "function" and  getfenv(v222).script == ToolScript then
+
+
+								for i,v in pairs(getconstants(v222)) do
+									if i == 9 then
+
+										if getrem(v) then
+											DebugCheck(0,v)
+											if v == 1.5 or v == "1.5" then
+
+											else
+												Remote1 = v
+												Remote15 = string.split(Remote1, "/")[1]
+												DebugCheck(0,"Remote15:",Remote15)
+
+											end
+										end
+									end
+
+									if i == 3 then
+										if type(v) == "string" then
+											if getrem(v) then
+
+												Remote2 = v
+												dump2 = Remote2
+											end
+										end
+									end
+								end
+
+							end
+						end
+
+						local FinishRemote
+
+						local function getrem(p9)
+							rem = ""
+							for i,v in pairs(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@rbxts"].net.out["_NetManaged"]:GetChildren()) do
+								if v.Name:match(p9) then
+									rem = v
+								end
+							end
+							return rem.Name
+						end
+
+						for i,v222 in pairs(getgc(true)) do
+							if type(v222) == "function" and getinfo(v222).name == "handleGameOver" and getfenv(v222).script == game:GetService("Players").LocalPlayer.PlayerScripts.TS.flame.controllers.fishing["fishing-controller"] then
+
+
+								for i,v in pairs(getconstants(v222)) do
+
+									if type(v) == "string" then
+
+										if getrem(v) then
+											if i == 2 then
+												DebugCheck(0,"FINISH: ",v)
+												dump1 = v
+												DebugCheck(0,Remote15)
+												WerfRemote = Remote2.."/"..Remote15
+												DebugCheck(0,"FNISH2:",WerfRemote)
+											end
+										end
+
+									end
+
+								end
+
+							end
+						end
+						--[[
+
+								if FinishRemote then
+									UpdateRemote("FishFarmFinishRemote", FinishRemote)
+									DebugCheck(0,"FishFarmFinishRemote", FinishRemote)
+								else
+									game.Players.LocalPlayer:Kick("cant get FinishRemote!")
+								end
+								if FinishRemote then
+									UpdateRemote("AngelRemote", Remote1)
+									DebugCheck(0,"AngelRemote", Remote1)
+								else
+									game.Players.LocalPlayer:Kick("cant get AngelRemote!")
+								end
+
+						]]
+					end
+				end
+
+				local Finishremote = dump2.."/"..dump1
+
+				DebugCheck(0,"FinishRemote:",Finishremote)
+
+				if WerfRemote then
+					DebugCheck(0,"WerfRemote:",WerfRemote)
+				end
+
+				UpdateRemote("FishFarmFinishRemote", Finishremote) -- 2
+				SendNotification("[SECURITY]", "Check 1/42 Done!")
+				UpdateRemote("AngelRemote", WerfRemote) -- 2
+				SendNotification("[SECURITY]", "Check 2/42 Done!")
+
+				CreateFile("/Hash System/FishFarmFinishRemote", Finishremote, false)
+				SendNotification("[SECURITY]", "Check 3/42 Done!")
+				CreateFile("/Hash System/AngelRemote", WerfRemote, false)
+				SendNotification("[SECURITY]", "Check 4/42 Done!")
+				Tool.Parent = game.Players.LocalPlayer.Backpack
+				Tool:Destroy()
+
+			end
+
+
+
+			-- UpdateFish()
+
+			task.spawn(function()
+				UpdateFish()
+				task.wait()
+			end)
+
+			function Updateinv(v)
+				if v:FindFirstChild("sword") then
+					if _G.KillRemoteHash == nil or _G.KillRemoteHash == "" or _G.KillRemoteHash == " " then
+						UpdateMob()
+						task.wait()
+						UpdateRemote("KillRemote", mobRemoteName) -- 2
+						SendNotification("[SECURITY]", "Check 5/42 Done!")
+						UpdateRemote("KillRemoteHashName", MOBLEFT) -- 2
+						SendNotification("[SECURITY]", "Check 6/42 Done!")
+						_G.KillRemoteHash = MOBRIGHT
+						SendNotification("[SECURITY]", "Check 7/42 Done!")
+					end
+				end
+			end
+
+			game.Players.LocalPlayer.Backpack.ChildAdded:Connect(function(v)
+				Updateinv(v)
+			end)
+
+			game.Players.LocalPlayer.Backpack.ChildRemoved:Connect(function(v)
+				Updateinv(v)
+			end)
+
+			print("mobRemoteName:",mobRemoteName)
+
+			UpdateRemote("KillRemote", mobRemoteName) -- 2
+			SendNotification("[SECURITY]", "Check 8/42 Done!")
+			UpdateRemote("KillRemoteHashName", MOBLEFT) -- 2
+			SendNotification("[SECURITY]", "Check 9/42 Done!")
+			_G.KillRemoteHash = MOBRIGHT
+
+			print("Debug 1")
+
+			task.wait()
+
+			CreateFile("/Hash System/KillRemote", mobRemoteName, false)
+			SendNotification("[SECURITY]", "Check 10/42 Done!")
+			CreateFile("/Hash System/KillRemoteHashName", MOBLEFT, false)
+			SendNotification("[SECURITY]", "Check 11/42 Done!")
+			CreateFile("/Hash System/KillRemoteHash", MOBRIGHT or _G.KillRemoteHash, false)
+			SendNotification("[SECURITY]", "Check 12/42 Done!")
+
+			print("Debug 2")
+
+
+			local ToolLEFT
+			local TOOLRIGHT 
+			function UpdatePickUpTool()
+				for i,v in pairs(getgc(true)) do
+					if type(v) == "function" and getinfo(v).name == "pickupTool" then
+						ToolLEFT = getconstants(v)[23]
+						TOOLRIGHT = getconstants(v)[25]..getconstants(v)[26]
+					end
+				end
+			end
+			task.spawn(function()
+				UpdatePickUpTool()
+			end)
+
+			print("Debug 3")
+
+			UpdateRemote("TOOL_PICKUPHashData", ToolLEFT) -- 2
+			SendNotification("[SECURITY]", "Check 13/42 Done!")
+			_G.TOOL_PICKUPHash = TOOLRIGHT
+			SendNotification("[SECURITY]", "Check 14/42 Done!")
+
+			CreateFile("/Hash System/TOOL_PICKUPHashData", ToolLEFT, false)
+			SendNotification("[SECURITY]", "Check 15/42 Done!")
+			CreateFile("/Hash System/TOOL_PICKUPHash", TOOLRIGHT, false)
+			SendNotification("[SECURITY]", "Check 16/42 Done!")
+
+			print("Debug 4")
+
+			local CROPleft
+			local CROPright
+			function CropUpdate()
+				remleft = ""
+				remright = ""
+				for i,v in pairs(getgc(true)) do
+					if type(v) == "function" and getinfo(v).name == "breakCrop" and getfenv(v).script == game.Players.LocalPlayer.PlayerScripts.TS.block.crop["crop-service"] then
+						for i2,v2 in pairs(getprotos(v)) do
+
+							for i,v in pairs(getconstants(v)) do
+
+								if i == 22 then
+									remleft = v 
+								end 
+
+								if i == 26 then
+									remright = v 
+								end
+
+
+								if i == 27 then
+									remright = remright..v
+								end
+
+
+							end
+						end
+					end
+				end    
+				if remleft and remright then
+					CROPleft = remleft
+					CROPright = remright
+				else
+					game.Players.LocalPlayer:Kick("Error: NCD1")
+				end
+			end
+			task.spawn(function()
+				CropUpdate()
+			end)
+
+			print("Debug 5")
+
+			local HITleft
+			local HITright
+			function HitUpdate()
+				remright2 = ""
+				remleft = ""
+				remright = ""
+				for i,v in pairs(getgc(true)) do
+					if type(v) == "function" and getinfo(v).name == "onBlockHit" then
+						for i2,v2 in pairs(getprotos(v)) do
+							if table.find(getconstants(v2), "Get") then
+								for i3,v3 in pairs(getconstants(v2)) do
+									remleft = getconstants(v2)[8]
+									remright2 = getconstants(v2)[11]
+									remright = getconstants(v2)[10]
+								end
+							end
+						end
+					end
+				end
+
+				HITleft = remleft
+				HITright = remright..remright2
+			end
+			task.spawn(function()
+				HitUpdate()
+			end)
+
+			task.wait(0.2)
+
+			print("Debug 6")
+
+			UpdateRemote("CropHashData", CROPleft) -- 2
+			SendNotification("[SECURITY]", "Check 17/42 Done!")
+			_G.CropHash = CROPright
+			SendNotification("[SECURITY]", "Check 18/42 Done!")
+
+
+			UpdateRemote("TreeHashData", HITleft) -- 2
+			SendNotification("[SECURITY]", "Check 19/42 Done!")
+			_G.TreeHash = HITright
+			SendNotification("[SECURITY]", "Check 20/42 Done!")
+			UpdateRemote("BlockHitHashData", HITleft) -- 2
+			SendNotification("[SECURITY]", "Check 21/42 Done!")
+			_G.BlockHitHash = HITright
+			SendNotification("[SECURITY]", "Check 22/42 Done!")
+
+			CreateFile("/Hash System/CropHashData", CROPleft, false)
+			SendNotification("[SECURITY]", "Check 23/42 Done!")
+			CreateFile("/Hash System/CropHash", CROPright, false)
+			SendNotification("[SECURITY]", "Check 24/42 Done!")
+
+			print("Debug 7")
+
+			CreateFile("/Hash System/TreeHashData", HITleft, false)
+			SendNotification("[SECURITY]", "Check 25/42 Done!")
+			CreateFile("/Hash System/TreeHash", HITright, false)
+			SendNotification("[SECURITY]", "Check 26/42 Done!")
+			CreateFile("/Hash System/BlockHitHashData", HITleft, false)
+			SendNotification("[SECURITY]", "Check 27/42 Done!")
+			CreateFile("/Hash System/BlockHitHash", HITright, false)
+			SendNotification("[SECURITY]", "Check 28/42 Done!")
+
+			print("Debug 8")
+
+
+			local BlockRight1
+			local BlockRight
+			local BlockLeft
+			function UpdatePlaceBlocks()
+
+
+				for i,v in pairs(getgc(true)) do
+					if type(v) == "function" and getfenv(v).script == game.Players.LocalPlayer.PlayerScripts.TS.flame.controllers.block["block-controller"] then
+
+						for dddi,dddv in pairs(getconstants(v)) do
+
+							if tonumber(dddi) == 23 then
+								BlockLeft = dddv
+							end
+							if tonumber(dddi) == 25 then
+								BlockLeft1 = dddv
+							end
+							if tonumber(dddi) == 26 then
+								BlockRight = BlockLeft1..dddv
+							end
+						end
+					end
+				end
+
+			end
+			UpdatePlaceBlocks()
+
+			print("Debug 9")
+
+			function GetNet()
+				local A1
+				local A2
+
+				for i,v in pairs(getgc(true)) do
+					if type(v) == "function" and getinfo(v).name == "constructor" and getfenv(v).script == game:GetService("Workspace").ANTICATBYASHO.net.net then
+
+						for i2,v2 in pairs(getprotos(v)) do
+
+							A1 = getconstants(v2)[16]
+
+							A2 = getconstants(v2)[13]
+
+							for i,v in pairs(getconstants(v2)) do
+								DebugCheck(0,i,v, " | type:", type(v)) 
+							end
+
+
+						end
+					end
+				end
+
+				DebugCheck(0,A1)
+				DebugCheck(0,A2)
+			end
+
+			print("Debug 10")
+
+			UpdateRemote("FlowerCollect", "client_request_1") -- 1
+			SendNotification("[SECURITY]", "Check 29/42 Done!")
+			UpdateRemote("PetCollect", "CLIENT_PET_ANIMAL")
+			SendNotification("[SECURITY]", "Check 30/42 Done!")
+			UpdateRemote("BlockRemote", "CLIENT_BLOCK_HIT_REQUEST")
+			SendNotification("[SECURITY]", "Check 31/42 Done!")
+			-- UpdateRemote("SendMailRemote", "NINGI(HUINUH(UIN(IH(HUUI")
+			SendNotification("[SECURITY]", "Check 32/42 Done!")
+			UpdateRemote("SpiritRemote", "gecqaLhbvAbyjo/qDgqEvuQzyryuBnlzh")
+			SendNotification("[SECURITY]", "Check 33/42 Done!")
+
+			print("BlockLeft:",BlockLeft)
+
+			UpdateRemote("CropPlaceHashData", BlockLeft) -- 2
+			SendNotification("[SECURITY]", "Check 34/42 Done!")
+			_G.CropPlaceHash = BlockRight -- 2
+			SendNotification("[SECURITY]", "Check 35/42 Done!")
+			_G.CropPlaceH1 = BlockLeft
+			SendNotification("[SECURITY]", "Check 36/42 Done!")
+			UpdateRemote("BlockPlaceHashData", BlockLeft) -- 2
+			SendNotification("[SECURITY]", "Check 37/42 Done!")
+			_G.BlockPlaceHash = BlockRight -- 2
+			SendNotification("[SECURITY]", "Check 38/42 Done!")
+
+			print("Debug 11")
+
+			CreateFile("/Hash System/CropPlaceHashData", BlockLeft, false)
+			SendNotification("[SECURITY]", "Check 39/42 Done!")
+			CreateFile("/Hash System/CropPlaceHash", BlockRight, false)
+			SendNotification("[SECURITY]", "Check 40/42 Done!")
+			CreateFile("/Hash System/BlockPlaceHashData", BlockLeft, false)
+			SendNotification("[SECURITY]", "Check 41/42 Done!")
+			CreateFile("/Hash System/BlockPlaceHash", BlockRight, false)
+			SendNotification("[SECURITY]", "Check 42/42 Done!")
+		end
+		Update()
+	end
+end
+
+SendNotification("[SECURITY]", "Scanning Game...")
+
+Remotes()
+
+function FixInv()
+	for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+		v.Parent = game.Players.LocalPlayer.Character
+		task.wait()
+		v.Parent = game.Players.LocalPlayer.Backpack
+		task.wait()
+	end
+end
+
+function Hash()
+	local HttpService = game:GetService("HttpService")
+	local Abd = HttpService:GenerateGUID(false)..HttpService:GenerateGUID(false)..HttpService:GenerateGUID(false)
+	return Abd
+end
+
+local MotHitH2 = _G.KillRemoteHash 
+local RemoteData = game:WaitForChild("_REMOTES_NEKO_")
+
 local function MoveToTarget(targetPosition)
     local character = game.Players.LocalPlayer.Character
     if character and character:FindFirstChild("HumanoidRootPart") then
@@ -43,18 +648,31 @@ local function MoveToTarget(targetPosition)
     end
 end
 
-local function Attack(Entity, EntityUUID)
+local function Attack(Entity)
+    -- Play animation
+    local Player = game.Players.LocalPlayer.Name
+    local AnimationId = "5328169716"
+    local Anim = Instance.new("Animation")
+    Anim.AnimationId = "rbxassetid://"..AnimationId
+    local k = game.Players[Player].Character.Humanoid:LoadAnimation(Anim)
+    k:Play()
+    k:AdjustSpeed(0)
+
     local args = {
-        [1] = "7af68bad-22b8-4b7f-a0e6-ca4996c9cbc1",
+        [1] = Entity.EntityUUID.Value,
         [2] = {
             [1] = {
                 ["UiItXhnkf"] = "\7\240\159\164\163\240\159\164\161\7\n\7\n\7\nTwudhybaivliemzqrcNmf",
-                ["hitUnit"] = workspace.WildernessIsland.Entities[Entity].HumanoidRootPart,zz
+                ["hitUnit"] = Entity
             }
         }
     }
-    
+
     game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged:FindFirstChild("jiqEhnmoMV/ZlgessyomwyEX"):FireServer(unpack(args))
+    print("Attacking entity with UUID:".. Entity.EntityUUID.Value)
+    
+    task.wait(5)
+    k:Stop()
 end
 
 -- Settings Tab
@@ -385,12 +1003,7 @@ MobFarmTab:Toggle('Farm Slimes', function(v)
                 end
                 
                 workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, closestSlime.HumanoidRootPart.Position)
-                
-                local virtualInput = game:GetService("VirtualInputManager")
-                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, true, game, 1)
-                task.wait(0.1)
-                virtualInput:SendMouseButtonEvent(game.Workspace.CurrentCamera.ViewportSize.X/2, game.Workspace.CurrentCamera.ViewportSize.Y/2, 0, false, game, 1)
-                task.wait(0.1)
+                Attack(closestSlime)
             end
             print("Slime defeated!")
         end
