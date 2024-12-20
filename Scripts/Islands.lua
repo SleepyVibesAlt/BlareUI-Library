@@ -36,9 +36,13 @@ local function MoveToTarget(targetPosition)
                 CFrame = CFrame.new(targetPosition)
             })
             tween:Play()
+            tween.Completed:Wait()
+            character.HumanoidRootPart.Anchored = true
             return tween
         else
             Humanoid:MoveTo(targetPosition)
+            Humanoid.MoveToFinished:Wait()
+            character.HumanoidRootPart.Anchored = true
             return Humanoid.MoveToFinished
         end
     end

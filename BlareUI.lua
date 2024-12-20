@@ -278,6 +278,12 @@ function Library:Create(table)
         holder.Size = UDim2.fromOffset(452, 182)
         holder.CanvasSize = UDim2.fromOffset(0, 0)
 
+        holder.ChildAdded:Connect(function()
+            local listLayout = holder:FindFirstChildWhichIsA('UIListLayout')
+            if listLayout then
+                holder.CanvasSize = UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y + 10)
+            end
+        end)        
 
         local uIPadding1 = Instance.new("UIPadding")
         uIPadding1.Name = "uIPadding1"
@@ -1089,7 +1095,6 @@ function Library:Create(table)
 
     local DragFrames = {
         main,
-        keyFrame,
     }
 
     for _, frame in ipairs(DragFrames) do
