@@ -137,6 +137,7 @@ function Library:Create(table)
         local discordCorner = Instance.new("UICorner")
         discordCorner.CornerRadius = UDim.new(0, 6)
         discordCorner.Parent = discordButton
+
         local Toggle = Instance.new("TextButton")
         Toggle.Name = "Toggle"
         Toggle.Size = UDim2.new(0, 160, 0, 20)
@@ -156,8 +157,8 @@ function Library:Create(table)
 
         Toggle.MouseButton1Click:Connect(function()
             if main.Visible then
-                local slideOut = TweenService:Create(main, 
-                    TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In),
+                local slideOut = TweenService:Create(main,
+                    TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.In),
                     {Position = UDim2.new(1.5, 0, 0.5, 0)}
                 )
                 slideOut:Play()
@@ -166,13 +167,14 @@ function Library:Create(table)
             else
                 main.Visible = true
                 main.Position = UDim2.new(-0.5, 0, 0.5, 0)
-                local slideIn = TweenService:Create(main, 
-                    TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out),
+                local slideIn = TweenService:Create(main,
+                    TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out),
                     {Position = UDim2.new(0.5, 0, 0.5, 0)}
                 )
                 slideIn:Play()
             end
-        end)        
+        end)
+                      
         getKeyButton.MouseButton1Click:Connect(function()
             setclipboard(table.KeyLink)
             Library:CreateNotification("Success", "Key link copied to clipboard!", 2)
@@ -211,6 +213,43 @@ function Library:Create(table)
     uICorner.Name = "uICorner"
     uICorner.Parent = main
 
+    local OtherToggle = Instance.new("TextButton")
+    OtherToggle.Name = "Toggle"
+    OtherToggle.Size = UDim2.new(0, 160, 0, 20)
+    OtherToggle.Position = UDim2.new(0.5, -90, 0, -36)
+    OtherToggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    OtherToggle.BackgroundTransparency = 0.5
+    OtherToggle.Text = "Toggle Ui"
+    OtherToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    OtherToggle.TextSize = 12
+    OtherToggle.Visible = not useKey
+    OtherToggle.Parent = dark_UI
+    OtherToggle.Font = Enum.Font.Gotham
+
+    local UICorner15 = Instance.new("UICorner")
+    UICorner15.Name = "UICorner2"
+    UICorner15.Parent = OtherToggle  
+
+    OtherToggle.MouseButton1Click:Connect(function()
+        if main.Visible then
+            local slideOut = TweenService:Create(main,
+                TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.In),
+                {Position = UDim2.new(1.5, 0, 0.5, 0)}
+            )
+            slideOut:Play()
+            slideOut.Completed:Wait()
+            main.Visible = false
+        else
+            main.Visible = true
+            main.Position = UDim2.new(-0.5, 0, 0.5, 0)
+            local slideIn = TweenService:Create(main,
+                TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out),
+                {Position = UDim2.new(0.5, 0, 0.5, 0)}
+            )
+            slideIn:Play()
+        end
+    end)
+    
     local tabContainer = Instance.new("Frame")
     tabContainer.Name = "tabContainer"
     tabContainer.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
@@ -221,30 +260,6 @@ function Library:Create(table)
     uICorner1.Name = "uICorner1"
     uICorner1.CornerRadius = UDim.new(0, 6)
     uICorner1.Parent = tabContainer
-
-    local OtherToggle = Instance.new("TextButton")
-    OtherToggle.Name = "OtherToggle"
-    OtherToggle.Size = UDim2.new(0, 160, 0, 20)
-    OtherToggle.Position = UDim2.new(0.5, -90, 0, -36)
-    OtherToggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    OtherToggle.BackgroundTransparency = 0.5
-    OtherToggle.Text = "Toggle Ui"
-    OtherToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
-    OtherToggle.TextSize = 12
-    OtherToggle.Visible = false
-    OtherToggle.Parent = dark_UI
-    OtherToggle.Font = Enum.Font.Gotham
-    if not useKey then
-        OtherToggle.Visible = true
-    end
-
-    local UICorner15 = Instance.new("UICorner")
-    UICorner15.Name = "UICorner2"
-    UICorner15.Parent = OtherToggle  
-
-    OtherToggle.MouseButton1Click:Connect(function()
-        main.Visible = not main.Visible
-    end)
 
     local uIListLayout = Instance.new("UIListLayout")
     uIListLayout.Name = "uIListLayout"
@@ -1159,12 +1174,12 @@ function Library:Create(table)
     end)
 
 -- Loading Animation
-main.Size = UDim2.fromOffset(0, 0)
-main.AnchorPoint = Vector2.new(0.5, 0.5)
-main.Position = UDim2.new(0.5, 0, 0.5, 0)
-main.Parent = dark_UI
-
 local function startGrowthTween()
+    main.Size = UDim2.fromOffset(0, 0)
+    main.AnchorPoint = Vector2.new(0.5, 0.5)
+    main.Position = UDim2.new(0.5, 0, 0.5, 0)
+    main.Parent = dark_UI
+
     local containerRef
     for _, v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
         if v.Name == "container" and v.Visible then
@@ -1192,7 +1207,7 @@ local function startGrowthTween()
             {Rotation = 0}
         )
         stabilizeTween:Play()
-        wait(0.5)
+        wait(0.8)
         for _, v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
             if v.Name == "container" then
                 containerRef.Visible = true
@@ -1208,6 +1223,9 @@ main:GetPropertyChangedSignal("Visible"):Connect(function()
     end
 end)
 
+if not useKey then
+    main.Visible = true
+end
     return tabHandler
 end
 
