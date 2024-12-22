@@ -1230,12 +1230,20 @@ end
 end
 
 local executor = "Unknown"
+local IsUsingKey = nil
+
+if useKey then
+    IsUsingKey = true
+else
+    IsUsingKey = false
+end
 
 executor = getexecutorname()
 print('===========================================')
 print('Welcome to BlareUi-Library')
 print('Library Version '.. Version)
 print('Executor : '.. executor)
+print('IsUsingKey : ' .. tostring(IsUsingKey))
 print('Status : Functional')
 print('===========================================')
 
