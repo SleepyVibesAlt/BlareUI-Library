@@ -31,6 +31,7 @@ function Library:Create(table)
     main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
     main.Position = UDim2.fromScale(0.244, 0.292)
     main.Size = UDim2.fromOffset(488, 299)
+    main.ClipsDescendants = true
     main.Parent = dark_UI
 
     if useKey then
@@ -38,19 +39,11 @@ function Library:Create(table)
         
         local keyFrame = Instance.new("Frame")
         keyFrame.Name = "keySystem"
-        keyFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+        keyFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
         keyFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
         keyFrame.Size = UDim2.fromOffset(400, 200)
         keyFrame.AnchorPoint = Vector2.new(0.5, 0.5)
         keyFrame.Parent = dark_UI
-        
-        local keyGradient = Instance.new("UIGradient")
-        keyGradient.Color = ColorSequence.new({
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(28, 28, 28)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(35, 35, 35))
-        })
-
-        keyGradient.Parent = keyFrame
         
         local keyCorner = Instance.new("UICorner")
         keyCorner.CornerRadius = UDim.new(0, 6)
@@ -117,7 +110,7 @@ function Library:Create(table)
     
         local getKeyButton = Instance.new("TextButton")
         getKeyButton.Size = UDim2.new(0.25, 0, 0, 35)
-        getKeyButton.Position = UDim2.new(0.85, 0, 0.75, 0)
+        getKeyButton.Position = UDim2.new(0.78, 0, 0.75, 0)
         getKeyButton.AnchorPoint = Vector2.new(0.5, 0)
         getKeyButton.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
         getKeyButton.Text = "Get Key"
@@ -132,7 +125,7 @@ function Library:Create(table)
     
         local discordButton = Instance.new("TextButton")
         discordButton.Size = UDim2.new(0.25, 0, 0, 35)
-        discordButton.Position = UDim2.new(0.15, 0, 0.75, 0)
+        discordButton.Position = UDim2.new(0.22, 0, 0.75, 0)
         discordButton.AnchorPoint = Vector2.new(0.5, 0)
         discordButton.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
         discordButton.Text = "Discord"
@@ -144,7 +137,6 @@ function Library:Create(table)
         local discordCorner = Instance.new("UICorner")
         discordCorner.CornerRadius = UDim.new(0, 6)
         discordCorner.Parent = discordButton
-
         local Toggle = Instance.new("TextButton")
         Toggle.Name = "Toggle"
         Toggle.Size = UDim2.new(0, 160, 0, 20)
@@ -163,9 +155,24 @@ function Library:Create(table)
         UICorner15.Parent = Toggle  
 
         Toggle.MouseButton1Click:Connect(function()
-            main.Visible = not main.Visible
-        end)
-    
+            if main.Visible then
+                local slideOut = TweenService:Create(main, 
+                    TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In),
+                    {Position = UDim2.new(1.5, 0, 0.5, 0)}
+                )
+                slideOut:Play()
+                slideOut.Completed:Wait()
+                main.Visible = false
+            else
+                main.Visible = true
+                main.Position = UDim2.new(-0.5, 0, 0.5, 0)
+                local slideIn = TweenService:Create(main, 
+                    TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out),
+                    {Position = UDim2.new(0.5, 0, 0.5, 0)}
+                )
+                slideIn:Play()
+            end
+        end)        
         getKeyButton.MouseButton1Click:Connect(function()
             setclipboard(table.KeyLink)
             Library:CreateNotification("Success", "Key link copied to clipboard!", 2)
@@ -187,7 +194,7 @@ function Library:Create(table)
             end
         end)
     end
-    
+
     local title = Instance.new("TextLabel")
     title.Name = "title"
     title.Font = Enum.Font.Gotham
@@ -227,8 +234,7 @@ function Library:Create(table)
     OtherToggle.Visible = false
     OtherToggle.Parent = dark_UI
     OtherToggle.Font = Enum.Font.Gotham
-
-    if not UseKey then
+    if not useKey then
         OtherToggle.Visible = true
     end
 
@@ -301,6 +307,7 @@ function Library:Create(table)
         holder.Position = UDim2.fromScale(0.0022, 0.00404)
         holder.Size = UDim2.fromOffset(452, 182)
         holder.CanvasSize = UDim2.fromOffset(0, 0)
+        holder.ClipsDescendants = true
 
         holder.ChildAdded:Connect(function()
             local listLayout = holder:FindFirstChildWhichIsA('UIListLayout')
@@ -1123,11 +1130,19 @@ function Library:Create(table)
         end
     end
     game.CoreGui['dark_UI'].main.tabContainer.ChildAdded:Connect(function()
-        game.CoreGui['dark_UI'].main:WaitForChild('container').Visible = true
+        local container = game.CoreGui['dark_UI'].main:FindFirstChild('container')
+        if container then
+            container.Visible = true
+        end
+        
         pcall(function()
             repeat wait() until game.CoreGui['dark_UI'].main:FindFirstChild('tabContainer'):FindFirstChildWhichIsA('TextButton')
         end)
-        game:GetService('TweenService'):Create(game.CoreGui['dark_UI'].main:FindFirstChild('tabContainer'):FindFirstChildWhichIsA('TextButton'), TweenInfo.new(0.3), {TextTransparency = 0}):Play()
+        
+        local firstTab = game.CoreGui['dark_UI'].main:FindFirstChild('tabContainer'):FindFirstChildWhichIsA('TextButton')
+        if firstTab then
+            game:GetService('TweenService'):Create(firstTab, TweenInfo.new(0.3), {TextTransparency = 0}):Play()
+        end
     end)
 
     spawn(function()
@@ -1143,6 +1158,56 @@ function Library:Create(table)
         end
     end)
 
+-- Loading Animation
+main.Size = UDim2.fromOffset(0, 0)
+main.AnchorPoint = Vector2.new(0.5, 0.5)
+main.Position = UDim2.new(0.5, 0, 0.5, 0)
+main.Parent = dark_UI
+
+local function startGrowthTween()
+    local containerRef
+    for _, v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
+        if v.Name == "container" and v.Visible then
+            v.Visible = false
+            containerRef = v
+        end
+    end       
+    local viewportSize = workspace.CurrentCamera.ViewportSize
+    local targetSize = UDim2.fromOffset(
+        math.min(488, viewportSize.X * 0.8),
+        math.min(299, viewportSize.Y * 0.8)
+    )
+
+    local growthTween = TweenService:Create(main,
+        TweenInfo.new(1.6, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out, 0, false, 0),
+        {
+            Size = targetSize,
+            Rotation = 16
+        }
+    )    
+    
+    growthTween.Completed:Connect(function()
+        local stabilizeTween = TweenService:Create(main,
+            TweenInfo.new(0.6, Enum.EasingStyle.Bounce),
+            {Rotation = 0}
+        )
+        stabilizeTween:Play()
+        wait(0.5)
+        for _, v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
+            if v.Name == "container" then
+                containerRef.Visible = true
+            end
+        end        
+    end)
+    growthTween:Play()
+end
+
+main:GetPropertyChangedSignal("Visible"):Connect(function()
+    if main.Visible then
+        startGrowthTween()
+    end
+end)
+
     return tabHandler
 end
 
@@ -1151,7 +1216,7 @@ local executor = "Unknown"
 executor = getexecutorname()
 print('===========================================')
 print('Welcome to BlareUi-Library')
-print('Library Version' .. Version)
+print('Library Version '.. Version)
 print('Executor : '.. executor)
 print('Status : Functional')
 print('===========================================')

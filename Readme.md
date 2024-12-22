@@ -8,9 +8,7 @@
 --> Added Dropdown
 --> Added Notification
 --> Added Key System
---> Added Get-Key
---> Added Discord
---> Added Save-Key Feature
+--> Added Spicy new animations
 ```
 
 ## To Be Added
