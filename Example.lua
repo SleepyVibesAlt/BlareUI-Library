@@ -65,7 +65,7 @@ end)
 maintab:Separator()
 maintab:Section('Section 1')
 
-task.wait(3.2)
+task.wait(10)
 
 win:ReactiveNotification("Confirm Action", "Are you sure you want to proceed?"):Connect(function(confirmed)
     if confirmed then

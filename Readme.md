@@ -32,7 +32,7 @@ local win = BlareLib:Create({
         Key = "2",
         GrabFromSite = true,
         Site = "https://pastebin.com/raw/D2RWz0XT",
-        Comment = "The key is 2 if grafromsite is disabled",
+        Comment = "The key is 2 if getfromsite is disabled",
         Discord = "https://discord.gg/yourserver",
         KeyLink = "https://linkvertise.com/yourkey",
     }
