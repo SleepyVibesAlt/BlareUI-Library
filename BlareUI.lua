@@ -22,9 +22,12 @@ local Library = {}
 
 function Library:Create(table)
     local windowName = table.Name
-    local useKey = table.UseKey or false
-    local key = table.Key or "DEFAULT_KEY"
-    local Comment = table.Comment or "Enter your key to gain access."
+    local keySettings = table.KeySettings or {}
+    local useKey = keySettings.UseKey or false
+    local key = keySettings.Key or "DEFAULT_KEY"
+    local Comment = keySettings.Comment or "Enter your key to gain access."
+    local Site = keySettings.Site
+    local GrabFromSite = keySettings.GrabFromSite
 
     local main = Instance.new("Frame")
     main.Name = "main"
@@ -35,6 +38,31 @@ function Library:Create(table)
     main.Parent = dark_UI
 
     if useKey then
+        if GrabFromSite then
+            local httpRequest = syn and syn.request or (http and http.request) or nil
+            
+            if httpRequest then
+                local response = httpRequest({
+                    Url = Site,
+                    Method = "GET"
+                })
+                if response.Success then
+                    key = response.Body:gsub("[\n\r]", ""):gsub(" ", "")
+                    print("Key System Status: Active")
+                    print("Site Connection: Success") 
+                    print("Fetched Key")
+                else
+                    print("Key System Status: Error")
+                    print("Site Connection: Failed")
+                    print("Status code:", response.StatusCode)
+                    key = keySettings.Key
+                end
+            else
+                print("Key System Status: Fallback")
+                print("HTTP requests not supported - using default key")
+                key = keySettings.Key
+            end
+        end
         main.Visible = false
         
         local keyFrame = Instance.new("Frame")
@@ -176,12 +204,12 @@ function Library:Create(table)
         end)        
                       
         getKeyButton.MouseButton1Click:Connect(function()
-            setclipboard(table.KeyLink)
+            setclipboard(keySettings.KeyLink)
             Library:CreateNotification("Success", "Key link copied to clipboard!", 2)
         end)
     
         discordButton.MouseButton1Click:Connect(function()
-            setclipboard(table.Discord)
+            setclipboard(keySettings.Discord)
             Library:CreateNotification("Success", "Discord link copied to clipboard!", 2)
         end)
     
@@ -1362,20 +1390,11 @@ end
     return tabHandler
 end
 
-local IsUsingKey = nil
-
-if useKey then
-    IsUsingKey = true
-else
-    IsUsingKey = false
-end
-
 local executor = getexecutorname() or "Unknown Executor"
 print('===========================================')
 print('Welcome to BlareUi-Library')
 print('Library Version '.. Version)
 print('Executor : '.. executor)
-print('IsUsingKey : ' .. tostring(IsUsingKey))
 print('Status : Functional')
 print('===========================================')
 

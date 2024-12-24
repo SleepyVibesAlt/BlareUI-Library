@@ -27,18 +27,23 @@ assert(BlareLib, "Failed to load BlareLib")
 ```lua
 local win = BlareLib:Create({
     Name = "Example Script",
-    UseKey = true,
-    Key = "12345",
-    Comment = "The key is 12345",
+    KeySettings = {
+        UseKey = true,
+        Key = "2",
+        GrabFromSite = true,
+        Site = "https://pastebin.com/raw/D2RWz0XT",
+        Comment = "The key is 2 if grafromsite is disabled",
+        Discord = "https://discord.gg/yourserver",
+        KeyLink = "https://linkvertise.com/yourkey",
+    }
+
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
         TimePosition = 1
-    },
-    Discord = "https://discord.gg/yourserver", 
-    KeyLink = "https://linkvertise.com/yourkey"
+    }
 })
---> The key with be DEFAULT_KEY is not added already.
+--> The key will be DEFAULT_KEY if key isn't set.
 ```
 
 ## Creating Tab
@@ -90,7 +95,7 @@ BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
 
 ## Creating Reactive Notification
 ```lua
-Library:CreateReactionNotification("Confirm Action", "Are you sure you want to proceed?"):Connect(function(confirmed)
+win:ReactiveNotification("Confirm Action", "Are you sure you want to proceed?"):Connect(function(confirmed)
     if confirmed then
         print("User clicked confirm")
     else

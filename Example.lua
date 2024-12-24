@@ -3,16 +3,21 @@ assert(BlareLib, "Failed to load BlareLib")
 
 local win = BlareLib:Create({
     Name = "Example Script",
-    UseKey = true,
-    Key = "12345",
-    Comment = "The key is 12345",
+    KeySettings = {
+        UseKey = true,
+        Key = "2",
+        GrabFromSite = true,
+        Site = "https://pastebin.com/raw/D2RWz0XT",
+        Comment = "The key is 2 if grafromsite is disabled",
+        Discord = "https://discord.gg/yourserver",
+        KeyLink = "https://linkvertise.com/yourkey"
+    },
+    
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",
         TimePosition = 1
-    },
-    Discord = "https://discord.gg/yourserver", 
-    KeyLink = "https://linkvertise.com/yourkey"
+    }
 })
 
 local maintab = win:Tab('Main', 'rbxassetid://6034837797')
@@ -60,7 +65,7 @@ end)
 maintab:Separator()
 maintab:Section('Section 1')
 
-task.wait(2)
+task.wait(3.2)
 
 win:ReactiveNotification("Confirm Action", "Are you sure you want to proceed?"):Connect(function(confirmed)
     if confirmed then
