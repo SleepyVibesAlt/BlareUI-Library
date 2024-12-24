@@ -32,11 +32,11 @@ local win = BlareLib:Create({
         Key = "2",
         GrabFromSite = true,
         Site = "https://pastebin.com/raw/D2RWz0XT",
-        Comment = "The key is 2 if getfromsite is disabled",
+        Comment = "The key is 1 if GrabFromSite is off it is 2",
         Discord = "https://discord.gg/yourserver",
-        KeyLink = "https://linkvertise.com/yourkey",
-    }
-
+        KeyLink = "https://linkvertise.com/yourkey"
+    },
+    
     StartupSound = {
         Toggle = true,
         SoundID = "rbxassetid://6958727243",

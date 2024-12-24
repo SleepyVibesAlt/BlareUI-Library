@@ -38,6 +38,7 @@ function Library:Create(table)
     main.Parent = dark_UI
 
     if useKey then
+        main.Visible = false
         if GrabFromSite then
             local httpRequest = syn and syn.request or (http and http.request) or nil
             
@@ -63,7 +64,6 @@ function Library:Create(table)
                 key = keySettings.Key
             end
         end
-        main.Visible = false
         
         local keyFrame = Instance.new("Frame")
         keyFrame.Name = "keySystem"
@@ -790,7 +790,7 @@ function Library:Create(table)
             selectedText.ZIndex = 2
             selectedText.Parent = dropdown
         
-            local dropFrame = Instance.new("Frame")
+            local dropFrame = Instance.new("ScrollingFrame")
             dropFrame.Name = "dropFrame"
             dropFrame.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
             dropFrame.Position = UDim2.fromOffset(0, 40)
@@ -798,6 +798,8 @@ function Library:Create(table)
             dropFrame.ClipsDescendants = true
             dropFrame.Visible = false
             dropFrame.ZIndex = 1
+            dropFrame.ScrollBarThickness = 0
+            dropFrame.ScrollingDirection = Enum.ScrollingDirection.Y
             dropFrame.Parent = holder
         
             local uICornerDrop = Instance.new("UICorner")
@@ -807,13 +809,13 @@ function Library:Create(table)
             local itemHolder = Instance.new("Frame")
             itemHolder.Name = "itemHolder"
             itemHolder.BackgroundTransparency = 1
-            itemHolder.Size = UDim2.fromScale(1, 1)
+            itemHolder.Size = UDim2.fromOffset(529, 34)
             itemHolder.ZIndex = 51
             itemHolder.Parent = dropFrame
         
             local itemList = Instance.new("UIListLayout")
             itemList.SortOrder = Enum.SortOrder.LayoutOrder
-            itemList.Padding = UDim.new(0, 3)
+            itemList.Padding = UDim.new(0, 5)
             itemList.HorizontalAlignment = Enum.HorizontalAlignment.Center
             itemList.Parent = itemHolder   
                  
@@ -879,7 +881,7 @@ function Library:Create(table)
                 dropFrame.Visible = true
                 if dropped then
                     game:GetService('TweenService'):Create(arrow, TweenInfo.new(0.3), {Rotation = 180}):Play()
-                    game:GetService('TweenService'):Create(dropFrame, TweenInfo.new(0.2), {Size = UDim2.fromOffset(441, (#list * 35) + 10)}):Play()
+                    game:GetService('TweenService'):Create(dropFrame, TweenInfo.new(0.2), {Size = UDim2.fromOffset(529, (#list * 45) + 15)}):Play()
                 else
                     game:GetService('TweenService'):Create(arrow, TweenInfo.new(0.3), {Rotation = 0}):Play()
                     game:GetService('TweenService'):Create(dropFrame, TweenInfo.new(0.2), {Size = UDim2.fromOffset(441, 0)}):Play()
