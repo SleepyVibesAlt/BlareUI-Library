@@ -30,7 +30,7 @@ function Library:Create(table)
     main.Name = "main"
     main.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
     main.Position = UDim2.fromScale(0.244, 0.292)
-    main.Size = UDim2.fromOffset(488, 299)
+    main.Size = UDim2.fromOffset(586, 359)
     main.ClipsDescendants = true
     main.Parent = dark_UI
 
@@ -41,7 +41,7 @@ function Library:Create(table)
         keyFrame.Name = "keySystem"
         keyFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
         keyFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-        keyFrame.Size = UDim2.fromOffset(400, 200)
+        keyFrame.Size = UDim2.fromOffset(480, 240)
         keyFrame.AnchorPoint = Vector2.new(0.5, 0.5)
         keyFrame.Parent = dark_UI
         
@@ -73,7 +73,7 @@ function Library:Create(table)
         keySubtitle.Parent = keyFrame
     
         local keyInput = Instance.new("TextBox")
-        keyInput.Size = UDim2.new(0.8, 0, 0, 35)
+        keyInput.Size = UDim2.new(0.8, 0, 0, 42)
         keyInput.Position = UDim2.new(0.5, 0, 0.45, 0)
         keyInput.AnchorPoint = Vector2.new(0.5, 0)
         keyInput.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
@@ -94,7 +94,7 @@ function Library:Create(table)
         keyInputCorner.Parent = keyInput
     
         local keyButton = Instance.new("TextButton")
-        keyButton.Size = UDim2.new(0.25, 0, 0, 35)
+        keyButton.Size = UDim2.new(0.25, 0, 0, 42)
         keyButton.Position = UDim2.new(0.5, 0, 0.75, 0)
         keyButton.AnchorPoint = Vector2.new(0.5, 0)
         keyButton.BackgroundColor3 = Color3.fromRGB(45,45,45)
@@ -109,7 +109,7 @@ function Library:Create(table)
         keyButtonCorner.Parent = keyButton
     
         local getKeyButton = Instance.new("TextButton")
-        getKeyButton.Size = UDim2.new(0.25, 0, 0, 35)
+        getKeyButton.Size = UDim2.new(0.25, 0, 0, 42)
         getKeyButton.Position = UDim2.new(0.78, 0, 0.75, 0)
         getKeyButton.AnchorPoint = Vector2.new(0.5, 0)
         getKeyButton.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
@@ -124,7 +124,7 @@ function Library:Create(table)
         getKeyCorner.Parent = getKeyButton
     
         local discordButton = Instance.new("TextButton")
-        discordButton.Size = UDim2.new(0.25, 0, 0, 35)
+        discordButton.Size = UDim2.new(0.25, 0, 0, 42)
         discordButton.Position = UDim2.new(0.22, 0, 0.75, 0)
         discordButton.AnchorPoint = Vector2.new(0.5, 0)
         discordButton.BackgroundColor3 = Color3.fromRGB(88, 101, 242)
@@ -140,7 +140,7 @@ function Library:Create(table)
 
         local Toggle = Instance.new("TextButton")
         Toggle.Name = "Toggle"
-        Toggle.Size = UDim2.new(0, 160, 0, 20)
+        Toggle.Size = UDim2.new(0, 192, 0, 24)
         Toggle.Position = UDim2.new(0.5, -90, 0, -36)
         Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
         Toggle.BackgroundTransparency = 0.5
@@ -173,7 +173,7 @@ function Library:Create(table)
                 )
                 slideIn:Play()
             end
-        end)
+        end)        
                       
         getKeyButton.MouseButton1Click:Connect(function()
             setclipboard(table.KeyLink)
@@ -215,7 +215,7 @@ function Library:Create(table)
 
     local OtherToggle = Instance.new("TextButton")
     OtherToggle.Name = "Toggle"
-    OtherToggle.Size = UDim2.new(0, 160, 0, 20)
+    OtherToggle.Size = UDim2.new(0, 192, 0, 24)
     OtherToggle.Position = UDim2.new(0.5, -90, 0, -36)
     OtherToggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     OtherToggle.BackgroundTransparency = 0.5
@@ -248,13 +248,13 @@ function Library:Create(table)
             )
             slideIn:Play()
         end
-    end)
+    end)    
     
     local tabContainer = Instance.new("Frame")
     tabContainer.Name = "tabContainer"
     tabContainer.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
     tabContainer.Position = UDim2.fromScale(0.0342, 0.188)
-    tabContainer.Size = UDim2.fromOffset(454, 30)
+    tabContainer.Size = UDim2.fromOffset(545, 36)
 
     local uICorner1 = Instance.new("UICorner")
     uICorner1.Name = "uICorner1"
@@ -284,6 +284,111 @@ function Library:Create(table)
         dark_UI:Destroy()
     end
 
+    function tabHandler:ReactiveNotification(title, description)
+        local notifContainer = Instance.new("Frame")
+        notifContainer.Name = "ReactionNotificationContainer"
+        notifContainer.Size = UDim2.new(0, 300, 0, 120)
+        notifContainer.Position = UDim2.new(1, 0, 1, -130) 
+        notifContainer.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+        notifContainer.Parent = dark_UI
+        
+        local uICorner = Instance.new("UICorner")
+        uICorner.CornerRadius = UDim.new(0, 6)
+        uICorner.Parent = notifContainer
+        
+        local titleLabel = Instance.new("TextLabel")
+        titleLabel.Name = "Title"
+        titleLabel.Font = Enum.Font.GothamBold
+        titleLabel.Text = title
+        titleLabel.TextColor3 = Color3.fromRGB(195, 195, 195)
+        titleLabel.TextSize = 14
+        titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+        titleLabel.BackgroundTransparency = 1
+        titleLabel.Position = UDim2.new(0.05, 0, 0.1, 0)
+        titleLabel.Size = UDim2.new(0.9, 0, 0, 20)
+        titleLabel.Parent = notifContainer
+        
+        local descLabel = Instance.new("TextLabel")
+        descLabel.Name = "Description"
+        descLabel.Font = Enum.Font.Gotham
+        descLabel.Text = description
+        descLabel.TextColor3 = Color3.fromRGB(195, 195, 195)
+        descLabel.TextSize = 13
+        descLabel.TextXAlignment = Enum.TextXAlignment.Left
+        descLabel.TextWrapped = true
+        descLabel.BackgroundTransparency = 1
+        descLabel.Position = UDim2.new(0.05, 0, 0.3, 0)
+        descLabel.Size = UDim2.new(0.9, 0, 0, 40)
+        descLabel.Parent = notifContainer
+    
+        local buttonHolder = Instance.new("Frame")
+        buttonHolder.Name = "ButtonHolder"
+        buttonHolder.BackgroundTransparency = 1
+        buttonHolder.Position = UDim2.new(0, 0, 0.75, 0)
+        buttonHolder.Size = UDim2.new(1, 0, 0, 30)
+        buttonHolder.Parent = notifContainer
+    
+        local confirmButton = Instance.new("TextButton")
+        confirmButton.Name = "ConfirmButton"
+        confirmButton.Size = UDim2.new(0.4, 0, 1, 0)
+        confirmButton.Position = UDim2.new(0.05, 0, -0.2, 0)
+        confirmButton.BackgroundColor3 = Color3.fromRGB(23, 143, 75)
+        confirmButton.Text = "Yes"
+        confirmButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        confirmButton.TextSize = 14
+        confirmButton.Font = Enum.Font.GothamBold
+        confirmButton.Parent = buttonHolder
+    
+        local denyButton = Instance.new("TextButton")
+        denyButton.Name = "DenyButton"
+        denyButton.Size = UDim2.new(0.4, 0, 1, 0)
+        denyButton.Position = UDim2.new(0.55, 0, -0.2, 0)
+        denyButton.BackgroundColor3 = Color3.fromRGB(184, 41, 41)
+        denyButton.Text = "No"
+        denyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        denyButton.TextSize = 14
+        denyButton.Font = Enum.Font.GothamBold
+        denyButton.Parent = buttonHolder    
+        local confirmCorner = Instance.new("UICorner")
+        confirmCorner.CornerRadius = UDim.new(0, 6)
+        confirmCorner.Parent = confirmButton
+    
+        local denyCorner = Instance.new("UICorner")
+        denyCorner.CornerRadius = UDim.new(0, 6)
+        denyCorner.Parent = denyButton
+    
+        local tweenIn = TweenService:Create(notifContainer, 
+            TweenInfo.new(0.3, Enum.EasingStyle.Quad), 
+            {Position = UDim2.new(1, -310, 1, -130)}
+        )
+        tweenIn:Play()
+    
+        local result = Instance.new("BindableEvent")
+    
+        confirmButton.MouseButton1Click:Connect(function()
+            local tweenOut = TweenService:Create(notifContainer,
+                TweenInfo.new(0.3, Enum.EasingStyle.Quad),
+                {Position = UDim2.new(1, 0, 1, -130)}
+            )
+            tweenOut:Play()
+            tweenOut.Completed:Wait()
+            notifContainer:Destroy()
+            result:Fire(true)
+        end)
+    
+        denyButton.MouseButton1Click:Connect(function()
+            local tweenOut = TweenService:Create(notifContainer,
+                TweenInfo.new(0.3, Enum.EasingStyle.Quad),
+                {Position = UDim2.new(1, 0, 1, -130)}
+            )
+            tweenOut:Play()
+            tweenOut.Completed:Wait()
+            notifContainer:Destroy()
+            result:Fire(false)
+        end)
+    
+        return result.Event
+    end
     function tabHandler:Tab(name)
         local main1 = Instance.new("TextButton")
         main1.Name = name
@@ -302,7 +407,7 @@ function Library:Create(table)
         container.Name = "container"
         container.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
         container.Position = UDim2.fromScale(0.0342, 0.31)
-        container.Size = UDim2.fromOffset(454, 183)
+        container.Size = UDim2.fromOffset(545, 220)
         
         local uICorner2 = Instance.new("UICorner")
         uICorner2.Name = "uICorner2"
@@ -320,7 +425,7 @@ function Library:Create(table)
         holder.BackgroundTransparency = 1
         holder.BorderColor3 = Color3.fromRGB(33, 33, 33)
         holder.Position = UDim2.fromScale(0.0022, 0.00404)
-        holder.Size = UDim2.fromOffset(452, 182)
+        holder.Size = UDim2.fromOffset(542, 218)
         holder.CanvasSize = UDim2.fromOffset(0, 0)
         holder.ClipsDescendants = true
 
@@ -339,7 +444,7 @@ function Library:Create(table)
 
         local uIListLayout1 = Instance.new("UIListLayout")
         uIListLayout1.Name = "uIListLayout1"
-        uIListLayout1.Padding = UDim.new(0, 3)
+        uIListLayout1.Padding = UDim.new(0, 6)
         uIListLayout1.SortOrder = Enum.SortOrder.LayoutOrder
         uIListLayout1.Parent = holder
 
@@ -370,12 +475,12 @@ function Library:Create(table)
 
         --// Elements
         local ElementHandler = {}
-
+        
         function ElementHandler:Label(Name, text)
             local label = Instance.new("Frame")
             label.Name = Name
             label.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            label.Size = UDim2.fromOffset(441, 32)
+            label.Size = UDim2.fromOffset(529, 34)
             label.Parent = holder
     
             local uICorner3 = Instance.new("UICorner")
@@ -404,115 +509,6 @@ function Library:Create(table)
             textLabel.Text = text
         end
 
-        function ElementHandler:Section(text)
-            local section = Instance.new("Frame")
-            section.Name = "section"
-            section.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-            section.Size = UDim2.fromOffset(441, 36)
-            
-            local sectionTitle = Instance.new("TextLabel")
-            sectionTitle.Name = "sectionTitle"
-            sectionTitle.Font = Enum.Font.GothamBold
-            sectionTitle.Text = text
-            sectionTitle.TextColor3 = Color3.fromRGB(195, 195, 195)
-            sectionTitle.TextSize = 14
-            sectionTitle.BackgroundTransparency = 1
-            sectionTitle.Position = UDim2.fromScale(0.0181, 0)
-            sectionTitle.Size = UDim2.fromOffset(441, 36)
-            sectionTitle.TextXAlignment = Enum.TextXAlignment.Left
-            sectionTitle.Parent = section
-            
-            local uICorner = Instance.new("UICorner")
-            uICorner.CornerRadius = UDim.new(0, 6)
-            uICorner.Parent = section
-            
-            section.Parent = holder
-        end
-
-        function ElementHandler:Keybind(text, default, callback)
-            text = text or "Keybind"
-            default = default or Enum.KeyCode.Unknown
-            callback = callback or function() end
-            
-            local keybind = Instance.new("Frame")
-            keybind.Name = "keybind"
-            keybind.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            keybind.Size = UDim2.fromOffset(441, 32)
-            
-            local uICorner = Instance.new("UICorner")
-            uICorner.CornerRadius = UDim.new(0, 6)
-            uICorner.Parent = keybind
-            
-            local title = Instance.new("TextLabel")
-            title.Name = "title"
-            title.Font = Enum.Font.Gotham
-            title.Text = text
-            title.TextColor3 = Color3.fromRGB(195, 195, 195)
-            title.TextSize = 13
-            title.TextXAlignment = Enum.TextXAlignment.Left
-            title.BackgroundTransparency = 1
-            title.Position = UDim2.fromScale(0.0181, 0)
-            title.Size = UDim2.fromOffset(1, 32)
-            title.Parent = keybind
-            
-            local bindButton = Instance.new("TextButton")
-            bindButton.Name = "bindButton"
-            bindButton.Font = Enum.Font.Gotham
-            bindButton.Text = default.Name
-            bindButton.TextColor3 = Color3.fromRGB(195, 195, 195)
-            bindButton.TextSize = 13
-            bindButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-            bindButton.Position = UDim2.fromScale(0.864, 0.188)
-            bindButton.Size = UDim2.fromOffset(52, 19)
-            bindButton.AutoButtonColor = false
-            
-            local uICorner2 = Instance.new("UICorner")
-            uICorner2.CornerRadius = UDim.new(0, 6)
-            uICorner2.Parent = bindButton
-            
-            bindButton.Parent = keybind
-            keybind.Parent = holder
-            
-            local binding = false
-            local currentKey = default
-            
-            bindButton.MouseButton1Click:Connect(function()
-                binding = true
-                bindButton.Text = "..."
-            end)
-            
-            UserInputService.InputBegan:Connect(function(input)
-                if binding and input.UserInputType == Enum.UserInputType.Keyboard then
-                    binding = false
-                    currentKey = input.KeyCode
-                    bindButton.Text = currentKey.Name
-                    callback(currentKey)
-                end
-            end)
-            
-            return {
-                GetKey = function()
-                    return currentKey
-                end,
-                SetKey = function(key)
-                    currentKey = key
-                    bindButton.Text = key.Name
-                end
-            }
-        end        
-        
-        function ElementHandler:Separator()
-            local separator = Instance.new("Frame")
-            separator.Name = "separator"
-            separator.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            separator.Size = UDim2.fromOffset(441, 4)
-            separator.Parent = holder
-            
-            local uICorner = Instance.new("UICorner")
-            uICorner.CornerRadius = UDim.new(0, 6)
-            uICorner.Parent = separator
-        end        
-
         function ElementHandler:Button(text, callback)
             text = text or "Button"
             callback = callback or function() end
@@ -521,7 +517,7 @@ function Library:Create(table)
             button.Name = "button"
             button.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
             button.Position = UDim2.fromScale(0, 0.135)
-            button.Size = UDim2.fromOffset(441, 32)
+            button.Size = UDim2.fromOffset(529, 34)
             button.Text = ""
             button.AutoButtonColor = false
 
@@ -569,6 +565,115 @@ function Library:Create(table)
             end)
         end
 
+        function ElementHandler:Section(text)
+            local section = Instance.new("Frame")
+            section.Name = "section"
+            section.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+            section.Size = UDim2.fromOffset(529, 43)
+            
+            local sectionTitle = Instance.new("TextLabel")
+            sectionTitle.Name = "sectionTitle"
+            sectionTitle.Font = Enum.Font.GothamBold
+            sectionTitle.Text = text
+            sectionTitle.TextColor3 = Color3.fromRGB(195, 195, 195)
+            sectionTitle.TextSize = 14
+            sectionTitle.BackgroundTransparency = 1
+            sectionTitle.Position = UDim2.fromScale(0.0181, 0)
+            sectionTitle.Size = UDim2.fromOffset(441, 36)
+            sectionTitle.TextXAlignment = Enum.TextXAlignment.Left
+            sectionTitle.Parent = section
+            
+            local uICorner = Instance.new("UICorner")
+            uICorner.CornerRadius = UDim.new(0, 6)
+            uICorner.Parent = section
+            
+            section.Parent = holder
+        end  
+
+        function ElementHandler:Keybind(text, default, callback)
+            text = text or "Keybind"
+            default = default or Enum.KeyCode.Unknown
+            callback = callback or function() end
+            
+            local keybind = Instance.new("Frame")
+            keybind.Name = "keybind"
+            keybind.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+            keybind.Size = UDim2.fromOffset(529, 34)
+            
+            local uICorner = Instance.new("UICorner")
+            uICorner.CornerRadius = UDim.new(0, 6)
+            uICorner.Parent = keybind
+            
+            local title = Instance.new("TextLabel")
+            title.Name = "title"
+            title.Font = Enum.Font.Gotham
+            title.Text = text
+            title.TextColor3 = Color3.fromRGB(195, 195, 195)
+            title.TextSize = 13
+            title.TextXAlignment = Enum.TextXAlignment.Left
+            title.BackgroundTransparency = 1
+            title.Position = UDim2.fromScale(0.0181, 0)
+            title.Size = UDim2.fromOffset(1, 32)
+            title.Parent = keybind
+            
+            local bindButton = Instance.new("TextButton")
+            bindButton.Name = "bindButton"
+            bindButton.Font = Enum.Font.Gotham
+            bindButton.Text = default.Name
+            bindButton.TextColor3 = Color3.fromRGB(195, 195, 195)
+            bindButton.TextSize = 13
+            bindButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+            bindButton.Position = UDim2.fromScale(0.864, 0.188)
+            bindButton.Size = UDim2.fromOffset(62, 23)
+            bindButton.AutoButtonColor = false
+            
+            local uICorner2 = Instance.new("UICorner")
+            uICorner2.CornerRadius = UDim.new(0, 6)
+            uICorner2.Parent = bindButton
+            
+            bindButton.Parent = keybind
+            keybind.Parent = holder
+            
+            local binding = false
+            local currentKey = default
+            
+            bindButton.MouseButton1Click:Connect(function()
+                binding = true
+                bindButton.Text = "..."
+            end)
+            
+            UserInputService.InputBegan:Connect(function(input)
+                if binding and input.UserInputType == Enum.UserInputType.Keyboard then
+                    binding = false
+                    currentKey = input.KeyCode
+                    bindButton.Text = currentKey.Name
+                    callback(currentKey)
+                end
+            end)
+            
+            return {
+                GetKey = function()
+                    return currentKey
+                end,
+                SetKey = function(key)
+                    currentKey = key
+                    bindButton.Text = key.Name
+                end
+            }
+        end        
+        
+        function ElementHandler:Separator()
+            local separator = Instance.new("Frame")
+            separator.Name = "separator"
+            separator.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+            separator.Size = UDim2.fromOffset(529, 4)
+            separator.Parent = holder
+            
+            local uICorner = Instance.new("UICorner")
+            uICorner.CornerRadius = UDim.new(0, 6)
+            uICorner.Parent = separator
+        end        
+
         function ElementHandler:Dropdown(text, list, callback)
             text = text or "Dropdown"
             list = list or {}
@@ -577,7 +682,7 @@ function Library:Create(table)
             local dropdown = Instance.new("Frame")
             dropdown.Name = "dropdown"
             dropdown.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            dropdown.Size = UDim2.fromOffset(441, 32)
+            dropdown.Size = UDim2.fromOffset(529, 34)
             dropdown.ZIndex = 1
         
             local uICorner = Instance.new("UICorner")
@@ -632,7 +737,7 @@ function Library:Create(table)
             dropFrame.Name = "dropFrame"
             dropFrame.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
             dropFrame.Position = UDim2.fromOffset(0, 40)
-            dropdown.Size = UDim2.fromOffset(441, 32)
+            dropFrame.Size = UDim2.fromOffset(529, 34)
             dropFrame.ClipsDescendants = true
             dropFrame.Visible = false
             dropFrame.ZIndex = 1
@@ -809,7 +914,7 @@ function Library:Create(table)
             local slider = Instance.new("TextButton")
             slider.Name = "slider"
             slider.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            slider.Size = UDim2.fromOffset(441, 32)
+            slider.Size = UDim2.fromOffset(529, 34)
             slider.Text = ""
             slider.AutoButtonColor = false
 
@@ -836,7 +941,7 @@ function Library:Create(table)
             frame.Name = "frame"
             frame.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
             frame.Position = UDim2.fromScale(0.753, 0.375)
-            frame.Size = UDim2.fromOffset(102, 8)
+            frame.Size = UDim2.fromOffset(122, 10)
 
             local uICorner5 = Instance.new("UICorner")
             uICorner5.Name = "uICorner5"
@@ -847,7 +952,7 @@ function Library:Create(table)
             frame1.Name = "frame1"
             frame1.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
             frame1.Position = UDim2.fromScale(-0.00207, 0)
-            frame1.Size = UDim2.fromOffset(44, 8)
+            frame1.Size = UDim2.fromOffset(53, 10)
 
             local uICorner6 = Instance.new("UICorner")
             uICorner6.Name = "uICorner6"
@@ -920,7 +1025,7 @@ function Library:Create(table)
             local toggle1 = Instance.new("TextButton")
             toggle1.Name = "toggle1"
             toggle1.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            toggle1.Size = UDim2.fromOffset(441, 32)
+            toggle1.Size = UDim2.fromOffset(529, 34)
             toggle1.Text = ""
             toggle1.AutoButtonColor = false
         
@@ -947,7 +1052,7 @@ function Library:Create(table)
             frame3.Name = "frame3"
             frame3.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
             frame3.Position = UDim2.fromScale(0.943, 0.219)
-            frame3.Size = UDim2.fromOffset(18, 18)
+            frame3.Size = UDim2.fromOffset(22, 22)
         
             local uICorner10 = Instance.new("UICorner")
             uICorner10.Name = "uICorner10"
@@ -1015,7 +1120,7 @@ function Library:Create(table)
             comment.TextSize = 11
             comment.TextXAlignment = Enum.TextXAlignment.Left
             comment.BackgroundTransparency = 1
-            comment.Size = UDim2.fromOffset(441, 20)
+            comment.Size = UDim2.fromOffset(529, 24)
             comment.Parent = holder
             
             local listLayout = holder:FindFirstChildWhichIsA('UIListLayout')
@@ -1031,7 +1136,7 @@ function Library:Create(table)
             local textbox = Instance.new("Frame")
             textbox.Name = "textbox"
             textbox.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-            textbox.Size = UDim2.fromOffset(441, 32)
+            textbox.Size = UDim2.fromOffset(529, 34)
 
             local uICorner13 = Instance.new("UICorner")
             uICorner13.Name = "uICorner13"
@@ -1060,7 +1165,7 @@ function Library:Create(table)
             textBox.TextSize = 12
             textBox.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
             textBox.Position = UDim2.fromScale(0.864, 0.188)
-            textBox.Size = UDim2.fromOffset(52, 19)
+            textBox.Size = UDim2.fromOffset(62, 23)
 
             local uICorner14 = Instance.new("UICorner")
             uICorner14.Name = "uICorner14"
@@ -1189,21 +1294,21 @@ local function startGrowthTween()
     end       
     local viewportSize = workspace.CurrentCamera.ViewportSize
     local targetSize = UDim2.fromOffset(
-        math.min(488, viewportSize.X * 0.8),
-        math.min(299, viewportSize.Y * 0.8)
+        math.min(586, viewportSize.X * 0.8),
+        math.min(359, viewportSize.Y * 0.8)
     )
 
     local growthTween = TweenService:Create(main,
         TweenInfo.new(1.6, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out, 0, false, 0),
         {
             Size = targetSize,
-            Rotation = 16
+            Rotation = 20
         }
     )    
     
     growthTween.Completed:Connect(function()
         local stabilizeTween = TweenService:Create(main,
-            TweenInfo.new(0.6, Enum.EasingStyle.Bounce),
+            TweenInfo.new(0.5, Enum.EasingStyle.Back),
             {Rotation = 0}
         )
         stabilizeTween:Play()
@@ -1222,14 +1327,12 @@ main:GetPropertyChangedSignal("Visible"):Connect(function()
         startGrowthTween()
     end
 end)
-
 if not useKey then
     main.Visible = true
 end
     return tabHandler
 end
 
-local executor = "Unknown"
 local IsUsingKey = nil
 
 if useKey then
@@ -1238,7 +1341,7 @@ else
     IsUsingKey = false
 end
 
-executor = getexecutorname()
+local executor = getexecutorname() or "Unknown Executor"
 print('===========================================')
 print('Welcome to BlareUi-Library')
 print('Library Version '.. Version)

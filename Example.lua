@@ -49,10 +49,6 @@ maintab:Button('Edit Label', function()
     print("Label text updated.")
 end)
 
-maintab:Dropdown("Select Option", {"Option 1", "Option 2", "Option 3"}, function(selected)
-    print("Selected: " .. selected)
-end)
-
 maintab:Comment('This is a comment')
 
 BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
@@ -63,3 +59,13 @@ end)
 
 maintab:Separator()
 maintab:Section('Section 1')
+
+task.wait(2)
+
+win:ReactiveNotification("Confirm Action", "Are you sure you want to proceed?"):Connect(function(confirmed)
+    if confirmed then
+        print("User clicked confirm")
+    else
+        print("User clicked deny")
+    end
+end)

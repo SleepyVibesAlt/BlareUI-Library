@@ -9,11 +9,12 @@
 --> Added Notification
 --> Added Key System
 --> Added Spicy new animations
+--> Reaction Notification
 ```
 
 ## To Be Added
 ```lua
---> Reaction Notification
+
 ```
 
 ## Getting Loadstring
@@ -85,6 +86,17 @@ end) --> Default, CallBack
 ```lua
 BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
 --> Title, Description, Duration
+```
+
+## Creating Reactive Notification
+```lua
+Library:CreateReactionNotification("Confirm Action", "Are you sure you want to proceed?"):Connect(function(confirmed)
+    if confirmed then
+        print("User clicked confirm")
+    else
+        print("User clicked deny")
+    end
+end) --> Title, Description
 ```
 
 ## Creating Slider
