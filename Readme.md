@@ -5,16 +5,16 @@
 
 ## Update
 ```lua
---> Added Dropdown
---> Added Notification
---> Added Key System
---> Added Spicy new animations
---> Reaction Notification
+    --> Added Notification
+    --> Added Key System
+    --> Added Spicy new animations
+    --> Reaction Notification
+    --> New Icons
 ```
 
-## To Be Added
+## Information
 ```lua
-
+    --> Max Tabs: 7
 ```
 
 ## Getting Loadstring
@@ -43,7 +43,7 @@ local win = BlareLib:Create({
 
 ## Creating Tab
 ```lua
-local maintab = win:Tab('Main')
+local maintab = win:Tab('Main', 'rbxassetid://6034837797') --> Name, Icon
 ```
 
 ## Creating Section

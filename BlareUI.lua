@@ -263,9 +263,11 @@ function Library:Create(table)
 
     local uIListLayout = Instance.new("UIListLayout")
     uIListLayout.Name = "uIListLayout"
-    uIListLayout.Padding = UDim.new(0, 8)
+    uIListLayout.Padding = UDim.new(0, 35)
     uIListLayout.FillDirection = Enum.FillDirection.Horizontal
     uIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    uIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+    uIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     uIListLayout.Parent = tabContainer
 
     local uIPadding = Instance.new("UIPadding")
@@ -389,7 +391,19 @@ function Library:Create(table)
     
         return result.Event
     end
-    function tabHandler:Tab(name)
+    function tabHandler:Tab(name, imageId)
+        local tabCount = 0
+        for _, child in ipairs(tabContainer:GetChildren()) do
+            if child:IsA("TextButton") then
+                tabCount = tabCount + 1
+            end
+        end
+    
+        if tabCount >= 7 then
+            Library:CreateNotification("Warning", "Maximum tab limit reached (7/7). Cannot create more tabs.", 20)
+            return
+        end   
+
         local main1 = Instance.new("TextButton")
         main1.Name = name
         main1.Font = Enum.Font.Gotham
@@ -403,6 +417,21 @@ function Library:Create(table)
         main1.Size = UDim2.fromOffset(10, 24)
         main1.Parent = tabContainer
 
+        if imageId then
+            local icon = Instance.new("ImageLabel")
+            icon.Name = "icon"
+            icon.Image = imageId
+            icon.BackgroundTransparency = 1
+            icon.Size = UDim2.fromOffset(16, 16)
+            icon.Position = UDim2.new(0, -20, 0.5, -8)
+            icon.ImageColor3 = Color3.fromRGB(195, 195, 195)
+            icon.Parent = main1
+
+            local UIPadding = Instance.new("UIPadding")
+            UIPadding.PaddingLeft = UDim.new(0, 25)
+            uIPadding.Parent = main1
+        end
+        
         local container = Instance.new("Frame")
         container.Name = "container"
         container.BackgroundColor3 = Color3.fromRGB(33, 33, 33)

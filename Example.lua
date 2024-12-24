@@ -15,9 +15,9 @@ local win = BlareLib:Create({
     KeyLink = "https://linkvertise.com/yourkey"
 })
 
-local maintab = win:Tab('Main')
-local charactertab = win:Tab('Character')
-local uitab = win:Tab('UI')
+local maintab = win:Tab('Main', 'rbxassetid://6034837797')
+local charactertab = win:Tab('Character', 'rbxassetid://6034287594')
+local uitab = win:Tab('UI', 'rbxassetid://6034509993')
 
 uitab:Button('Destroy GUI', function()
     win:Exit()
