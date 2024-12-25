@@ -96,6 +96,7 @@ BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
 ## Creating Comment
 ```lua
 win:Comment("This is a comment")
+--> Text
 ```
 
 ## Creating Reactive Notification
