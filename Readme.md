@@ -2,7 +2,6 @@
 ## Repository: https://github.com/SleepyVibesAlt/BlareUI-Library
 ## License: MIT
 ## This is the only verified repository for the BlareUI Library.
-
 ## Update
 ```lua
     --> Added Notification
