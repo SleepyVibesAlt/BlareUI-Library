@@ -87,7 +87,6 @@ maintab:Toggle('Toggle Text', function(state)
     print("Toggle state:", state)
 end) --> Default, CallBack
 ```
-
 ## Creating Notification
 ```lua
 BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
