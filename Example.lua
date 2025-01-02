@@ -8,7 +8,7 @@ local win = BlareLib:Create({
         Key = "2",
         GrabFromSite = true,
         Site = "https://pastebin.com/raw/D2RWz0XT",
-        Comment = "The key is 1 if GrabFromSite is off it is 2",
+        Comment = "The key is 1 if GrabFromSite on else the key is 2",
         Discord = "https://discord.gg/yourserver",
         KeyLink = "https://linkvertise.com/yourkey"
     },
@@ -20,11 +20,19 @@ local win = BlareLib:Create({
     }
 })
 
-local maintab = win:Tab('Main', 'rbxassetid://6034837797')
-local charactertab = win:Tab('Character', 'rbxassetid://6034287594')
-local uitab = win:Tab('UI', 'rbxassetid://6034509993')
+local maintab = win:Tab('Main')
+local charactertab = win:Tab('Character')
+local uitab = win:Tab('UI')
+local combattab = win:Tab('Combat')
+local visualstab = win:Tab('Visuals')
+local misctab = win:Tab('Misc')
+local settingstab = win:Tab('Settings')
+local teleporttab = win:Tab('Teleport')
+local farmtab = win:Tab('Farming')
+local playertab = win:Tab('Player')
+local weaponstab = win:Tab('Weapons')
 
-uitab:Button('Destroy GUI', function()
+local autotab = win:Tab('Auto')uitab:Button('Destroy GUI', function()
     win:Exit()
 end)
 
@@ -45,7 +53,7 @@ end)
 
 maintab:Label('info_label', 'This is a label')
 
-maintab:Dropdown("Select Option", {"Option 1", "Option 2", "Option 3"}, function(selected)
+maintab:Dropdown("Select Option", {"Option 1", "Option 2", "Option 3"} function(selected)
     print("Selected: " .. selected)
 end)
 

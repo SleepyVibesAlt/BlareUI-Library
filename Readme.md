@@ -9,12 +9,12 @@
     --> Added Key System
     --> Added Spicy new animations
     --> Reaction Notification
-    --> New Icons
+    --> Updated Tab System & Added more tab support
 ```
 
 ## Information
 ```lua
-    --> Max Tabs: 7
+    --> Max Tabs: 15
 ```
 
 ## Getting Loadstring
@@ -48,7 +48,7 @@ local win = BlareLib:Create({
 
 ## Creating Tab
 ```lua
-local maintab = win:Tab('Main', 'rbxassetid://6034837797') --> Name, Icon
+local maintab = win:Tab('Main')
 ```
 
 ## Creating Section
@@ -119,9 +119,9 @@ end) --> Default, Min, Max, CallBack
 
 ## Creating Dropdown
 ```lua
-maintab:Dropdown('Dropdown Text', {'Option 1', 'Option 2', 'Option 3'}, function(selected)
+maintab:Dropdown('Dropdown Text', {'Option 1', 'Option 2', 'Option 3'}, multiselect = true function(selected)
     print("Selected:", selected)
-end) --> Default, Options, CallBack
+end) --> Default, Options, multiselect, CallBack
 ```
 
 ## Creating Textbox
