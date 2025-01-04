@@ -17,6 +17,7 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HTTPService = game:GetService("HttpService")
+local Active = false
 
 local Library = {}
 
@@ -65,6 +66,8 @@ function Library:Create(table)
                 print("HTTP requests not supported - using default key")
                 key = keySettings.Key
             end
+        else
+            Active = false
         end
         
         local keyFrame = Instance.new("Frame")
@@ -185,25 +188,28 @@ function Library:Create(table)
         UICorner15.Name = "UICorner2"
         UICorner15.Parent = Toggle  
 
-        Toggle.MouseButton1Click:Connect(function()
-            if main.Visible then
-                local slideOut = TweenService:Create(main,
-                    TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.In),
-                    {Position = UDim2.new(1.5, 0, 0.5, 0)}
-                )
-                slideOut:Play()
-                slideOut.Completed:Wait()
-                main.Visible = false
-            else
-                main.Visible = true
-                main.Position = UDim2.new(-0.5, 0, 0.5, 0)
-                local slideIn = TweenService:Create(main,
-                    TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out),
-                    {Position = UDim2.new(0.5, 0, 0.5, 0)}
-                )
-                slideIn:Play()
+        local toggleKey = keySettings.ToggleUI or Enum.KeyCode.LeftAlt
+        UserInputService.InputBegan:Connect(function(input, gameProcessed)
+            if not gameProcessed and Active and input.KeyCode == toggleKey then
+                if main.Visible then
+                    local slideOut = TweenService:Create(main,
+                        TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.In),
+                        {Position = UDim2.new(1.5, 0, 0.5, 0)}
+                    )
+                    slideOut:Play()
+                    slideOut.Completed:Wait()
+                    main.Visible = false
+                else
+                    main.Visible = true
+                    main.Position = UDim2.new(-0.5, 0, 0.5, 0)
+                    local slideIn = TweenService:Create(main,
+                        TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out),
+                        {Position = UDim2.new(0.5, 0, 0.5, 0)}
+                    )
+                    slideIn:Play()
+                end
             end
-        end)        
+        end)     
                       
         getKeyButton.MouseButton1Click:Connect(function()
             setclipboard(keySettings.KeyLink)
@@ -221,6 +227,7 @@ function Library:Create(table)
                 Library:CreateNotification("Success", "Key Verified!", 2)
                 main.Visible = true
                 Toggle.Visible = true
+                Active = true
             else
                 Library:CreateNotification("Error", "Invalid Key!", 2)
             end
@@ -356,6 +363,7 @@ function Library:Create(table)
         notifContainer.Size = UDim2.new(0, 300, 0, 120)
         notifContainer.Position = UDim2.new(1, 0, 1, -130) 
         notifContainer.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+        notifContainer.BackgroundTransparency = 1
         notifContainer.Parent = dark_UI
         
         local uICorner = Instance.new("UICorner")
@@ -372,6 +380,7 @@ function Library:Create(table)
         titleLabel.BackgroundTransparency = 1
         titleLabel.Position = UDim2.new(0.05, 0, 0.1, 0)
         titleLabel.Size = UDim2.new(0.9, 0, 0, 20)
+        titleLabel.TextTransparency = 1
         titleLabel.Parent = notifContainer
         
         local descLabel = Instance.new("TextLabel")
@@ -385,6 +394,7 @@ function Library:Create(table)
         descLabel.BackgroundTransparency = 1
         descLabel.Position = UDim2.new(0.05, 0, 0.3, 0)
         descLabel.Size = UDim2.new(0.9, 0, 0, 40)
+        descLabel.TextTransparency = 1
         descLabel.Parent = notifContainer
     
         local buttonHolder = Instance.new("Frame")
@@ -403,6 +413,8 @@ function Library:Create(table)
         confirmButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         confirmButton.TextSize = 14
         confirmButton.Font = Enum.Font.GothamBold
+        confirmButton.BackgroundTransparency = 1
+        confirmButton.TextTransparency = 1
         confirmButton.Parent = buttonHolder
     
         local denyButton = Instance.new("TextButton")
@@ -414,7 +426,10 @@ function Library:Create(table)
         denyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         denyButton.TextSize = 14
         denyButton.Font = Enum.Font.GothamBold
+        denyButton.BackgroundTransparency = 1
+        denyButton.TextTransparency = 1
         denyButton.Parent = buttonHolder    
+
         local confirmCorner = Instance.new("UICorner")
         confirmCorner.CornerRadius = UDim.new(0, 6)
         confirmCorner.Parent = confirmButton
@@ -424,18 +439,59 @@ function Library:Create(table)
         denyCorner.Parent = denyButton
     
         local tweenIn = TweenService:Create(notifContainer, 
-            TweenInfo.new(0.3, Enum.EasingStyle.Quad), 
-            {Position = UDim2.new(1, -310, 1, -130)}
+
+
+            TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), 
+            {Position = UDim2.new(1, -310, 1, -130), BackgroundTransparency = 0}
         )
+
+        local titleTween = TweenService:Create(titleLabel,
+            TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.2),
+            {TextTransparency = 0}
+        )
+
+        local descTween = TweenService:Create(descLabel,
+            TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.3),
+            {TextTransparency = 0}
+        )
+
+        local confirmTween = TweenService:Create(confirmButton,
+            TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.4),
+            {BackgroundTransparency = 0, TextTransparency = 0}
+        )
+
+        local denyTween = TweenService:Create(denyButton,
+            TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.5),
+            {BackgroundTransparency = 0, TextTransparency = 0}
+        )
+
         tweenIn:Play()
+        titleTween:Play()
+        descTween:Play()
+        confirmTween:Play()
+        denyTween:Play()
     
         local result = Instance.new("BindableEvent")
     
         confirmButton.MouseButton1Click:Connect(function()
             local tweenOut = TweenService:Create(notifContainer,
-                TweenInfo.new(0.3, Enum.EasingStyle.Quad),
-                {Position = UDim2.new(1, 0, 1, -130)}
+
+
+                TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.In),
+                {Position = UDim2.new(1, 0, 1, -130), BackgroundTransparency = 1}
             )
+            
+            local elementsFadeOut = {
+                TweenService:Create(titleLabel, TweenInfo.new(0.3), {TextTransparency = 1}),
+                TweenService:Create(descLabel, TweenInfo.new(0.3), {TextTransparency = 1}),
+                TweenService:Create(confirmButton, TweenInfo.new(0.3), {BackgroundTransparency = 1, TextTransparency = 1}),
+                TweenService:Create(denyButton, TweenInfo.new(0.3), {BackgroundTransparency = 1, TextTransparency = 1})
+            }
+
+            for _, tween in ipairs(elementsFadeOut) do
+                tween:Play()
+            end
+
             tweenOut:Play()
             tweenOut.Completed:Wait()
             notifContainer:Destroy()
@@ -444,9 +500,23 @@ function Library:Create(table)
     
         denyButton.MouseButton1Click:Connect(function()
             local tweenOut = TweenService:Create(notifContainer,
-                TweenInfo.new(0.3, Enum.EasingStyle.Quad),
-                {Position = UDim2.new(1, 0, 1, -130)}
+
+
+                TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.In),
+                {Position = UDim2.new(1, 0, 1, -130), BackgroundTransparency = 1}
             )
+            
+            local elementsFadeOut = {
+                TweenService:Create(titleLabel, TweenInfo.new(0.3), {TextTransparency = 1}),
+                TweenService:Create(descLabel, TweenInfo.new(0.3), {TextTransparency = 1}),
+                TweenService:Create(confirmButton, TweenInfo.new(0.3), {BackgroundTransparency = 1, TextTransparency = 1}),
+                TweenService:Create(denyButton, TweenInfo.new(0.3), {BackgroundTransparency = 1, TextTransparency = 1})
+            }
+
+            for _, tween in ipairs(elementsFadeOut) do
+                tween:Play()
+            end
+
             tweenOut:Play()
             tweenOut.Completed:Wait()
             notifContainer:Destroy()
@@ -454,6 +524,7 @@ function Library:Create(table)
         end)
     
         return result.Event
+
     end
     function tabHandler:Tab(name)
         local tabCount = 0
@@ -726,6 +797,8 @@ function Library:Create(table)
                     currentKey = input.KeyCode
                     bindButton.Text = currentKey.Name
                     callback(currentKey)
+                elseif not binding and input.KeyCode == currentKey then
+                    callback(currentKey)
                 end
             end)
             
@@ -756,7 +829,6 @@ function Library:Create(table)
             text = text or "Dropdown"
             list = list or {}
             callback = callback or function() end
-            local multiselect = true
         
             local dropdown = Instance.new("Frame")
             dropdown.Name = "dropdown"
@@ -849,14 +921,6 @@ function Library:Create(table)
             local dropped = false
             local selectedItems = {}
         
-            local function updateText()
-                if #selectedItems == 0 then
-                    selectedText.Text = "None"
-                else
-                    selectedText.Text = table.concat(selectedItems, ", ")
-                end
-            end
-        
             local function createItem(itemText)
                 local item = Instance.new("TextButton")
                 item.Name = itemText
@@ -885,27 +949,14 @@ function Library:Create(table)
                 end)
         
                 item.MouseButton1Click:Connect(function()
-                    if multiselect then
-                        local index = table.find(selectedItems, itemText)
-                        if index then
-                            table.remove(selectedItems, index)
-                            item.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
-                        else
-                            table.insert(selectedItems, itemText)
-                            item.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
-                        end
-                        updateText()
-                        callback(selectedItems)
-                    else
-                        selectedItems = {itemText}
-                        selectedText.Text = itemText
-                        callback(itemText)
-                        dropped = false
-                        game:GetService('TweenService'):Create(arrow, TweenInfo.new(0.3), {Rotation = 0}):Play()
-                        game:GetService('TweenService'):Create(dropFrame, TweenInfo.new(0.2), {Size = UDim2.fromOffset(441, 0)}):Play()
-                        wait(0.2)
-                        dropFrame.Visible = false
-                    end
+                    selectedItems = {itemText}
+                    selectedText.Text = itemText
+                    callback(itemText)
+                    dropped = false
+                    game:GetService('TweenService'):Create(arrow, TweenInfo.new(0.3), {Rotation = 0}):Play()
+                    game:GetService('TweenService'):Create(dropFrame, TweenInfo.new(0.2), {Size = UDim2.fromOffset(441, 0)}):Play()
+                    wait(0.2)
+                    dropFrame.Visible = false
                 end)
             end
         
@@ -942,14 +993,31 @@ function Library:Create(table)
         function Library:CreateNotification(title, description, duration)
             duration = duration or 3
             
+            if not self.NotificationList then
+                self.NotificationList = Instance.new("UIListLayout")
+                self.NotificationList.Name = "NotificationList"
+                self.NotificationList.HorizontalAlignment = Enum.HorizontalAlignment.Right
+                self.NotificationList.VerticalAlignment = Enum.VerticalAlignment.Bottom
+                self.NotificationList.Padding = UDim.new(0, 5)
+                
+                self.NotificationHolder = Instance.new("Frame")
+                self.NotificationHolder.Name = "NotificationHolder"
+                self.NotificationHolder.Size = UDim2.new(1, 0, 1, 0)
+                self.NotificationHolder.Position = UDim2.new(0, 0, 0, 0)
+                self.NotificationHolder.BackgroundTransparency = 1
+                self.NotificationHolder.Parent = dark_UI
+                
+                self.NotificationList.Parent = self.NotificationHolder
+            end
+            
             local notifContainer = Instance.new("TextButton")
             notifContainer.Name = "NotificationContainer"
-            notifContainer.Size = UDim2.new(0, 250, 0, 80)
-            notifContainer.Position = UDim2.new(1, -260, 1, -90)
+            notifContainer.Size = UDim2.new(0, 250, 0, 0)
             notifContainer.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+            notifContainer.BackgroundTransparency = 1
             notifContainer.Text = ""
             notifContainer.AutoButtonColor = false
-            notifContainer.Parent = dark_UI
+            notifContainer.Parent = self.NotificationHolder
             
             local uICorner = Instance.new("UICorner")
             uICorner.CornerRadius = UDim.new(0, 6)
@@ -960,6 +1028,7 @@ function Library:Create(table)
             titleLabel.Font = Enum.Font.GothamBold
             titleLabel.Text = title
             titleLabel.TextColor3 = Color3.fromRGB(195, 195, 195)
+            titleLabel.TextTransparency = 1
             titleLabel.TextSize = 14
             titleLabel.TextXAlignment = Enum.TextXAlignment.Left
             titleLabel.BackgroundTransparency = 1
@@ -972,6 +1041,7 @@ function Library:Create(table)
             descLabel.Font = Enum.Font.Gotham
             descLabel.Text = description
             descLabel.TextColor3 = Color3.fromRGB(195, 195, 195)
+            descLabel.TextTransparency = 1
             descLabel.TextSize = 13
             descLabel.TextXAlignment = Enum.TextXAlignment.Left
             descLabel.TextWrapped = true
@@ -983,6 +1053,7 @@ function Library:Create(table)
             local progressBar = Instance.new("Frame")
             progressBar.Name = "ProgressBar"
             progressBar.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+            progressBar.BackgroundTransparency = 1
             progressBar.Position = UDim2.new(0, 0, 0.95, 0)
             progressBar.Size = UDim2.new(1, 0, 0, 3)
             progressBar.Parent = notifContainer
@@ -990,28 +1061,122 @@ function Library:Create(table)
             local progress = Instance.new("Frame")
             progress.Name = "Progress"
             progress.BackgroundColor3 = Color3.fromRGB(195, 195, 195)
+            progress.BackgroundTransparency = 1
             progress.Size = UDim2.new(1, 0, 1, 0)
             progress.Parent = progressBar
             
-            notifContainer.Position = UDim2.new(1, 0, 1, -90)
-            local tweenIn = TweenService:Create(notifContainer, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Position = UDim2.new(1, -260, 1, -90)})
-            local tweenOut = TweenService:Create(notifContainer, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Position = UDim2.new(1, 0, 1, -90)})
-            local progressTween = TweenService:Create(progress, TweenInfo.new(duration, Enum.EasingStyle.Linear), {Size = UDim2.new(0, 0, 1, 0)})
+            notifContainer.Position = UDim2.new(1.1, 0, 0, 0)
             
-            tweenIn:Play()
-            progressTween:Play()
+            local function animateIn()
+                local heightTween = TweenService:Create(notifContainer, 
+                    TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out),
+                    {Size = UDim2.new(0, 250, 0, 80)}
+                )
+                
+                local fadeTween = TweenService:Create(notifContainer,
+                    TweenInfo.new(0.3, Enum.EasingStyle.Quad),
+                    {BackgroundTransparency = 0}
+                )
+                
+                local slideTween = TweenService:Create(notifContainer,
+                    TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out),
+                    {Position = UDim2.new(0, 0, 0, 0)}
+                )
+                
+                local titleFadeTween = TweenService:Create(titleLabel,
+                    TweenInfo.new(0.3, Enum.EasingStyle.Quad),
+                    {TextTransparency = 0}
+                )
+                
+                local descFadeTween = TweenService:Create(descLabel,
+                    TweenInfo.new(0.3, Enum.EasingStyle.Quad),
+                    {TextTransparency = 0}
+                )
+                
+                local progressBarFadeTween = TweenService:Create(progressBar,
+                    TweenInfo.new(0.3, Enum.EasingStyle.Quad),
+                    {BackgroundTransparency = 0}
+                )
+                
+                local progressFadeTween = TweenService:Create(progress,
+                    TweenInfo.new(0.3, Enum.EasingStyle.Quad),
+                    {BackgroundTransparency = 0}
+                )
+                
+                heightTween:Play()
+                wait(0.1)
+                fadeTween:Play()
+                slideTween:Play()
+                titleFadeTween:Play()
+                descFadeTween:Play()
+                progressBarFadeTween:Play()
+                progressFadeTween:Play()
+            end
             
-            local function closeNotification()
-                tweenOut:Play()
-                tweenOut.Completed:Wait()
+            local function animateOut()
+                local fadeOutTween = TweenService:Create(notifContainer,
+                    TweenInfo.new(0.2, Enum.EasingStyle.Quad),
+                    {BackgroundTransparency = 1, Position = UDim2.new(1.1, 0, 0, 0)}
+                )
+                
+                local titleFadeOutTween = TweenService:Create(titleLabel,
+                    TweenInfo.new(0.2, Enum.EasingStyle.Quad),
+                    {TextTransparency = 1}
+                )
+                
+                local descFadeOutTween = TweenService:Create(descLabel,
+                    TweenInfo.new(0.2, Enum.EasingStyle.Quad),
+                    {TextTransparency = 1}
+                )
+                
+                local progressBarFadeOutTween = TweenService:Create(progressBar,
+                    TweenInfo.new(0.2, Enum.EasingStyle.Quad),
+                    {BackgroundTransparency = 1}
+                )
+                
+                local progressFadeOutTween = TweenService:Create(progress,
+                    TweenInfo.new(0.2, Enum.EasingStyle.Quad),
+                    {BackgroundTransparency = 1}
+                )
+                
+                local shrinkTween = TweenService:Create(notifContainer,
+                    TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.In),
+                    {Size = UDim2.new(0, 250, 0, 0)}
+                )
+                
+                fadeOutTween:Play()
+                titleFadeOutTween:Play()
+                descFadeOutTween:Play()
+                progressBarFadeOutTween:Play()
+                progressFadeOutTween:Play()
+                wait(0.15)
+                shrinkTween:Play()
+                shrinkTween.Completed:Wait()
                 notifContainer:Destroy()
             end
             
-            notifContainer.MouseButton1Click:Connect(closeNotification)
+            animateIn()
             
-            task.delay(duration, closeNotification)
-        end       
-
+            local progressTween = TweenService:Create(progress,
+                TweenInfo.new(duration, Enum.EasingStyle.Linear),
+                {Size = UDim2.new(0, 0, 1, 0)}
+            )
+            progressTween:Play()
+            
+            notifContainer.MouseEnter:Connect(function()
+                TweenService:Create(notifContainer, TweenInfo.new(0.2), 
+                    {BackgroundColor3 = Color3.fromRGB(33, 33, 33)}):Play()
+            end)
+            
+            notifContainer.MouseLeave:Connect(function()
+                TweenService:Create(notifContainer, TweenInfo.new(0.2), 
+                    {BackgroundColor3 = Color3.fromRGB(28, 28, 28)}):Play()
+            end)
+            
+            notifContainer.MouseButton1Click:Connect(animateOut)
+            task.delay(duration, animateOut)
+        end
+        
         function ElementHandler:Slider(text, default, min, max, callback)
             text = text or "Slider"
             callback = callback or function() end
@@ -1347,6 +1512,7 @@ function Library:Create(table)
 
     local DragFrames = {
         main,
+        Key
     }
 
     for _, frame in ipairs(DragFrames) do
@@ -1391,12 +1557,21 @@ local function startGrowthTween()
     main.Parent = dark_UI
 
     local containerRef
+    local TabContainerRef
     for _, v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
         if v.Name == "container" and v.Visible then
             v.Visible = false
             containerRef = v
         end
-    end       
+    end
+
+    for _, v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
+        if v.Name == "tabContainer" then
+            v.Visible = false
+            TabContainerRef = v   
+        end
+    end    
+
     local viewportSize = workspace.CurrentCamera.ViewportSize
     local targetSize = UDim2.fromOffset(
         math.min(586, viewportSize.X * 0.8),
@@ -1417,12 +1592,14 @@ local function startGrowthTween()
             {Rotation = 0}
         )
         stabilizeTween:Play()
-        wait(0.8)
-        for _, v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
-            if v.Name == "container" then
+        stabilizeTween.Completed:Connect(function()
+            if containerRef then
                 containerRef.Visible = true
             end
-        end        
+            if TabContainerRef then
+                TabContainerRef.Visible = true
+            end
+        end)
     end)
     growthTween:Play()
 end
@@ -1432,6 +1609,7 @@ main:GetPropertyChangedSignal("Visible"):Connect(function()
         startGrowthTween()
     end
 end)
+
 if not useKey then
     main.Visible = true
 end
@@ -1442,15 +1620,15 @@ local executor = getexecutorname() or "Unknown Executor"
 print(' ')
 print('===========================================')
 print('Welcome to BlareUi-Library')
-print('Library Version '.. Version)
+print('Library Version : '.. Version)
 print('Executor : '.. executor)
 print('Status : Functional')
 print('Game Name: '.. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name)
 print('Game ID: '.. game.PlaceId) 
-print('Player Name: '.. game.Players.LocalPlayer.Name)
-print('Player ID: '.. game.Players.LocalPlayer.UserId)
-print('Current Time: '.. os.date("%I:%M %p"))
-print('Memory Usage: '.. math.floor(game:GetService("Stats"):GetTotalMemoryUsageMb()) ..' MB')
+print('Player Name : '.. game.Players.LocalPlayer.Name)
+print('Player ID : '.. game.Players.LocalPlayer.UserId)
+print('Current Time : '.. os.date("%I:%M %p"))
+print('Memory Usage : '.. math.floor(game:GetService("Stats"):GetTotalMemoryUsageMb()) ..' MB')
 print('===========================================')
 print(' ')
 

@@ -3,14 +3,16 @@ assert(BlareLib, "Failed to load BlareLib")
 
 local win = BlareLib:Create({
     Name = "Example Script",
+
     KeySettings = {
         UseKey = true,
         Key = "2",
         GrabFromSite = true,
         Site = "https://pastebin.com/raw/D2RWz0XT",
-        Comment = "The key is 1 if GrabFromSite on else the key is 2",
+        Comment = "The key is 1 if GrabFromSite is off it is 2",
         Discord = "https://discord.gg/yourserver",
-        KeyLink = "https://linkvertise.com/yourkey"
+        KeyLink = "https://linkvertise.com/yourkey",
+        ToggleUI = Enum.KeyCode.LeftAlt
     },
     
     StartupSound = {
@@ -53,7 +55,7 @@ end)
 
 maintab:Label('info_label', 'This is a label')
 
-maintab:Dropdown("Select Option", {"Option 1", "Option 2", "Option 3"} function(selected)
+maintab:Dropdown("Select Option", {"Option 1", "Option 2", "Option 3"}, function(selected)
     print("Selected: " .. selected)
 end)
 
@@ -64,10 +66,11 @@ end)
 
 maintab:Comment('This is a comment')
 
+BlareLib:CreateNotification("Success", "1!", 3)
 BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
 
 maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
-    print("New keybind:", key)
+    print("Keybind used")
 end)
 
 maintab:Separator()

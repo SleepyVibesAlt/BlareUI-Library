@@ -5,11 +5,11 @@
 
 ## Update
 ```lua
-    --> Added Notification
     --> Added Key System
     --> Added Spicy new animations
     --> Reaction Notification
     --> Updated Tab System & Added more tab support
+    --> Added more functionallity
 ```
 
 ## Information
@@ -27,6 +27,7 @@ assert(BlareLib, "Failed to load BlareLib")
 ```lua
 local win = BlareLib:Create({
     Name = "Example Script",
+
     KeySettings = {
         UseKey = true,
         Key = "2",
@@ -34,7 +35,8 @@ local win = BlareLib:Create({
         Site = "https://pastebin.com/raw/D2RWz0XT",
         Comment = "The key is 1 if GrabFromSite is off it is 2",
         Discord = "https://discord.gg/yourserver",
-        KeyLink = "https://linkvertise.com/yourkey"
+        KeyLink = "https://linkvertise.com/yourkey",
+        ToggleUI = Enum.KeyCode.LeftAlt
     },
     
     StartupSound = {
@@ -77,7 +79,7 @@ end) --> Name, CallBack
 ## Creating Keybind
 ```lua
 maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
-    print("New keybind:", key)
+    print("Keybind used")
 end) --> Default, Key, CallBack
 ```
 
@@ -119,9 +121,9 @@ end) --> Default, Min, Max, CallBack
 
 ## Creating Dropdown
 ```lua
-maintab:Dropdown('Dropdown Text', {'Option 1', 'Option 2', 'Option 3'}, multiselect = true function(selected)
+maintab:Dropdown('Dropdown Text', {'Option 1', 'Option 2', 'Option 3'}, function(selected)
     print("Selected:", selected)
-end) --> Default, Options, multiselect, CallBack
+end) --> Default, Options, CallBack
 ```
 
 ## Creating Textbox
