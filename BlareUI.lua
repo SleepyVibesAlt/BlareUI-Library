@@ -1336,56 +1336,6 @@ function Library:Create(table)
             sound:Destroy()
         end
     end)
-
--- Loading Animation
-local function startGrowthTween()
-    main.Size = UDim2.fromOffset(0, 0)
-    main.AnchorPoint = Vector2.new(0.5, 0.5)
-    main.Position = UDim2.new(0.5, 0, 0.5, 0)
-    main.Parent = dark_UI
-
-    local containerRef
-    for _, v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
-        if v.Name == "container" and v.Visible then
-            v.Visible = false
-            containerRef = v
-        end
-    end       
-    local viewportSize = workspace.CurrentCamera.ViewportSize
-    local targetSize = UDim2.fromOffset(
-        math.min(586, viewportSize.X * 0.8),
-        math.min(359, viewportSize.Y * 0.8)
-    )
-
-    local growthTween = TweenService:Create(main,
-        TweenInfo.new(1.6, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out, 0, false, 0),
-        {
-            Size = targetSize,
-            Rotation = 20
-        }
-    )    
-    
-    growthTween.Completed:Connect(function()
-        local stabilizeTween = TweenService:Create(main,
-            TweenInfo.new(0.5, Enum.EasingStyle.Back),
-            {Rotation = 0}
-        )
-        stabilizeTween:Play()
-        wait(0.8)
-        for _, v in pairs(game.CoreGui:FindFirstChild('dark_UI').main:GetChildren()) do
-            if v.Name == "container" then
-                containerRef.Visible = true
-            end
-        end        
-    end)
-    growthTween:Play()
-end
-
-main:GetPropertyChangedSignal("Visible"):Connect(function()
-    if main.Visible then
-        startGrowthTween()
-    end
-end)
 if not useKey then
     main.Visible = true
 end
