@@ -4,16 +4,16 @@
 ## This is the only verified repository for the BlareUI Library.
 ## Update
 ```lua
-    --> Added Notification
     --> Added Key System
     --> Added Spicy new animations
     --> Reaction Notification
-    --> New Icons
+    --> Updated Tab System & Added more tab support
+    --> Added more functionallity
 ```
 
 ## Information
 ```lua
-    --> Max Tabs: 7
+    --> Max Tabs: 15
 ```
 
 ## Getting Loadstring
@@ -26,6 +26,7 @@ assert(BlareLib, "Failed to load BlareLib")
 ```lua
 local win = BlareLib:Create({
     Name = "Example Script",
+
     KeySettings = {
         UseKey = true,
         Key = "2",
@@ -33,7 +34,8 @@ local win = BlareLib:Create({
         Site = "https://pastebin.com/raw/D2RWz0XT",
         Comment = "The key is 1 if GrabFromSite is off it is 2",
         Discord = "https://discord.gg/yourserver",
-        KeyLink = "https://linkvertise.com/yourkey"
+        KeyLink = "https://linkvertise.com/yourkey",
+        ToggleUI = Enum.KeyCode.LeftAlt
     },
     
     StartupSound = {
@@ -47,7 +49,7 @@ local win = BlareLib:Create({
 
 ## Creating Tab
 ```lua
-local maintab = win:Tab('Main', 'rbxassetid://6034837797') --> Name, Icon
+local maintab = win:Tab('Main')
 ```
 
 ## Creating Section
@@ -76,7 +78,7 @@ end) --> Name, CallBack
 ## Creating Keybind
 ```lua
 maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
-    print("New keybind:", key)
+    print("Keybind used")
 end) --> Default, Key, CallBack
 ```
 

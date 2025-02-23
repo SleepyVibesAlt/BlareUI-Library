@@ -3,6 +3,7 @@ assert(BlareLib, "Failed to load BlareLib")
 
 local win = BlareLib:Create({
     Name = "Example Script",
+
     KeySettings = {
         UseKey = true,
         Key = "2",
@@ -10,7 +11,8 @@ local win = BlareLib:Create({
         Site = "https://pastebin.com/raw/D2RWz0XT",
         Comment = "The key is 1 if GrabFromSite is off it is 2",
         Discord = "https://discord.gg/yourserver",
-        KeyLink = "https://linkvertise.com/yourkey"
+        KeyLink = "https://linkvertise.com/yourkey",
+        ToggleUI = Enum.KeyCode.LeftAlt
     },
     
     StartupSound = {
@@ -20,11 +22,19 @@ local win = BlareLib:Create({
     }
 })
 
-local maintab = win:Tab('Main', 'rbxassetid://6034837797')
-local charactertab = win:Tab('Character', 'rbxassetid://6034287594')
-local uitab = win:Tab('UI', 'rbxassetid://6034509993')
+local maintab = win:Tab('Main')
+local charactertab = win:Tab('Character')
+local uitab = win:Tab('UI')
+local combattab = win:Tab('Combat')
+local visualstab = win:Tab('Visuals')
+local misctab = win:Tab('Misc')
+local settingstab = win:Tab('Settings')
+local teleporttab = win:Tab('Teleport')
+local farmtab = win:Tab('Farming')
+local playertab = win:Tab('Player')
+local weaponstab = win:Tab('Weapons')
 
-uitab:Button('Destroy GUI', function()
+local autotab = win:Tab('Auto')uitab:Button('Destroy GUI', function()
     win:Exit()
 end)
 
@@ -56,10 +66,11 @@ end)
 
 maintab:Comment('This is a comment')
 
+BlareLib:CreateNotification("Success", "1!", 3)
 BlareLib:CreateNotification("Success", "Operation completed successfully!", 3)
 
 maintab:Keybind('Keybind Text', Enum.KeyCode.F, function(key)
-    print("New keybind:", key)
+    print("Keybind used")
 end)
 
 maintab:Separator()
